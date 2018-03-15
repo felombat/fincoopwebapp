@@ -71,11 +71,13 @@
 		START - Top Bar
 		-------------------->
         <div class="top-bar color-scheme-transparent" style="height: 65px">
-            <div class="logo-w menu-size">
-                <a class="logo" href="index.html">
+          <?= Asset::img('favicon120x120.png', array('width'=>70, 'height'=>70, 'style'=>"position: absolute; left: 0; top: 0; margin: 0 auto; width: 55px")) ?>
+            <div class="logo-w menu-size" style="width: 260px">
+                <!-- <a class="logo" href="index.html">
                     <div class="logo-element"></div>
                     <div class="logo-label">Astrio :: Collect</div>
-                </a>
+                </a> -->
+                <?= Html::anchor(URI::base(),'<div class="logo-label"> &nbsp;&nbsp; strio :: Collect</div>',array(" " => ' '));?>
             </div>
             <div class="fancy-selector-w">
                 <div class="fancy-selector-current">
@@ -207,9 +209,10 @@
 									 </div>
                                 <div class="logged-user-info-w">
                                     <div class="logged-user-name"><?php if(isset($current_employee) AND !empty($current_employee)) : ?>
- <?= "$current_employee->first_name $current_employee->last_name" ?>
-<?php endif; ?></div>
-                                    <div class="logged-user-role">Administrator</div>
+									 <?= "$current_employee->first_name $current_employee->last_name" ?>
+									<?php endif; ?></div>
+                                    <div class="logged-user-role">
+                                    <?php if(isset($current_employee) AND !empty($current_employee)) : ?><?= $current_employee->jobtitle->title ?> <?php endif; ?></div>
                                 </div>
                             </div>
                             <div class="bg-icon"><i class="os-icon os-icon-wallet-loaded"></i></div>
@@ -326,7 +329,9 @@
 			START - Mobile Menu
 			-------------------->
             <div class="menu-mobile menu-activated-on-click color-scheme-dark">
-                <div class="mm-logo-buttons-w"><a class="mm-logo" href="index.html"><img src="img/logo.png"><span>Clean Admin</span></a>
+                <div class="mm-logo-buttons-w">
+                <?= Html::anchor(URI::base(), Asset::img('favicon120x120.png') ,array("class" => 'mm-logo'));?>
+                <!-- <a class="mm-logo" href="index.html"><img src="img/favicon.png"><span>Clean Admin</span></a> -->
                     <div class="mm-buttons">
                         <div class="content-panel-open">
                             <div class="os-icon os-icon-grid-circles"></div>
@@ -336,10 +341,7 @@
                         </div>
                     </div>
                 </div>
-                <?php if(isset($current_employee) AND !empty($current_employee)) : ?>
-                	<?= Model_Employee::get_avatar($current_employee->id, 64); ?>
-				 <?php endif; ?>
-                           
+                
                          
                                  
                 <div class="menu-and-user">
@@ -354,7 +356,7 @@
                             <?php if(isset($current_employee) AND !empty($current_employee)) : ?>
                                 <?= "$current_employee->first_name $current_employee->last_name" ?>
                                   <?php endif; ?></div>
-                            <div class="logged-user-role">Administrator</div>
+                            <div class="logged-user-role"><?php if(isset($current_employee) AND !empty($current_employee)) : ?><?= $current_employee->jobtitle->title ?> <?php endif; ?></div>
                         </div>
                     </div>
                     <!--------------------
@@ -374,31 +376,7 @@
                                 <li><a href="layouts_menu_top_image.html">Dashboard 5</a></li>
                             </ul>
                         </li>
-                        <li class="has-sub-menu">
-                            <a href="layouts_menu_top_image.html">
-                                <div class="icon-w">
-                                    <div class="os-icon os-icon-layers"></div>
-                                </div><span>Menu Styles</span></a>
-                            <ul class="sub-menu">
-                                <li><a href="layouts_menu_side_full.html">Side Menu Light</a></li>
-                                <li><a href="layouts_menu_side_full_dark.html">Side Menu Dark</a></li>
-                                <li><a href="layouts_menu_side_transparent.html">Side Menu Transparent <strong class="badge badge-danger">New</strong></a></li>
-                                <li><a href="apps_pipeline.html">Side &amp; Top Dark</a></li>
-                                <li><a href="apps_projects.html">Side &amp; Top</a></li>
-                                <li><a href="layouts_menu_side_mini.html">Mini Side Menu</a></li>
-                                <li><a href="layouts_menu_side_mini_dark.html">Mini Menu Dark</a></li>
-                                <li><a href="layouts_menu_side_compact.html">Compact Side Menu</a></li>
-                                <li><a href="layouts_menu_side_compact_dark.html">Compact Menu Dark</a></li>
-                                <li><a href="layouts_menu_right.html">Right Menu</a></li>
-                                <li><a href="layouts_menu_top.html">Top Menu Light</a></li>
-                                <li><a href="layouts_menu_top_dark.html">Top Menu Dark</a></li>
-                                <li><a href="layouts_menu_top_image.html">Top Menu Image <strong class="badge badge-danger">New</strong></a></li>
-                                <li><a href="layouts_menu_sub_style_flyout.html">Sub Menu Flyout</a></li>
-                                <li><a href="layouts_menu_sub_style_flyout_dark.html">Sub Flyout Dark</a></li>
-                                <li><a href="layouts_menu_sub_style_flyout_bright.html">Sub Flyout Bright</a></li>
-                                <li><a href="layouts_menu_side_compact_click.html">Menu Inside Click</a></li>
-                            </ul>
-                        </li>
+                       
                         <li class="has-sub-menu">
                             <a href="apps_bank.html">
                                 <div class="icon-w">
@@ -550,7 +528,7 @@
                             <div class="logged-user-name"><?php if(isset($current_employee) AND !empty($current_employee)) : ?>
 							 <?= "$current_employee->first_name $current_employee->last_name" ?>
 							<?php endif; ?></div>
-                            <div class="logged-user-role">Administrator</div>
+                            <div class="logged-user-role"><?php if(isset($current_employee) AND !empty($current_employee)) : ?><?= $current_employee->jobtitle->title ?> <?php endif; ?></div>
                         </div>
                         <div class="logged-user-toggler-arrow">
                             <div class="os-icon os-icon-chevron-down"></div>
@@ -564,7 +542,7 @@
                                     <div class="logged-user-name"><?php if(isset($current_employee) AND !empty($current_employee)) : ?>
 										 <?= "$current_employee->first_name $current_employee->last_name" ?>
 										<?php endif; ?></div>
-                                    <div class="logged-user-role">Administrator</div>
+                                    <div class="logged-user-role"><?php if(isset($current_employee) AND !empty($current_employee)) : ?><?= $current_employee->jobtitle->title ?> <?php endif; ?></div>
                                 </div>
                             </div>
                             <div class="bg-icon"><i class="os-icon os-icon-wallet-loaded"></i></div>
@@ -698,7 +676,7 @@
                 </div>
                 <h1 class="menu-page-header">Page Header</h1>
                 <ul class="main-menu">
-                    <li class="sub-header"><span>Layouts</span></li>
+                    <li class="sub-header"><span>Reporting</span></li>
                     <li class="selected has-sub-menu">
                         <a href="index.html">
                             <div class="icon-w">
@@ -709,75 +687,32 @@
                             <div class="sub-menu-icon"><i class="os-icon os-icon-layout"></i></div>
                             <div class="sub-menu-i">
                                 <ul class="sub-menu">
-                                    <li><a href="index.html">Dashboard 1</a></li>
-                                    <li><a href="apps_support_dashboard.html">Dashboard 2 <strong class="badge badge-danger">New</strong></a></li>
-                                    <li><a href="apps_projects.html">Dashboard 3</a></li>
-                                    <li><a href="apps_bank.html">Dashboard 4 <strong class="badge badge-danger">New</strong></a></li>
-                                    <li><a href="layouts_menu_top_image.html">Dashboard 5</a></li>
+                                    <li><a href="index.html">Dashboard </a></li>
+                                    <li><a href="apps_support_dashboard.html">Reports <strong class="badge badge-danger">New</strong></a></li>
+                                     
                                 </ul>
                             </div>
                         </div>
                     </li>
-                    <li class="has-sub-menu">
-                        <a href="layouts_menu_top_image.html">
-                            <div class="icon-w">
-                                <div class="os-icon os-icon-layers"></div>
-                            </div><span>Menu Styles</span></a>
-                        <div class="sub-menu-w">
-                            <div class="sub-menu-header">Menu Styles</div>
-                            <div class="sub-menu-icon"><i class="os-icon os-icon-layers"></i></div>
-                            <div class="sub-menu-i">
-                                <ul class="sub-menu">
-                                    <li><a href="layouts_menu_side_full.html">Side Menu Light</a></li>
-                                    <li><a href="layouts_menu_side_full_dark.html">Side Menu Dark</a></li>
-                                    <li><a href="layouts_menu_side_transparent.html">Side Menu Transparent <strong class="badge badge-danger">New</strong></a></li>
-                                    <li><a href="apps_pipeline.html">Side &amp; Top Dark</a></li>
-                                    <li><a href="apps_projects.html">Side &amp; Top</a></li>
-                                    <li><a href="layouts_menu_side_mini.html">Mini Side Menu</a></li>
-                                </ul>
-                                <ul class="sub-menu">
-                                    <li><a href="layouts_menu_side_mini_dark.html">Mini Menu Dark</a></li>
-                                    <li><a href="layouts_menu_side_compact.html">Compact Side Menu</a></li>
-                                    <li><a href="layouts_menu_side_compact_dark.html">Compact Menu Dark</a></li>
-                                    <li><a href="layouts_menu_right.html">Right Menu</a></li>
-                                    <li><a href="layouts_menu_top.html">Top Menu Light</a></li>
-                                    <li><a href="layouts_menu_top_dark.html">Top Menu Dark</a></li>
-                                </ul>
-                                <ul class="sub-menu">
-                                    <li><a href="layouts_menu_top_image.html">Top Menu Image <strong class="badge badge-danger">New</strong></a></li>
-                                    <li><a href="layouts_menu_sub_style_flyout.html">Sub Menu Flyout</a></li>
-                                    <li><a href="layouts_menu_sub_style_flyout_dark.html">Sub Flyout Dark</a></li>
-                                    <li><a href="layouts_menu_sub_style_flyout_bright.html">Sub Flyout Bright</a></li>
-                                    <li><a href="layouts_menu_side_compact_click.html">Menu Inside Click</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="sub-header"><span>Options</span></li>
+                   
+                    <li class="sub-header"><span>Finances</span></li>
                     <li class="has-sub-menu">
                         <a href="apps_bank.html">
                             <div class="icon-w">
                                 <div class="os-icon os-icon-package"></div>
-                            </div><span>Applications</span></a>
+                            </div><span>Versements</span></a>
                         <div class="sub-menu-w">
-                            <div class="sub-menu-header">Applications</div>
+                            <div class="sub-menu-header">Finances</div>
                             <div class="sub-menu-icon"><i class="os-icon os-icon-package"></i></div>
                             <div class="sub-menu-i">
                                 <ul class="sub-menu">
-                                    <li><a href="apps_email.html">Email Application</a></li>
-                                    <li><a href="apps_support_dashboard.html">Support Dashboard <strong class="badge badge-danger">New</strong></a></li>
-                                    <li><a href="apps_support_index.html">Tickets Index <strong class="badge badge-danger">New</strong></a></li>
-                                    <li><a href="apps_projects.html">Projects List</a></li>
-                                    <li><a href="apps_bank.html">Banking <strong class="badge badge-danger">New</strong></a></li>
-                                    <li><a href="apps_full_chat.html">Chat Application</a></li>
+                                    <li><a href="apps_email.html">Cotisations</a></li>
+                                    <li><a href="apps_support_dashboard.html">Retraits </a></li>
+                                    <li><a href="apps_support_index.html"> Loans <strong class="badge badge-danger">New</strong></a></li>
+                                    <li><a href="apps_projects.html">Depots</a></li>
+                                    
                                 </ul>
-                                <ul class="sub-menu">
-                                    <li><a href="apps_todo.html">To Do Application <strong class="badge badge-danger">New</strong></a></li>
-                                    <li><a href="misc_chat.html">Popup Chat</a></li>
-                                    <li><a href="apps_pipeline.html">CRM Pipeline</a></li>
-                                    <li><a href="rentals_index_grid.html">Property Listing <strong class="badge badge-danger">New</strong></a></li>
-                                    <li><a href="misc_calendar.html">Calendar</a></li>
-                                </ul>
+                                
                             </div>
                         </div>
                     </li>
@@ -785,7 +720,7 @@
                         <a href="apps_bank.html#">
                             <div class="icon-w">
                                 <div class="os-icon os-icon-file-text"></div>
-                            </div><span>Pages</span></a>
+                            </div><span>Produits</span></a>
                         <div class="sub-menu-w">
                             <div class="sub-menu-header">Pages</div>
                             <div class="sub-menu-icon"><i class="os-icon os-icon-file-text"></i></div>
@@ -810,28 +745,96 @@
                         <a href="apps_bank.html#">
                             <div class="icon-w">
                                 <div class="os-icon os-icon-life-buoy"></div>
-                            </div><span>UI Kit</span></a>
+                            </div><span>Clients</span></a>
                         <div class="sub-menu-w">
-                            <div class="sub-menu-header">UI Kit</div>
+                            <div class="sub-menu-header">Clients</div>
                             <div class="sub-menu-icon"><i class="os-icon os-icon-life-buoy"></i></div>
                             <div class="sub-menu-i">
                                 <ul class="sub-menu">
-                                    <li><a href="uikit_modals.html">Modals <strong class="badge badge-danger">New</strong></a></li>
-                                    <li><a href="uikit_alerts.html">Alerts</a></li>
-                                    <li><a href="uikit_grid.html">Grid</a></li>
+                                    <li><a href="uikit_modals.html">Dossiers</a></li>
+                                    <li><a href="uikit_alerts.html">Rapports</a></li>
+                                    <li><a href="uikit_grid.html">Suivi <strong class="badge badge-danger">New</strong></a></li>
                                     <li><a href="uikit_progress.html">Progress</a></li>
                                     <li><a href="uikit_popovers.html">Popover</a></li>
                                 </ul>
+                                
+                        </div>
+                    </li>
+                    <li class="sub-header"><span>Settings</span></li>
+                     <li class="has-sub-menu">
+                            <a href="layouts_menu_top_image.html">
+                                <div class="icon-w">
+                                    <div class="os-icon os-icon-layers"></div>
+                                </div><span>Employees</span></a>
+                            <ul class="sub-menu">
+                                <li><a href="layouts_menu_side_full.html">Side Menu Light</a></li>
+                                <li><a href="layouts_menu_side_full_dark.html">Side Menu Dark</a></li>
+                                <li><a href="layouts_menu_side_transparent.html">Side Menu Transparent <strong class="badge badge-danger">New</strong></a></li>
+                                 
+                            </ul>
+                     </li>
+                     <li class="has-sub-menu">
+                        <a href="apps_bank.html">
+                            <div class="icon-w">
+                                <div class="os-icon os-icon-package"></div>
+                            </div><span>Params</span></a>
+                        <div class="sub-menu-w">
+                            <div class="sub-menu-header">Parameters</div>
+                            <div class="sub-menu-icon"><i class="os-icon os-icon-package"></i></div>
+                            <div class="sub-menu-i">
                                 <ul class="sub-menu">
-                                    <li><a href="uikit_tooltips.html">Tooltips</a></li>
-                                    <li><a href="uikit_buttons.html">Buttons</a></li>
-                                    <li><a href="uikit_dropdowns.html">Dropdowns</a></li>
-                                    <li><a href="uikit_typography.html">Typography</a></li>
+                                    <li><a href="apps_email.html">Modules</a></li>
+                                    <li><a href="apps_support_dashboard.html">Email </a></li>
+                                    <li><a href="apps_support_index.html"> Role <strong class="badge badge-danger">New</strong></a></li>
+                                    <li><a href="apps_projects.html">Notifications</a></li>
+                                    
                                 </ul>
+                                
                             </div>
                         </div>
                     </li>
-                    <li class="sub-header"><span>Elements</span></li>
+
+                    <li class="has-sub-menu">
+                        <a href="apps_bank.html">
+                            <div class="icon-w">
+                                <div class="os-icon os-icon-package"></div>
+                            </div><span>Company</span></a>
+                        <div class="sub-menu-w">
+                            <div class="sub-menu-header">Company</div>
+                            <div class="sub-menu-icon"><i class="os-icon os-icon-package"></i></div>
+                            <div class="sub-menu-i">
+                                <ul class="sub-menu">
+                                    <li><a href="apps_email.html">Details</a></li>
+                                    <li><a href="apps_support_dashboard.html">APIs </a>
+											<li class="has-sub-menu">
+						                        <a href="apps_bank.html">
+						                            <div class="icon-w">
+						                                <div class="os-icon os-icon-package"></div>
+						                            </div><span>Params</span></a>
+						                        <div class="sub-menu">
+						                            <div class="sub-menu-header">APIS</div>
+						                            <div class="sub-menu-icon"><i class="os-icon os-icon-package"></i></div>
+						                            <div class="sub-menu-i">
+						                                <ul class="sub-menu">
+						                                    <li><a href="apps_email.html">SMS</a></li>
+						                                    <li><a href="apps_support_dashboard.html">Orange Money </a></li>
+						                                    <li><a href="apps_support_index.html"> MRN Mobile money <strong class="badge badge-danger">New</strong></a></li>
+						                                    <li><a href="apps_projects.html">Nexttel eWallet</a></li>
+						                                    
+						                                </ul>
+						                                
+						                            </div>
+						                        </div>
+						                    </li>
+                                    </li>
+                                    <li><a href="apps_support_index.html"> Loans <strong class="badge badge-danger">New</strong></a></li>
+                                    <li><a href="apps_projects.html">Depots</a></li>
+                                    
+                                </ul>
+                                
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
             <!--------------------

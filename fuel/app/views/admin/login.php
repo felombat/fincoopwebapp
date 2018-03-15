@@ -1,5 +1,7 @@
 					<div class="auth-box-w">
-			            <div class="logo-w"><a href="index.html"><img alt="" src="img/logo-big.png"></a></div>
+			            <div class="logo-w">
+							<?= Html::anchor(URI::base(), Asset::img('AstrioLogo220x95.png'),array("" => ''));?>
+			            </div>
 			            <h4 class="auth-header"><?= ($app_params['name']); ?></h4>
 			            <?php echo Form::open(array('class'=>"m-t", 'role'=>"form", 'action'=>"admin/login")); ?>
 			                <div class="form-group">
@@ -27,7 +29,9 @@
 								<div class="error"><?php echo $login_error; ?></div>
 							<?php endif; ?>
 			                <div class="buttons-w">
-			                    <button class="btn btn-primary">Ouvrir ma session</button>
+			                    <button class="btn btn-primary" title="Ouvrir ma session">Connexion</button>
+			                    
+			                    <?= Html::anchor(URI::create('admin/register'), 'register' ,array("class" => 'btn btn-secondary pull-right', 'title'=>"Souscrire au service"));?>
 			                    <div class="form-check-inline">
 			                        <label class="form-check-label">
 			                            <input class="form-check-input" type="checkbox">Se souvenir de moi</label>

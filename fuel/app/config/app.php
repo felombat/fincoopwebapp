@@ -3,7 +3,7 @@
 return array(
 
 	"name"  => 'Astrio Collect',
-	"title" => 'Astrio :: Collabs',
+	"title" => 'Astrio :: Collect',
 	"author"  => 'F. Elombat',
 	"organisation" => 'Astrio',
 	"url" => 'http://collect.astrio.net',
