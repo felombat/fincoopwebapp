@@ -70,7 +70,7 @@
         <!--------------------
 		START - Top Bar
 		-------------------->
-        <div class="top-bar color-scheme-transparent">
+        <div class="top-bar color-scheme-transparent" style="height: 65px">
             <div class="logo-w menu-size">
                 <a class="logo" href="index.html">
                     <div class="logo-element"></div>

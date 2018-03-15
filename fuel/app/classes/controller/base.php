@@ -5,7 +5,7 @@ use Carbon\Carbon;
 
 class Controller_Base extends Controller_Template
 {
-	public $template = "_layout/inspinia_main";
+	public $template = "_layout/cleanadmin";
 
 	public $nav;
 
@@ -52,18 +52,18 @@ class Controller_Base extends Controller_Template
 		}
 
 		// Pusher config
-		$options = array(
-		    'cluster' => 'eu',
-		    'encrypted' => true
-		  );
-		$pusher = new \Pusher\Pusher(
-		    '3607fe1af3ddf0c619ad',
-		    'f6de443b98937cce6a49',
-		    '456184',
-		    $options
-		  );
+		// $options = array(
+		//     'cluster' => 'eu',
+		//     'encrypted' => true
+		//   );
+		// $pusher = new \Pusher\Pusher(
+		//     '3607fe1af3ddf0c619ad',
+		//     'f6de443b98937cce6a49',
+		//     '456184',
+		//     $options
+		//   );
 
-		$this->push_service = $pusher;
+		// $this->push_service = $pusher;
 
 		$this->current_user = null;
 
@@ -184,7 +184,7 @@ class Controller_Base extends Controller_Template
 		View::set_global('current_user', $this->current_user);
 		View::set_global('current_employee', $this->current_employee);
 		View::set_global('nav', $this->nav);
-		View::set_global('push_service', $this->push_service);
+		//View::set_global('push_service', $this->push_service);
 		View::set_global('data_payload', $this->data_payload);
 		View::set_global('app_params', $this->app_params);
 	}
