@@ -182,6 +182,9 @@ return array(
 			'Fuel\\Core\\View',
 			'Fuel\\Core\\ViewModel',
 			'Closure',
+			'Pusher\\Pusher',
+			'Carbon\\Carbon',
+			'Fuel\\Core\\Request_Curl',
 		),
 	),
 

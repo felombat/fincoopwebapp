@@ -3,7 +3,7 @@ use Carbon\Carbon;
 
 class Controller_Admin extends Controller_Common
 {
-	public $template = '_layout/inspinia_login';
+	public $template = '_layout/cleanadmin_login';
 
 	public function before()
 	{
@@ -17,7 +17,7 @@ class Controller_Admin extends Controller_Common
 				if ( ! Auth::member($admin_group_id) AND ! Auth::member(70))
 				{
 					Session::set_flash('error', e('You don\'t have access to the admin panel'));
-					Response::redirect('pushdemo');
+					Response::redirect('admin');
 				}
 			}
 			else

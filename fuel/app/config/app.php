@@ -2,12 +2,12 @@
 
 return array(
 
-	"name"  => 'Aseelec Portal',
-	"title" => 'Aseelec :: Collabs',
+	"name"  => 'Astrio Collect',
+	"title" => 'Astrio :: Collabs',
 	"author"  => 'F. Elombat',
-	"organisation" => 'Aseelec',
-	"url" => 'http://portal.aseelec.org',
-	"email" => 'contact@aseelec.org',
+	"organisation" => 'Astrio',
+	"url" => 'http://collect.astrio.net',
+	"email" => 'contact@astrio.net',
 	"admin_email" => 'f.elombat@gmail.com',
 	"version" => 1.0,
 	"description" => '',

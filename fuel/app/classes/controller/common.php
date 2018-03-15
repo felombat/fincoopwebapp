@@ -3,7 +3,7 @@ use Carbon\Carbon;
 
 class Controller_Common extends Controller_Template
 {
-	public $template = "_layout/inspinia_login";
+	public $template = "_layout/cleanadmin_login";
 
 	public $nav;
 

@@ -1,7 +1,8 @@
 <?php
 
-class Controller_Dashboard extends Controller_Base
+class Controller_Dashboard extends Controller_Admin
 {
+	public $template = "_layout/cleanadmin";
 
 	public function action_index()
 	{
