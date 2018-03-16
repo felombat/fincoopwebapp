@@ -9,4 +9,6 @@ return array(
 	'logout'   => 'admin/logout',    // The logout/signout route
 	'signin'   => 'admin/sigin',    // The main registration route
 	//'_404_'   => 'cleanadmin/404',    // The main 404 route
+
+	'contributions' => 'finances/contributions', 
 );

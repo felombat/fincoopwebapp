@@ -1,6 +1,6 @@
 
 
-<div class="content-i">
+ 
 		
 				<div class="content-box">
 						<ul class="nav nav-pills">
@@ -11,7 +11,7 @@
 						<p>Index</p>
 					</div>
 
-					
+
                     <div class="content-box">
                         <div class="element-wrapper compact pt-4">
                             <div class="element-actions"><a class="btn btn-primary btn-sm" href="apps_bank.html#"><i class="os-icon os-icon-ui-22"></i><span>Add Account</span></a><a class="btn btn-success btn-sm" href="apps_bank.html#"><i class="os-icon os-icon-grid-10"></i><span>Make Payment</span></a></div>
@@ -349,5 +349,4 @@
                     </div>
 
                     
-
-                </div>
+ 

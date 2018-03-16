@@ -33,6 +33,14 @@ class Model_Contribution extends Model
        	 ),
 	);
 
+	protected static $_conditions = array(
+        'order_by' => array('paid_at' => 'desc'),
+        //'where' => array(
+        //    array('publish_date', '>', 1370721177),
+        //    array('published', '=', 1),
+        //),
+    );
+
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);

@@ -678,7 +678,7 @@
                 <ul class="main-menu">
                     <li class="sub-header"><span>Reporting</span></li>
                     <li class="selected has-sub-menu">
-                        <a href="index.html">
+                        <a href="javascript:void(0)">
                             <div class="icon-w">
                                 <div class="os-icon os-icon-layout"></div>
                             </div><span>Dashboard</span></a>
@@ -687,8 +687,8 @@
                             <div class="sub-menu-icon"><i class="os-icon os-icon-layout"></i></div>
                             <div class="sub-menu-i">
                                 <ul class="sub-menu">
-                                    <li><a href="index.html">Dashboard </a></li>
-                                    <li><a href="apps_support_dashboard.html">Reports <strong class="badge badge-danger">New</strong></a></li>
+                                    <li><?= Html::anchor(Uri::create('dashboard'), 'Dashboard');?></li>
+                                    <li><?= Html::anchor(Uri::create('dashboard/report'), 'Reports <strong class="badge badge-danger">New</strong>');?></li>
                                      
                                 </ul>
                             </div>
@@ -697,7 +697,7 @@
                    
                     <li class="sub-header"><span>Finances</span></li>
                     <li class="has-sub-menu">
-                        <a href="apps_bank.html">
+                        <a href="javascript:">
                             <div class="icon-w">
                                 <div class="os-icon os-icon-package"></div>
                             </div><span>Versements</span></a>
@@ -706,10 +706,10 @@
                             <div class="sub-menu-icon"><i class="os-icon os-icon-package"></i></div>
                             <div class="sub-menu-i">
                                 <ul class="sub-menu">
-                                    <li><a href="apps_email.html">Cotisations</a></li>
-                                    <li><a href="apps_support_dashboard.html">Retraits </a></li>
-                                    <li><a href="apps_support_index.html"> Loans <strong class="badge badge-danger">New</strong></a></li>
-                                    <li><a href="apps_projects.html">Depots</a></li>
+                                    <li><?= Html::anchor(Uri::create('contribution'), 'Cotisations');?> 
+                                    <li><?= Html::anchor(Uri::create('withdrawal'), 'Retraits');?></li>
+                                    <li><?= Html::anchor(Uri::create('loan'), 'Loans' .'<strong class="badge badge-danger">New</strong>');?> </li>
+                                    <li><?= Html::anchor(Uri::create('deposit'), 'Depots');?><a href="apps_projects.html"></a></li>
                                     
                                 </ul>
                                 
@@ -742,7 +742,7 @@
                         </div>
                     </li>
                     <li class="has-sub-menu">
-                        <a href="apps_bank.html#">
+                        <a href="javascript:">
                             <div class="icon-w">
                                 <div class="os-icon os-icon-life-buoy"></div>
                             </div><span>Clients</span></a>
@@ -751,11 +751,11 @@
                             <div class="sub-menu-icon"><i class="os-icon os-icon-life-buoy"></i></div>
                             <div class="sub-menu-i">
                                 <ul class="sub-menu">
-                                    <li><a href="uikit_modals.html">Dossiers</a></li>
-                                    <li><a href="uikit_alerts.html">Rapports</a></li>
-                                    <li><a href="uikit_grid.html">Suivi <strong class="badge badge-danger">New</strong></a></li>
-                                    <li><a href="uikit_progress.html">Progress</a></li>
-                                    <li><a href="uikit_popovers.html">Popover</a></li>
+                                    <li><?= Html::anchor(Uri::create('employee/clients'), 'Dossiers');?> </li>
+                                    <li><?= Html::anchor(Uri::create('employee/rapports'), 'Rapports');?> </li>
+                                    <li><?= Html::anchor(Uri::create('contribution'), 'Suivi' .'<strong class="badge badge-danger">New</strong>');?>  </li>
+                                    <li><?= Html::anchor(Uri::create('employee/rapports'), 'Progress');?> </li>
+                                    <li><?= Html::anchor(Uri::create('employee/covrage'), 'Popover');?> </li>
                                 </ul>
                                 
                         </div>
@@ -841,8 +841,9 @@
 				END - Main Menu
 				-------------------->
             <div class="content-w">
-                
-                <?php echo $content; ?>
+            	<div class="content-i">
+                	<?php echo $content; ?>
+            	</div>
             </div>
         </div>
         <div class="display-type"></div>

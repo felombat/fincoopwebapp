@@ -276,7 +276,7 @@ return array(
 		 * );
 		 */
 		'packages'  => array(
-			'orm','auth','email','parser'
+			'orm','auth','email','parser','messages'
 		),
 
 		/**

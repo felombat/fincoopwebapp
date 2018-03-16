@@ -1,4 +1,4 @@
-<div class="content-i">
+ 
 	<div class="content-box">
 		<ul class="nav nav-pills">
 			<li class='<?php echo Arr::get($subnav, "index" ); ?>'><?php echo Html::anchor('dashboard/index','Index');?></li>
@@ -8,4 +8,4 @@
 		<p>Report</p>
 
 		</div>
-</div>
+ 
