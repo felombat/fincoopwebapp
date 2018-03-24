@@ -109,11 +109,8 @@
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <label class="lighter" for="">Select Client</label>
-                                                            <select class="form-control">
-                                                                <option value="">Client A</option>
-                                                                <option value="">Client B</option>
-                                                                <option value="">Client C</option>
-                                                            </select>
+                                                            <?= Form::select('widthdrw_client', '-', Model_Client::get_dropdownlist(), array('class'=>"form-control") );?>
+
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-5">
@@ -172,7 +169,7 @@
                                                 <td class="nowrap"><span class="status-pill smaller green"></span><span>Complete</span></td>
                                                 <?php list($date, $time) = explode(' ', trim($contribution->paid_at)); ?>
                                                 <td><span><?= $date ?></span><span class="smaller lighter"><?= $time ?></span></td>
-                                                <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= @$contribution->client->first_name ?></span></td>
+                                                <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= @$contribution->client->first_name . " " . $contribution->client->last_name  ?></span></td>
                                                 <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= $contribution->description ?></span></td>
                                                 <td class="text-center"><a class="badge badge-success" href="apps_bank.html">Collecte</a></td>
                                                 <td class="text-right bolder nowrap"><span class="text-success">+ <?= $contribution->amount ?> <?= $app_params['currency_label'] ?></span></td>
