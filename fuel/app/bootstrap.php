@@ -12,7 +12,7 @@ require COREPATH.'bootstrap.php';
 
     //    'Orm\\Observer_Account' => APPPATH .'classes/observer/account.php',
 
-        'Validation' => APPPATH.'classes/validation/validation.php',
+    'Validation' => APPPATH.'classes/validation/validation.php',
         //'parseCSV' => APPPATH.'vendor/parsecsv/php-parsecsv/parsecsv.lib.php',
 ));
 

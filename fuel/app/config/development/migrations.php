@@ -1,11 +1,11 @@
 <?php
-return array (
+return array(
   'version' => 
-  array (
+  array(
     'app' => 
-    array (
+    array(
       'default' => 
-      array (
+      array(
         0 => '001_create_employees',
         1 => '002_create_jobtitles',
         2 => '003_create_activitylogs',
@@ -35,12 +35,12 @@ return array (
       ),
     ),
     'module' => 
-    array (
+    array(
     ),
     'package' => 
-    array (
+    array(
       'auth' => 
-      array (
+      array(
         0 => '001_auth_create_usertables',
         1 => '002_auth_create_grouptables',
         2 => '003_auth_create_roletables',

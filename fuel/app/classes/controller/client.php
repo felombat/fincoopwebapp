@@ -42,120 +42,60 @@ class Controller_Client extends Controller_Admin
 			$val = Model_Client::validate('create');
 
 				$auth = \Auth::instance();
-		        if ($val->run()){
 
-
-		            
-		            //$user = \Model_User::forge();
-		           
-
-		            // $user_data = array(
-		            //     'username' => 'f.elombat',
-		            //     'password' => 'Dare2Impress',
-		            //     'email' => 'f.elombat@gmail.com',
-		            //     'group' => 100,
-		            //     'profile_fields' => array(
-		            //     	'fullname' => 'Franck Elombat',
-		            //     	'jobtitle' => 'CTO'
-		            //     	),
-		            // 	);
-
-		             /*$user_data = array(
-		             	'username' => Input::post('first_name').".".Input::post('last_name'),
-		                'password' => 'Astrio@2018',
-		                'email' => Input::post('email'),
-		                'group' => 50,
-		                'profile_fields' => array(
-		                	'fullname' => Input::post('first_name')." ".Input::post('last_name'),
-		                	'jobtitle' => 'Client'
-		                	),
-		            	);
-
-
-		            $user = \Model_User::forge($user_data);
-		            //$user->save();
-
-		            $last_id =  $auth->create_user($user_data['username'],$user_data['password'],$user_data['email'],$user_data['group'],$user_data['profile_fields']); */
-
-		            /*$client = \Model_Client::forge(array(
-                        'first_name' => \Input::post('first_name'),
-                        'last_name' => \Input::post('last_name'),
-                        'user_id' => 0,
-                        'role_id' => 6,
-                        'jobtile_id' => 6,
-                        'company_id' => 1,
-                        'address1' => \Input::post('address1'),
-                        'address2' => " ",//Input::post('address2'),
-                        'notes' => \Input::post('notes'),
-                        'tel' => \Input::post('tel'),
-                        'email' => \Input::post('email'),
-                        'avatar_file' => " "    //Input::post('avatar_file'),
-                    ));
-
-        			$user_data = array(
-                        'username' => $client->first_name .".".$client->last_name,
-                        'password' => 'Astrio@2018',
-                        'email' => $client->email,
-                        'group' => 50,
-                        'profile_fields' => array(
-                            'fullname' =>$client->first_name." ".$client->last_name,
-                            'jobtitle' => 'Client'
-                            ),
-                        );
-
-
-                    //$user = \Model_User::forge($user_data);
-                    $last_id =  $auth->create_user($user_data['username'],$user_data['password'],$user_data['email'],$user_data['group'],$user_data['profile_fields']);
-                    //$last_userid = $user->save();
-                    if( $last_id){
-                        \logger(\Fuel::L_INFO, 'Succesfully created new User linked to Client of class '.get_class($client ));
-                    }
-
-                    $client->user_id = $last_id ;*/
-                    $last_user =  \Model_User::find('last', ['order_by' => ['id' => 'desc']]);
-
-		             $client = \Model_Client::forge(array(
-						'first_name' => Input::post('first_name'),
-						'last_name' => Input::post('last_name'),
-						'user_id' =>  $last_user->id,
-						'role_id' => 6,
-						'jobtile_id' => 6,
-						'company_id' => 1,
-						'address1' => Input::post('address1'),
-						'address2' => " ",//Input::post('address2'),
-						'notes' => Input::post('notes'),
-						'tel' => Input::post('tel'),
-						'email' => Input::post('email'),
-						'avatar_file' => " "    //Input::post('avatar_file'),
-					));
-
-					 $client->save(); 
-
-		            // Prints this message on terminal
-		           // echo '\n\r'  . $user->username . ' : '  . $last_id;
-		            echo '\n\r' .  "New Client: ".$client->first_name . "#: " . $client->last_name  ; 
-
-		        }else{
-		            
-		            // In case of error, prints the message on terminal,
-		            // You can implement any error handling you need
-		            echo "\nError saving new client.";
-		            //echo "\n" . $e->getMessage(). "\n";
-		        }
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 			if ($val->run())
 			{
-				$client = Model_Client::forge(array(
-					'created_by' => Input::post('created_by'),
-					'title' => Input::post('title'),
-					'description' => Input::post('description'),
-					'labels' => Input::post('labels'),
-					'status' => Input::post('status'),
-					'start_date' => Input::post('start_date'),
-				));
 
-				if ($client and $client->save())
+                $client = \Model_Client::forge(array(
+                    // 'id' => $last_client->id + 1,
+                    'first_name' => Input::post('first_name'),
+                    'last_name' => Input::post('last_name'),
+                    'user_id' =>  0,
+                    'role_id' => 6,
+                    'jobtile_id' => 6,
+                    'company_id' => 1,
+                    'address1' => Input::post('address1'),
+                    'address2' => " ",//Input::post('address2'),
+                    'notes' => Input::post('notes'),
+                    'tel' => Input::post('tel'),
+                    'email' => Input::post('email'),
+                    'avatar_file' => " "    //Input::post('avatar_file'),
+                ));
+
+
+                $user_data = array(
+                    'username' => $client->first_name .".".$client->last_name,
+                    'password' => 'Astrio@2018',
+                    'email' => $client->email,
+                    'group' => 50,
+                    'profile_fields' => array(
+                        'fullname' =>$client->first_name." ".$client->last_name,
+                        'jobtitle' => 'Client'
+                    ),
+                );
+
+
+                //$user = \Model_User::forge($user_data);
+                $last_id =  $auth->create_user($user_data['username'],$user_data['password'],$user_data['email'],$user_data['group'],$user_data['profile_fields']);
+                //$last_userid = $user->save();
+                if( $last_id){
+                    \logger(\Fuel::L_INFO, 'Succesfully created new User linked to Client of class '.get_class($client ));
+                }
+
+                $client->user_id = $last_id ;
+                $last_user =  \Model_User::find('last', ['order_by' => ['id' => 'desc']]);
+                $last_client =  \Model_Client::find('last', ['order_by' => ['id' => 'desc']]);
+
+
+                //$client->save();
+
+                // Prints this message on terminal
+                // echo '\n\r'  . $user->username . ' : '  . $last_id;
+                echo '\n\r' .  "New Client: ".$client->first_name . "#: " . $client->last_name  ;
+
+                if ($client and $client->save())
 				{
 					Session::set_flash('success', 'Added client #'.$client->id.'.');
 

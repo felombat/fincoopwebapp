@@ -33,6 +33,23 @@ class Model_Contribution extends Model
        	 ),
 	);
 
+    protected static $_belongs_to = array(
+        "client" => array(
+            'key_from' => 'budget_id',
+            'model_to' => 'Model_Client',
+            'key_to' => 'id',
+            'cascade_save' => true,
+            'cascade_delete' => false,
+        ),
+        /*"recipient" => array(
+            'key_from' => 'to_user_id',
+            'model_to' => 'Model_Employee',
+            'key_to' => 'id',
+            'cascade_save' => true,
+            'cascade_delete' => false,
+        ),*/
+    );
+
 	protected static $_conditions = array(
         'order_by' => array('paid_at' => 'desc'),
         //'where' => array(

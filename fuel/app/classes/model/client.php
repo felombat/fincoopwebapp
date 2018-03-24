@@ -64,6 +64,14 @@ class Model_client extends \Orm\Model_Soft
 		        'cascade_save' => true,
 		        'cascade_delete' => false,
 		    ),
+        "contributions" => array(
+            'key_from' => 'id',
+            'model_to' => 'Model_Client',
+            'key_to' => 'budget_id',
+            'cascade_save' => true,
+            'cascade_delete' => false,
+        ),
+
 		);
 
 
@@ -95,7 +103,7 @@ class Model_client extends \Orm\Model_Soft
 			'mysql_timestamp' => false,
 		),
 		'Orm\Observer_Clientuser' => array(
-			'events' => array('before_insert','after_insert','after_update'),
+			'events' => array('after_insert','after_update'),
 			'mysql_timestamp' => false,
 		),
 	);

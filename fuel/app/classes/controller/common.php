@@ -97,7 +97,15 @@ class Controller_Common extends Controller_Template
                     ],
                     'order_by'=> ["name" => "asc"]
                 ]);
-		}else{
+            $this->data_payload['contributions'] = Model_Contribution::find('all',
+                [
+                    'related' => ['client'],
+                    'where' =>  [
+                        ['company_id' => 1] // $this->employee_user->company_id
+                    ],
+                    'order_by'=> ["paid_at" => "desc"]
+                ]);
+        }else{
 			$this->data_payload['chats'] = array();
 			$this->data_payload['messages'] = array();
             $this->data_payload['todos'] = array();

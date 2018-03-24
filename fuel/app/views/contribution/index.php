@@ -6,7 +6,7 @@
 	<thead>
 		<tr>
 			<th>Company id</th>
-			<th>Budget id</th>
+			<th>Client</th>
 			<th>Paid at</th>
 			<th>Amount</th>
 			<th>Currency code</th>
@@ -21,7 +21,7 @@
 <?php foreach ($contributions as $item): ?>		<tr>
 
 			<td><?php echo $item->company_id; ?></td>
-			<td><?php echo $item->budget_id; ?></td>
+			<td><?php echo @$item->client->first_name; ?></td>
 			<td><?php echo $item->paid_at; ?></td>
 			<td><?php echo $item->amount; ?></td>
 			<td><?php echo $item->currency_code; ?></td>

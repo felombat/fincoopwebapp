@@ -5,7 +5,7 @@ class Controller_Contribution extends Controller_Admin
 
 	public function action_index()
 	{
-		$data['contributions'] = Model_Contribution::find('all');
+		$data['contributions'] = Model_Contribution::find('all', array('related' => array('client')));
 		$this->template->title = "Contributions";
 		$this->template->content = View::forge('contribution/index', $data);
 

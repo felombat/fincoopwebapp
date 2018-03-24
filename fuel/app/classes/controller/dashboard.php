@@ -24,7 +24,15 @@ class Controller_Dashboard extends Controller_Admin
             ]);
 
 		$data["subnav"] = array('index'=> 'active' );
-		$this->template->title = 'Dashboard &raquo; Index';
+        $data['contributions'] = Model_Contribution::find('all',
+            [
+                'where' =>  [
+                    ['company_id' => 1] // $this->employee_user->company_id
+                ],
+                'order_by'=> ["paid_at" => "desc", "created_at" => "desc"]
+            ]);
+
+        $this->template->title = 'Dashboard &raquo; Index';
 		$this->template->content = View::forge('dashboard/index', $data);
 	}
 

@@ -160,6 +160,7 @@
                                             <tr>
                                                 <th>Status</th>
                                                 <th>Date</th>
+                                                <th>Client</th>
                                                 <th>Description</th>
                                                 <th class="text-center">Category</th>
                                                 <th class="text-right">Amount</th>
@@ -169,12 +170,15 @@
                                             <?php foreach ($contributions as $contribution) :?>
                                             <tr>
                                                 <td class="nowrap"><span class="status-pill smaller green"></span><span>Complete</span></td>
-                                                <td><span>Today</span><span class="smaller lighter">1:52am</span></td>
-                                                <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= $contribution->budget_id ?></span></td>
-                                                <td class="text-center"><a class="badge badge-success" href="apps_bank.html">Shopping</a></td>
-                                                <td class="text-right bolder nowrap"><span class="text-success">+ 1,250 USD</span></td>
+                                                <?php list($date, $time) = explode(' ', trim($contribution->paid_at)); ?>
+                                                <td><span><?= $date ?></span><span class="smaller lighter"><?= $time ?></span></td>
+                                                <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= @$contribution->client->first_name ?></span></td>
+                                                <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= $contribution->description ?></span></td>
+                                                <td class="text-center"><a class="badge badge-success" href="apps_bank.html">Collecte</a></td>
+                                                <td class="text-right bolder nowrap"><span class="text-success">+ <?= $contribution->amount ?> <?= $app_params['currency_label'] ?></span></td>
                                             </tr>
                                             <?php endforeach; ?>
+                                            <!--
                                             <tr>
                                                 <td class="nowrap"><span class="status-pill smaller red"></span><span>Declined</span></td>
                                                 <td><span>Jan 19th</span><span class="smaller lighter">3:22pm</span></td>
@@ -210,6 +214,7 @@
                                                 <td class="text-center"><a class="badge badge-primary" href="apps_bank.html">Business</a></td>
                                                 <td class="text-right bolder nowrap"><span class="text-success">+ 340 USD</span></td>
                                             </tr>
+                                            -->
                                         </tbody>
                                     </table>
                                 </div>

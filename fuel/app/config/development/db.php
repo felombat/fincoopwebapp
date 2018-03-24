@@ -8,7 +8,7 @@ return array(
 		'connection'  => array(
 			'dsn'        => 'mysql:host=localhost;dbname=astriocollectdb',
 			'username'   => 'root',
-			'password'   => '',
+			'password'   => 'mysql',
 		),
 	),
 );

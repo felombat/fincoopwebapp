@@ -57,13 +57,13 @@ class Observer_Clientuser extends Observer {
 
 
                     //$user = \Model_User::forge($user_data);
-                    $last_id =  $auth->create_user($user_data['username'],$user_data['password'],$user_data['email'],$user_data['group'],$user_data['profile_fields']);
+                    //$last_id =  $auth->create_user($user_data['username'],$user_data['password'],$user_data['email'],$user_data['group'],$user_data['profile_fields']);
                     //$last_userid = $user->save();
-                    if( $last_id){
+                    /*if( $last_id){
                         \logger(\Fuel::L_INFO, 'Succesfully created new User linked to Client of class '.get_class($client ));
                     }
 
-                    $client->user_id = $last_id ;
+                    $client->user_id = $last_id ;*/
     }
 
 

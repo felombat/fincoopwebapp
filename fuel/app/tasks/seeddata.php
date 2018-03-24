@@ -85,7 +85,7 @@ class Seeddata
 				'avatar_file' => 'profile_franck.png',
 			));
 
-			 $employee->save(); 
+			 $employee->save();
 
             // Prints this message on terminal
             echo '\n\r'  . $user->username . ' : '  . $last_id;
