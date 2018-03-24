@@ -153,6 +153,7 @@
                         <div class="element-wrapper">
                             <h6 class="element-header">Recent Transactions</h6>
                             <div class="element-box-tp">
+                            <?php if(!empty($contributions ) ) :?>
                                 <div class="table-responsive">
                                     <table class="table table-padded">
                                         <thead>
@@ -212,6 +213,10 @@
                                         </tbody>
                                     </table>
                                 </div>
+                            <?php else :?>
+                                <p> Aucun mouvement de collecte dans notre fichier</p>
+
+                            <?php endif;?>
                             </div>
                         </div>
                         <!--END - Transactions Table-->

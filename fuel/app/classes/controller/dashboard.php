@@ -20,7 +20,7 @@ class Controller_Dashboard extends Controller_Admin
                 'where' =>  [
                     ['company_id' => 1] // $this->employee_user->company_id
                 ],
-                'order_by'=> ["paid_at" => "desc", "crated_at" => "desc"]
+                'order_by'=> ["paid_at" => "desc", "created_at" => "desc"]
             ]);
 
 		$data["subnav"] = array('index'=> 'active' );

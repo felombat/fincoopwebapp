@@ -30,7 +30,7 @@ class Observer_Contribution extends Observer {
         //logger(\Fuel::L_INFO, '*** SMTP Error while sending email (' . __FILE__ . '#' . __LINE__ . '): ' . $e->getMessage());
         \logger(\Fuel::L_INFO, 'Succesfully created new object of class '.get_class($contribution));
 
-        Debug::dump($contribution);  die();
+        //Debug::dump($contribution);  die();
         $activity = \Model_Activitylog::forge();
         list ($auth_driver, $activity->created_by) = \Auth::get_user_id();
         //list ($auth_driver, $activitylog->message_id) = \Auth::get_user_id(); // $contribution->message_id; // $this->current_user->id; 
@@ -44,7 +44,7 @@ class Observer_Contribution extends Observer {
         $activity->log_for2 = "Company"; 
         $activity->log_for_id2 = $contribution->company_id;
 
-        Debug::dump($activity);  die();
+        //Debug::dump($activity);  die();
         
 
         //$activity->object_type = preg_replace("/Model_/", '',get_class($contribution));//"Request"; 
