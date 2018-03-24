@@ -45,4 +45,29 @@ class Model_Account extends Model
 		return $val;
 	}
 
+	public static function balance($account_id =0 ){
+	    $app_params = Config::load('app');
+
+	    if(!Model_Account::find($account_id))
+	        return 0;
+
+	    return $app_params["currency_label"] . "100000";
+    }
+
+    public static function get_dropdownlist($exclude = array() ){
+        $dlist = [];
+        $empty= ['-' => "Please select ..."];
+        $dlist['-']= "Please select ...";
+        $entry = Model_Jobtitle::find('all', array('array(select)' => array( 'name')));
+        foreach ($entry as $key => $row) {
+            if(isset($exclude) && !in_array($row->id, $exclude)){
+
+                $dlist[$row->id] =  "$row->name" ;
+            }
+        }
+
+        return $dlist;
+    }
+
+
 }

@@ -16,6 +16,8 @@ return array(
 	"mailinglist" => '',
 	"community" => '',
 	"linkedin_url" => '',
+	"currency_label" => "Fr ",
+    "currency_code" => "XAF",
 
 	'apis' => array(
 			'linkein' => array(

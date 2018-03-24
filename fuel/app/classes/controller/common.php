@@ -90,10 +90,18 @@ class Controller_Common extends Controller_Template
 						],
 						'limit'=> 5
 					]);
+            $this->data_payload['accounts'] = Model_Account::find('all',
+                [
+                    'where' =>  [
+                        ['company_id' => 1] // $this->employee_user->company_id
+                    ],
+                    'order_by'=> ["name" => "asc"]
+                ]);
 		}else{
 			$this->data_payload['chats'] = array();
 			$this->data_payload['messages'] = array();
-			$this->data_payload['todos'] = array();
+            $this->data_payload['todos'] = array();
+            $this->data_payload['accounts'] = array();
 
 		}
 

@@ -83,22 +83,24 @@
                 <div class="fancy-selector-current">
                     <div class="fs-img"><img alt="" src="img/card1.png"></div>
                     <div class="fs-main-info">
-                        <div class="fs-name">American Express Platinum</div>
-                        <div class="fs-sub"><span>Balance:</span><strong>$5,304</strong></div>
+                        <div class="fs-name"><?php $default_account = $data_payload["accounts"][1]; echo $default_account->name ?></div>
+                        <div class="fs-sub"><span>Balance:</span><strong><?= Model_Account::balance($default_account->id) ?></strong></div>
                     </div>
                     <div class="fs-extra-info"><strong>5476</strong><span>ending</span></div>
                     <div class="fs-selector-trigger"><i class="os-icon os-icon-arrow-down4"></i></div>
                 </div>
                 <div class="fancy-selector-options">
+                    <?php foreach ($data_payload["accounts"] as $account) :?>
                     <div class="fancy-selector-option">
                         <div class="fs-img"><img alt="" src="img/card2.png"></div>
                         <div class="fs-main-info">
-                            <div class="fs-name">Capital One Venture Card</div>
-                            <div class="fs-sub"><span>Balance:</span><strong>$5,304</strong></div>
+                            <div class="fs-name"><?= $account->name ?> </div>
+                            <div class="fs-sub"><span>Balance:</span><strong><?= Model_Account::balance($account->id) ?></strong></div>
                         </div>
-                        <div class="fs-extra-info"><strong>5476</strong><span>ending</span></div>
+                        <!--<div class="fs-extra-info"><strong>5476</strong><span>ending</span></div>-->
                     </div>
-                    <div class="fancy-selector-option active">
+                    <?php endforeach;?>
+                    <!--<div class="fancy-selector-option active">
                         <div class="fs-img"><img alt="" src="img/card1.png"></div>
                         <div class="fs-main-info">
                             <div class="fs-name">American Express Platinum</div>
@@ -113,7 +115,7 @@
                             <div class="fs-sub"><span>Balance:</span><strong>$1,202</strong></div>
                         </div>
                         <div class="fs-extra-info"><strong>6345</strong><span>ending</span></div>
-                    </div>
+                    </div>-->
                     <div class="fancy-selector-actions text-right"><a class="btn btn-primary" href="apps_bank.html#"><i class="os-icon os-icon-ui-22"></i><span>Add Account</span></a></div>
                 </div>
             </div>
@@ -700,7 +702,7 @@
                         <a href="javascript:">
                             <div class="icon-w">
                                 <div class="os-icon os-icon-package"></div>
-                            </div><span>Versements</span></a>
+                            </div><span>Transactions</span></a>
                         <div class="sub-menu-w">
                             <div class="sub-menu-header">Finances</div>
                             <div class="sub-menu-icon"><i class="os-icon os-icon-package"></i></div>

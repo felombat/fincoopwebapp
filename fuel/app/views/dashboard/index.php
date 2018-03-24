@@ -1,7 +1,7 @@
 
 
  
-		
+		        <!--
 				<div class="content-box">
 						<ul class="nav nav-pills">
 							<li class='<?php echo Arr::get($subnav, "index" ); ?>'><?php echo Html::anchor('dashboard/index','Index');?></li>
@@ -9,12 +9,12 @@
 
 						</ul>
 						<p>Index</p>
-					</div>
+					</div> -->
 
 
                     <div class="content-box">
                         <div class="element-wrapper compact pt-4">
-                            <div class="element-actions"><a class="btn btn-primary btn-sm" href="apps_bank.html#"><i class="os-icon os-icon-ui-22"></i><span>Add Account</span></a><a class="btn btn-success btn-sm" href="apps_bank.html#"><i class="os-icon os-icon-grid-10"></i><span>Make Payment</span></a></div>
+                            <div class="element-actions"><a class="btn btn-primary btn-sm" href="apps_bank.html#"><i class="os-icon os-icon-ui-22"></i><span>Add a Client</span></a><a class="btn btn-success btn-sm" href="apps_bank.html#"><i class="os-icon os-icon-grid-10"></i><span>Make Payment / Log a withdrawal</span></a></div>
                             <h6 class="element-header">Financial Overview</h6>
                             <div class="element-box-tp">
                                 <div class="row">
@@ -23,18 +23,18 @@
                                         <div class="element-balances">
                                             <div class="balance hidden-mobile">
                                                 <div class="balance-title">Total Balance</div>
-                                                <div class="balance-value"><span>$350</span><span class="trending trending-down-basic"><span>%12</span><i class="os-icon os-icon-arrow-2-down"></i></span>
+                                                <div class="balance-value"><span><?= $app_params['currency_label'];?> 350</span><span class="trending trending-down-basic"><span>%12</span><i class="os-icon os-icon-arrow-2-down"></i></span>
                                                 </div>
                                                 <div class="balance-link"><a class="btn btn-link btn-underlined" href="apps_bank.html#"><span>View Statement</span><i class="os-icon os-icon-arrow-right4"></i></a></div>
                                             </div>
                                             <div class="balance">
                                                 <div class="balance-title">Credit Available</div>
-                                                <div class="balance-value">$17,800</div>
+                                                <div class="balance-value"><?= $app_params['currency_label'];?>17,800</div>
                                                 <div class="balance-link"><a class="btn btn-link btn-underlined" href="apps_bank.html#"><span>Request Increase</span><i class="os-icon os-icon-arrow-right4"></i></a></div>
                                             </div>
                                             <div class="balance">
                                                 <div class="balance-title">Due Today</div>
-                                                <div class="balance-value danger">$180</div>
+                                                <div class="balance-value danger"><?= $app_params['currency_label'];?>180</div>
                                                 <div class="balance-link"><a class="btn btn-link btn-underlined btn-gold" href="apps_bank.html#"><span>Pay Now</span><i class="os-icon os-icon-arrow-right4"></i></a></div>
                                             </div>
                                         </div>
@@ -84,39 +84,69 @@
                                 <!--END - CHART-->
                             </div>
                             <div class="col-lg-5 col-xxl-6">
-                                <!--START - Money Withdraw Form-->
-                                <div class="element-wrapper">
-                                    <div class="element-box">
-                                        <form>
-                                            <h5 class="element-box-header">Withdraw Money</h5>
-                                            <div class="row">
-                                                <div class="col-sm-5">
-                                                    <div class="form-group">
-                                                        <label class="lighter" for="">Select Amount</label>
-                                                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                                                            <input class="form-control" placeholder="Enter Amount..." type="text" value="0">
-                                                            <div class="input-group-append">
-                                                                <div class="input-group-text">USD</div>
+
+
+
+
+
+
+                                    <!--START - Money Withdraw Form-->
+                                    <div class="element-wrapper">
+
+
+                                        <div class="element-box">
+                                            <div class="os-tabs-controls">
+
+                                                <ul class="nav nav-tabs smaller">
+                                                    <li class='nav-item <?php echo Arr::get($subnav, "dashboard" ); ?>'><?php echo Html::anchor('transactions/withdraw','Retrait', array('class'=>'nav-link ' . Arr::get($subnav, "index" )));?></li>
+                                                    <li class='nav-item <?php echo Arr::get($subnav, "withdraw" ); ?>'><?php echo Html::anchor('transactions/payment','Versement',array('class'=>'nav-link'));?></li>
+                                                </ul>
+
+                                            </div>
+                                            <form>
+                                                <h5 class="element-box-header">Withdraw Money</h5>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label class="lighter" for="">Select Client</label>
+                                                            <select class="form-control">
+                                                                <option value="">Client A</option>
+                                                                <option value="">Client B</option>
+                                                                <option value="">Client C</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <div class="form-group">
+                                                            <label class="lighter" for="">Enter Amount</label>
+                                                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                                <input class="form-control" placeholder="Enter Amount..." type="text" value="0">
+                                                                <div class="input-group-append">
+                                                                    <div class="input-group-text"><?= $app_params['currency_code'];?></div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-7">
-                                                    <div class="form-group">
-                                                        <label class="lighter" for="">Transfer to</label>
-                                                        <select class="form-control">
-                                                            <option value="">Citibank *6382</option>
-                                                            <option value="">Chase *8372</option>
-                                                            <option value="">Bank of America *7363</option>
-                                                        </select>
+                                                    <div class="col-sm-7">
+                                                        <div class="form-group">
+                                                            <label class="lighter" for="">From account ...</label>
+                                                            <select class="form-control">
+                                                                <option value="">Citibank *6382</option>
+                                                                <option value="">Chase *8372</option>
+                                                                <option value="">Bank of America *7363</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-buttons-w text-right compact"><a class="btn btn-grey" href="apps_bank.html#"><i class="os-icon os-icon-ui-22"></i><span>Add Account</span></a><a class="btn btn-primary" href="apps_bank.html#"><span>Transfer</span><i class="os-icon os-icon-grid-18"></i></a></div>
-                                        </form>
+                                                <div class="form-buttons-w text-right compact"><a class="btn btn-grey" href="apps_bank.html#"><i class="os-icon os-icon-ui-22"></i><span>Add Account</span></a><a class="btn btn-primary" href="apps_bank.html#"><span>Transfer</span><i class="os-icon os-icon-grid-18"></i></a></div>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                                <!--END - Money Withdraw Form-->
+                                    <!--END - Money Withdraw Form-->
+
+
+
+
                             </div>
                         </div>
                         <!--START - Transactions Table-->
@@ -135,13 +165,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php foreach ($contributions as $contribution) :?>
                                             <tr>
                                                 <td class="nowrap"><span class="status-pill smaller green"></span><span>Complete</span></td>
                                                 <td><span>Today</span><span class="smaller lighter">1:52am</span></td>
-                                                <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span>Banana Shakes LLC</span></td>
+                                                <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= $contribution->budget_id ?></span></td>
                                                 <td class="text-center"><a class="badge badge-success" href="apps_bank.html">Shopping</a></td>
                                                 <td class="text-right bolder nowrap"><span class="text-success">+ 1,250 USD</span></td>
                                             </tr>
+                                            <?php endforeach; ?>
                                             <tr>
                                                 <td class="nowrap"><span class="status-pill smaller red"></span><span>Declined</span></td>
                                                 <td><span>Jan 19th</span><span class="smaller lighter">3:22pm</span></td>
