@@ -1,19 +1,19 @@
-<?php echo Form::open(array("class"=>"form-horizontal")); ?>
+<?php echo Form::open(array("class"=>"form-horizontal col-md-8")); ?>
 
 	<fieldset>
-		<div class="form-group">
+		<div class="form-group ">
 			<?php //echo Form::label('Company id', 'company_id', array('class'=>'control-label')); ?>
 
-				<?php echo Form::hidden('company_id', Input::post('company_id', isset($contribution) ? $contribution->company_id : ''), array('class' => 'col-md-4 form-control', 'value'=>1, 'placeholder'=>'Company id')); ?>
+				<?php echo Form::hidden('company_id', Input::post('company_id', isset($contribution) ? $contribution->company_id : '1'), array('class' => 'col-md-4 form-control', 'value'=>1, 'placeholder'=>'Company id')); ?>
 
 		</div>
-		<div class="form-group">
-			<?php echo Form::label('Client', 'budget_id', array('class'=>'control-label')); ?>
+		<div class="form-group col-md-6">
+			<?php echo Form::label('Client', 'budget_id', array('class'=>'control-label ')); ?>
 
 				<?php //echo Form::input('budget_id', Input::post('budget_id', isset($contribution) ? $contribution->budget_id : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Client')); ?>
 				<?php Form::select('budget_id', Input::post('budget_id', isset($contribution) ? $contribution->budget_id : '-'), array('class'=>"form-control") );?>
 
-				<?= Form::select('widthdrw_client', '-', Model_Client::get_dropdownlist(), array('class'=>"form-control col-md-4") );?>
+				<?= Form::select('budget_id', '-', Model_Client::get_dropdownlist(), array('class'=>"form-control col-md-8 select2") );?>
 
 		</div>
 		<!-- 	
@@ -30,7 +30,7 @@
 		<div class="form-group">
 			<?php echo Form::label('Paid at', 'paid_at', array('class'=>'control-label')); ?>
                 <div class="input-group date" id="paid_at" class="datetimepicker col-md-4" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input col-md-4" data-target="#paid_at"/>
+                    <input type="text" name="paid_at" class="form-control datetimepicker-input col-md-4" data-target="#paid_at"/>
                     <div class="input-group-append" data-target="#paid_at" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -43,6 +43,21 @@
 				<?php echo Form::input('amount', Input::post('amount', isset($contribution) ? $contribution->amount : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Amount')); ?>
 
 		</div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Type</label>
+            <div class="col-sm-4">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input checked="" class="form-check-input" name="type" value="credit" type="radio">Versement</label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" name="type" value="debit" type="radio">Retrait</label>
+                </div>
+
+            </div>
+        </div>
 		<!--
 		<div class="form-group">
 			<?php echo Form::label('Currency code', 'currency_code', array('class'=>'control-label')); ?>
@@ -65,11 +80,11 @@
 				<?php echo Form::textarea('description', Input::post('description', isset($contribution) ? $contribution->description : ''), array('class' => 'col-md-8 form-control', 'rows' => 8, 'placeholder'=>'Description')); ?>
 
 		</div>
-		<div class="form-group">
-			<?php echo Form::label('Payment method', 'payment_method', array('class'=>'control-label')); ?>
+		<div class="form-group r">
+			<?php echo Form::label('Payment method', 'payment_method', array('class'=>'control-label  ')); ?> &nbsp;&nbsp;
 
 				<?php // echo Form::input('payment_method', Input::post('payment_method', isset($contribution) ? $contribution->payment_method : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Payment method')); ?>
-				<?= Form::select('country', Input::post('payment_method', isset($contribution) ? $contribution->payment_method : '-'), array(
+				<?= Form::select('payment_method', Input::post('payment_method', isset($contribution) ? $contribution->payment_method : '-'), array(
                                                                     '-' => 'Please Select ...',
                                                                     'cash' => 'Cash',
                                                                     'cheque' => 'Cheque',
@@ -77,7 +92,7 @@
                                                                     'bankwire' => 'Bank Transfert',
                                                                     'ecash' => 'eCash (OM, MoMo)',
                                                                     'other' => 'Other',
-                                                                ),  array('class'=>"form-control col-md-4"));?>
+                                                                ),  array('class'=>"form-control col-md-4 select2 "));?>
 
 		</div>
 		<div class="form-group">

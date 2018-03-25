@@ -22,6 +22,8 @@
 
     <?php echo Asset::css(array(
         'select2/dist/css/select2.min.css',
+        'font-awesome.css',
+        'font.css',
         'bootstrap-daterangepicker/daterangepicker.css',
         "bootstrap-datetimepicker/tempusdominus-bootstrap-4.min.css",
         'dropzone/dist/dropzone.css',
@@ -943,11 +945,33 @@
  
     )); ?>
     <script type="text/javascript">
+        // DateTime Picker Config
+        $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+            icons: {
+                time: 'fa fa-clock',
+                date: 'fa fa-calendar',
+                up: 'fa fa-arrow-up',
+                down: 'fa fa-arrow-down',
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-calendar-check-o',
+                clear: 'fa fa-trash',
+                close: 'fa fa-times'
+            },
+            format: 'YYYY-MM-DD HH:mm:ss'
+        });
 
              $(function () {
-                $('.datetimepicker').datetimepicker();
+                $('.datetimepicker').datetimepicker({
+                    locale : 'fr'
+                });
+
+                 // Select2 Config
+                 $('.select2').select2();
+
             });
- 
+
+
     (function(i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function() {
