@@ -11,6 +11,19 @@ class Controller_Contribution extends Controller_Admin
 
 	}
 
+	public function action_withdraw($client_id = 0, $type = 'debit' )
+	{
+		$data['contributions'] = Model_Contribution::find('all', 
+			array(
+				'related' => array('client'), 
+				'where' => array(array('id', '=', $client_id), array('type', '=', $type	) )
+				)
+			);
+		$this->template->title = "Contributions";
+		$this->template->content = View::forge('contribution/index', $data);
+
+	}
+
 	public function action_view($id = null)
 	{
 		is_null($id) and Response::redirect('contribution');

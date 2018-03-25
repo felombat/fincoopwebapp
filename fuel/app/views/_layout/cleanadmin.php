@@ -23,6 +23,7 @@
     <?php echo Asset::css(array(
         'select2/dist/css/select2.min.css',
         'bootstrap-daterangepicker/daterangepicker.css',
+        "bootstrap-datetimepicker/tempusdominus-bootstrap-4.min.css",
         'dropzone/dist/dropzone.css',
         'datatables.net-bs/css/dataTables.bootstrap.min.css',
         'fullcalendar/dist/fullcalendar.min.css',
@@ -709,9 +710,9 @@
                             <div class="sub-menu-i">
                                 <ul class="sub-menu">
                                     <li><?= Html::anchor(Uri::create('contribution'), 'Cotisations');?> 
-                                    <li><?= Html::anchor(Uri::create('withdrawal'), 'Retraits');?></li>
-                                    <li><?= Html::anchor(Uri::create('loan'), 'Loans' .'<strong class="badge badge-danger">New</strong>');?> </li>
-                                    <li><?= Html::anchor(Uri::create('deposit'), 'Depots');?><a href="apps_projects.html"></a></li>
+                                    <li><?= Html::anchor(Uri::create('withdraw'), 'Retraits');?></li>
+                                    <li><?= Html::anchor(Uri::create('transaction'), 'Op Internes' .'<strong class="badge badge-danger">New</strong>');?> </li>
+                                    <li><?= Html::anchor(Uri::create('deposit'), 'Depots' .'<strong class="badge badge-warning">coming soon</strong>');?></li>
                                     
                                 </ul>
                                 
@@ -753,8 +754,8 @@
                             <div class="sub-menu-icon"><i class="os-icon os-icon-life-buoy"></i></div>
                             <div class="sub-menu-i">
                                 <ul class="sub-menu">
-                                    <li><?= Html::anchor(Uri::create('employee/clients'), 'Dossiers');?> </li>
-                                    <li><?= Html::anchor(Uri::create('employee/rapports'), 'Rapports');?> </li>
+                                    <li><?= Html::anchor(Uri::create('client'), 'Dossiers');?> </li>
+                                    <li><?= Html::anchor(Uri::create('client/rapports'), 'Rapports');?> </li>
                                     <li><?= Html::anchor(Uri::create('contribution'), 'Suivi' .'<strong class="badge badge-danger">New</strong>');?>  </li>
                                     <li><?= Html::anchor(Uri::create('employee/rapports'), 'Progress');?> </li>
                                     <li><?= Html::anchor(Uri::create('employee/covrage'), 'Popover');?> </li>
@@ -769,7 +770,7 @@
                                     <div class="os-icon os-icon-layers"></div>
                                 </div><span>Employees</span></a>
                             <ul class="sub-menu">
-                                <li><a href="layouts_menu_side_full.html">Side Menu Light</a></li>
+                                <li><?= Html::anchor(Uri::create('settings'), 'Settings');?> </li>
                                 <li><a href="layouts_menu_side_full_dark.html">Side Menu Dark</a></li>
                                 <li><a href="layouts_menu_side_transparent.html">Side Menu Transparent <strong class="badge badge-danger">New</strong></a></li>
                                  
@@ -914,6 +915,7 @@
         "select2/dist/js/select2.full.min.js",
         "jquery-bar-rating/dist/jquery.barrating.min.js",
         "ckeditor/ckeditor.js",
+        "bootstrap-datetimepicker/tempusdominus-bootstrap-4.min.js",
         "bootstrap-validator/dist/validator.min.js",
         "bootstrap-daterangepicker/daterangepicker.js",
         "ion.rangeSlider/js/ion.rangeSlider.min.js",
@@ -940,7 +942,12 @@
 
  
     )); ?>
-    <script>
+    <script type="text/javascript">
+
+             $(function () {
+                $('.datetimepicker').datetimepicker();
+            });
+ 
     (function(i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function() {

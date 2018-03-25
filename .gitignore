@@ -33,4 +33,8 @@ desktop.ini
 /fuel/app/config/crypt.php
 
 # app db settings
-/fuel/app/config/*/*
+
+.htaccess
+/fuel/app/config/development/db.php
+/fuel/app/config/development/migrations.php
+

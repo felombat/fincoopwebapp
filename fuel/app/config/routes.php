@@ -11,4 +11,5 @@ return array(
 	//'_404_'   => 'cleanadmin/404',    // The main 404 route
 
 	'contributions' => 'finances/contributions', 
+	'withdraw(/:client_id/:type)' => array('contribution/withdraw', 'client_id' => 1, 'type' => 'debit' )
 );

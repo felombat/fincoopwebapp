@@ -6,9 +6,9 @@
 return array(
 	'default' => array(
 		'connection'  => array(
-			'dsn'        => 'mysql:host=localhost;dbname=astriocollectdb',
+			'dsn'        => 'mysql:host=localhost;dbname=astiocollectdb',
 			'username'   => 'root',
-			'password'   => 'mysql',
+			'password'   => '',
 		),
 	),
 );

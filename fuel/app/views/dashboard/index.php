@@ -128,6 +128,18 @@
                                                         <div class="form-group">
                                                             <label class="lighter" for="">Method ...</label>
                                                             <?= Form::select('widthdrw_client', 'cash', $app_params["payment_methods"], array('class'=>"form-control") );?>
+
+                                                            <label class="withdraw_payment_method" for="">From account ...</label>
+                                                            <?= Form::select('country', '-', array(
+                                                                    '-' => 'Please Select ...',
+                                                                    'cash' => 'Cash',
+                                                                    'cheque' => 'Cheque',
+                                                                    'cb' => 'Credit Card',
+                                                                    'bankwire' => 'Bank Transfert',
+                                                                    'ecash' => 'eCash (OM, MoMo)',
+                                                                    'other' => 'Other',
+                                                                ));?>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -166,7 +178,7 @@
                                                 <td class="nowrap"><span class="status-pill smaller green"></span><span><?= $contribution->status ?></span></td>
                                                 <?php list($date, $time) = explode(' ', trim($contribution->paid_at)); ?>
                                                 <td><span><?= $date ?></span><span class="smaller lighter"><?= $time ?></span></td>
-                                                <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= @$contribution->client->first_name . " " . $contribution->client->last_name  ?></span></td>
+                                                <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= @$contribution->client->first_name . " " . @$contribution->client->last_name  ?></span></td>
                                                 <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= $contribution->description ?></span></td>
                                                 <td class="text-center"><a class="badge badge-success" href="apps_bank.html"><?= @$contribution->category->title ?></a></td>
                                                 <?php if($contribution->type == 'debit') : ?>
