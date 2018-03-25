@@ -20,6 +20,14 @@ class Model_Category extends Model
 		        'cascade_save' => true,
 		        'cascade_delete' => false,
 		    ),
+
+        "contributions" => array(
+            'key_from' => 'id',
+            'model_to' => 'Model_Contribution',
+            'key_to' => 'category_id',
+            'cascade_save' => true,
+            'cascade_delete' => false,
+        ),
 		  
 	);
 

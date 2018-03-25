@@ -7,7 +7,7 @@
     <meta content="template language" name="keywords">
     <meta content="Tamerlan Soziev" name="author">
     <meta content="Admin dashboard html template" name="description">
-    <meta content="width=device-width, initial-scale=.75" name="viewport">
+    <meta content="width=device-width, initial-scale=.85" name="viewport">
     <link href="favicon.png" rel="shortcut icon">
     <link href="apple-touch-icon.png" rel="apple-touch-icon">
     <!-- <link href="http://fast.fonts.net/cssapi/487b73f1-c2d1-43db-8526-db577e4c822b.css" rel="stylesheet" type="text/css"> -->
@@ -84,7 +84,7 @@
                     <div class="fs-img"><img alt="" src="img/card1.png"></div>
                     <div class="fs-main-info">
                         <div class="fs-name"><?php $default_account = $data_payload["accounts"][1]; echo $default_account->name ?></div>
-                        <div class="fs-sub"><span>Balance:</span><strong><?= Model_Account::balance($default_account->id) ?></strong></div>
+                        <div class="fs-sub"><span>Balance:</span><strong><?= $app_params['currency_label'] ." ". number_format(  Model_Account::balance($default_account->id)  ,2,","," " ); ?></strong></div>
                     </div>
                     <div class="fs-extra-info"><strong>5476</strong><span>ending</span></div>
                     <div class="fs-selector-trigger"><i class="os-icon os-icon-arrow-down4"></i></div>
@@ -95,7 +95,7 @@
                         <div class="fs-img"><img alt="" src="img/card2.png"></div>
                         <div class="fs-main-info">
                             <div class="fs-name"><?= $account->name ?> </div>
-                            <div class="fs-sub"><span>Balance:</span><strong><?= Model_Account::balance($account->id) ?></strong></div>
+                            <div class="fs-sub"><span>Balance:</span><strong><?= $app_params['currency_label'] ." ". number_format(  Model_Account::balance($account->id)  ,2,","," " ); ?></strong></div>
                         </div>
                         <!--<div class="fs-extra-info"><strong>5476</strong><span>ending</span></div>-->
                     </div>
@@ -843,6 +843,30 @@
 				END - Main Menu
 				-------------------->
             <div class="content-w">
+                <div class="content-i">
+                    <?php if (Session::get_flash('success')): ?>
+                        <div class="alert alert-success">
+                            <strong>Success</strong>
+                            <p>
+                                <?php echo implode('</p><p>', e((array) Session::get_flash('success'))); ?>
+                            </p>
+                        </div>
+                        <script>
+                            // Notice
+                            // Display a info toast, with a title
+                            toastr.info('Notice:',"<?php echo implode('</p><p>', e((array) Session::get_flash('success'))); ?>");
+                        </script>
+                    <?php endif; ?>
+                    <?php if (Session::get_flash('error')): ?>
+                        <div class="alert alert-danger">
+                            <strong>Error</strong>
+                            <p>
+                                <?php echo implode('</p><p>', e((array) Session::get_flash('error'))); ?>
+                            </p>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
             	<div class="content-i">
                 	<?php echo $content; ?>
             	</div>

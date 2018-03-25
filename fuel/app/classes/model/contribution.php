@@ -1,20 +1,26 @@
 <?php
 use Orm\Model;
 
-class Model_Contribution extends Model
+class Model_Contribution extends \Orm\Model_Soft
 {
 	protected static $_properties = array(
 		'id',
 		'company_id',
 		'budget_id',
+        'status',
+        'created_by',
+        'category_id',
+        'type',
 		'paid_at',
 		'amount',
+        'category_id',
 		'currency_code',
 		'currency_rate',
 		'description',
 		'payment_method',
 		'reference',
 		'created_at',
+        'deleted_at',
 		'updated_at',
 	);
 
@@ -41,13 +47,24 @@ class Model_Contribution extends Model
             'cascade_save' => true,
             'cascade_delete' => false,
         ),
-        /*"recipient" => array(
-            'key_from' => 'to_user_id',
-            'model_to' => 'Model_Employee',
+        "category" => array(
+            'key_from' => 'category_id',
+            'model_to' => 'Model_Category',
             'key_to' => 'id',
             'cascade_save' => true,
             'cascade_delete' => false,
-        ),*/
+        ),
+    );
+
+    protected static $_has_one = array(
+        "transaction" => array(
+            'key_from' => 'created_at',
+            'model_to' => 'Model_Transaction',
+            'key_to' => 'created_at',
+            'cascade_save' => true,
+            'cascade_delete' => false,
+        ),
+
     );
 
 	protected static $_conditions = array(
@@ -70,6 +87,11 @@ class Model_Contribution extends Model
 		$val->add_field('description', 'Description', 'required');
 		$val->add_field('payment_method', 'Payment Method', 'required');
 		$val->add_field('reference', 'Reference', 'required|max_length[255]');
+        //$val->add_field('status', 'Status', 'required');
+        //$val->add_field('type', 'Type', 'required');
+        //$val->add_field('created_by', 'Created_by', 'required|valid_string[numeric]');
+        //$val->add_field('category_id', 'Category', 'required|valid_string[numeric]');
+
 
 		return $val;
 	}

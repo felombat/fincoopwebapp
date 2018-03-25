@@ -32,6 +32,7 @@ return array(
         23 => '027_create_meetings',
         24 => '028_create_meetings_todos',
         25 => '029_create_clients',
+        26 => '030_add_fields_to_contributions',
       ),
     ),
     'module' => 

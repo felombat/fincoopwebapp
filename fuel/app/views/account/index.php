@@ -5,7 +5,7 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>Company id</th>
+<!--				<th>Company id</th>-->
 				<th>Name</th>
 				<th>Number</th>
 				<th>Currency code</th>
@@ -13,22 +13,28 @@
 				<th>Bank name</th>
 				<th>Bank phone</th>
 				<th>Bank address</th>
-				<th>Enabled</th>
+				<th>Solde</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>
-	<?php foreach ($accounts as $item): ?>		<tr>
+	<?php foreach ($accounts as $item): ?>
+        <tr class="<?php echo ($item->enabled) ? 'lead  font-weight-bold text-capitalize': "text-muted small font-italic"; ?> ">
 
-				<td><?php echo $item->company_id; ?></td>
+<!--				<td>--><?php //echo $item->company_id; ?><!--</td>-->
 				<td><?php echo $item->name; ?></td>
 				<td><?php echo $item->number; ?></td>
 				<td><?php echo $item->currency_code; ?></td>
-				<td><?php echo $item->opening_balance; ?></td>
+				<td data-openingBalance="<?= $item->opening_balance ?>">
+                    <?php //setlocale(LC_MONETARY, 'fr_FR.UTF-8'); echo money_format("Fr %.1n", $item->opening_balance); ?>
+                    <?php  echo number_format("$item->opening_balance",2,","," "); ?>
+                </td>
 				<td><?php echo $item->bank_name; ?></td>
 				<td><?php echo $item->bank_phone; ?></td>
 				<td><?php echo $item->bank_address; ?></td>
-				<td><?php echo $item->enabled; ?></td>
+				<td class="small text-right text-nowrap" title="<?php echo Num::quantity(Model_Account::balance($item->id)) . " Fr"; ?>" >
+                    <?php  echo number_format(  Model_Account::balance($item->id) ,2,","," " ); ?>
+                </td>
 				<td>
 					<div class="btn-toolbar">
 						<div class="btn-group">

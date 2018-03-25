@@ -44,7 +44,12 @@ class Controller_Contribution extends Controller_Admin
 					'description' => Input::post('description'),
 					'payment_method' => Input::post('payment_method'),
 					'reference' => Input::post('reference'),
-				));
+                    'status' => 'paid',
+                    'type' => 'credit',
+                    'created_by' => $this->current_user->id,
+                    'category_id' => 1,
+
+                ));
 
 				if ($contribution and $contribution->save())
 				{

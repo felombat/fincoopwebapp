@@ -99,7 +99,7 @@ class Controller_Common extends Controller_Template
                 ]);
             $this->data_payload['contributions'] = Model_Contribution::find('all',
                 [
-                    'related' => ['client'],
+                    'related' => ['client', 'category'],
                     'where' =>  [
                         ['company_id' => 1] // $this->employee_user->company_id
                     ],

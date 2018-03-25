@@ -26,6 +26,19 @@ return array(
 
 				)
 
-			)
+			),
+    "payment_methods" => array(
+            '-' => 'Please Select one option',
+            /*'europe' => array(
+                'uk' => 'United Kingdom',
+                'nl' => 'Netherlands'
+            ),*/
+            'cash' => 'Cash',
+        'cb' => 'Credit Card',
+        'cheque' => 'Cheque',
+        'ecsah' => 'Electronique Cash (OM, MoMo, Nexttel Credit)',
+        'bankwire' => 'Bank Transfert',
+        'other' => 'Other',
+        ),
 
 	);

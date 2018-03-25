@@ -1,6 +1,7 @@
 <?php
-class Controller_Account extends Controller_Template
+class Controller_Account extends Controller_Admin
 {
+    public $template = "_layout/cleanadmin";
 
 	public function action_index()
 	{

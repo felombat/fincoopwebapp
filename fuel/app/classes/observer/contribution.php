@@ -40,7 +40,7 @@ class Observer_Contribution extends Observer {
         $activity->log_type_id = $contribution->id; 
         $activity->changes = serialize($contribution->to_array()); 
         $activity->log_for = "Client";
-        $activity->log_for_id = $contribution->budget_id; 
+        $activity->log_for_id = @$contribution->client->id;
         $activity->log_for2 = "Company"; 
         $activity->log_for_id2 = $contribution->company_id;
 
@@ -53,6 +53,37 @@ class Observer_Contribution extends Observer {
         //$activity->verb = "add" ;   //\Request::active()->action; // add or create 
  
         $activity->save();
+
+        // Save a Transaction and log the process
+        $transaction = \Model_Transaction::forge();
+
+        $ref = array(
+            "client" => @$contribution->client->first_name ." ". $contribution->client->last_name,
+            "reference" => $contribution->reference,
+            "description" => $contribution->description,
+            "status" => $contribution->status,
+            "category" => $contribution->category->title
+        );
+        $transaction->from_account_id = 0;
+        $transaction->to_account_id = 1;
+        $transaction->amount = $contribution->amount;
+        $transaction->currency_code = 'XAF';
+        $transaction->currency_rate = 1;
+        $transaction->payment_method = $contribution->payment_method;
+        $transaction->reference = serialize($ref);
+        $transaction->type = ($contribution->type == 'credit') ? 1 : 0 ;
+
+
+        if($transaction->save()){
+            //echo "\nRunning task [Seedcontribtable:Fixfields]";
+            //echo "\n Contribution ". $transaction->id ." updated successfully !\n\n";
+            \Log::info('Succesfully created new object of class '.get_class($transaction));
+        }else{
+            //echo "\nRunning task [Seedcontribtable:Run]";
+            //echo "\n Contribution ". $transaction->id ." update failed !\n\n";
+            \Log::error('Failed to created new object of class '.get_class($transaction));
+        }
+
 
         
     }

@@ -7,6 +7,7 @@ require COREPATH.'bootstrap.php';
 	// Example: 'View' => APPPATH.'classes/view.php',
 
 	'Orm\\Observer_Contribution' => APPPATH .'classes/observer/contribution.php',
+    'Orm\\Observer_Transaction' => APPPATH .'classes/observer/transaction.php',
 	'Orm\\Observer_Clientuser' => APPPATH .'classes/observer/clientuser.php',
 
 

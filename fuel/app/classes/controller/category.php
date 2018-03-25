@@ -1,7 +1,7 @@
 <?php
 class Controller_Category extends Controller_Admin
 {
-	public $template = "_layout/inspinia";
+	public $template = "_layout/cleanadmin";
 
 	public function action_index()
 	{

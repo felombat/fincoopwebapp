@@ -26,10 +26,12 @@ class Controller_Dashboard extends Controller_Admin
 		$data["subnav"] = array('index'=> 'active' );
         $data['contributions'] = Model_Contribution::find('all',
             [
+                //["related" => ['category']],
                 'where' =>  [
                     ['company_id' => 1] // $this->employee_user->company_id
                 ],
-                'order_by'=> ["paid_at" => "desc", "created_at" => "desc"]
+                'order_by'=> ["paid_at" => "desc", "created_at" => "desc"],
+                'limit' => 15,
             ]);
 
         $this->template->title = 'Dashboard &raquo; Index';

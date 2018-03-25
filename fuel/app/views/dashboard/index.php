@@ -23,13 +23,13 @@
                                         <div class="element-balances">
                                             <div class="balance hidden-mobile">
                                                 <div class="balance-title">Total Balance</div>
-                                                <div class="balance-value"><span><?= $app_params['currency_label'];?> 350</span><span class="trending trending-down-basic"><span>%12</span><i class="os-icon os-icon-arrow-2-down"></i></span>
+                                                <div class="balance-value small"><span><?= $app_params['currency_label'] ." ". number_format(  Model_Account::balance(1) + Model_Account::balance(2)  ,0,","," " );  ?> </span><span class="trending trending-down-basic"><span>%12</span><i class="os-icon os-icon-arrow-2-down"></i></span>
                                                 </div>
                                                 <div class="balance-link"><a class="btn btn-link btn-underlined" href="apps_bank.html#"><span>View Statement</span><i class="os-icon os-icon-arrow-right4"></i></a></div>
                                             </div>
                                             <div class="balance">
                                                 <div class="balance-title">Credit Available</div>
-                                                <div class="balance-value"><?= $app_params['currency_label'];?>17,800</div>
+                                                <div class="balance-value"><?= $app_params['currency_label'] ." ". number_format(  Model_Account::balance(3) + Model_Account::balance(0)  ,0,","," " ); ?></div>
                                                 <div class="balance-link"><a class="btn btn-link btn-underlined" href="apps_bank.html#"><span>Request Increase</span><i class="os-icon os-icon-arrow-right4"></i></a></div>
                                             </div>
                                             <div class="balance">
@@ -126,12 +126,8 @@
                                                     </div>
                                                     <div class="col-sm-7">
                                                         <div class="form-group">
-                                                            <label class="lighter" for="">From account ...</label>
-                                                            <select class="form-control">
-                                                                <option value="">Citibank *6382</option>
-                                                                <option value="">Chase *8372</option>
-                                                                <option value="">Bank of America *7363</option>
-                                                            </select>
+                                                            <label class="lighter" for="">Method ...</label>
+                                                            <?= Form::select('widthdrw_client', 'cash', $app_params["payment_methods"], array('class'=>"form-control") );?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -148,7 +144,7 @@
                         </div>
                         <!--START - Transactions Table-->
                         <div class="element-wrapper">
-                            <h6 class="element-header">Recent Transactions</h6>
+                            <h6 class="element-header">Recent Deposits</h6>
                             <div class="element-box-tp">
                             <?php if(!empty($contributions ) ) :?>
                                 <div class="table-responsive">
@@ -160,19 +156,26 @@
                                                 <th>Client</th>
                                                 <th>Description</th>
                                                 <th class="text-center">Category</th>
-                                                <th class="text-right">Amount</th>
+                                                <th class="text-right">Debit</th>
+                                                <th class="text-right">Credit</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php foreach ($contributions as $contribution) :?>
                                             <tr>
-                                                <td class="nowrap"><span class="status-pill smaller green"></span><span>Complete</span></td>
+                                                <td class="nowrap"><span class="status-pill smaller green"></span><span><?= $contribution->status ?></span></td>
                                                 <?php list($date, $time) = explode(' ', trim($contribution->paid_at)); ?>
                                                 <td><span><?= $date ?></span><span class="smaller lighter"><?= $time ?></span></td>
                                                 <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= @$contribution->client->first_name . " " . $contribution->client->last_name  ?></span></td>
                                                 <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= $contribution->description ?></span></td>
-                                                <td class="text-center"><a class="badge badge-success" href="apps_bank.html">Collecte</a></td>
-                                                <td class="text-right bolder nowrap"><span class="text-success">+ <?= $contribution->amount ?> <?= $app_params['currency_label'] ?></span></td>
+                                                <td class="text-center"><a class="badge badge-success" href="apps_bank.html"><?= @$contribution->category->title ?></a></td>
+                                                <?php if($contribution->type == 'debit') : ?>
+                                                    <td class="text-right bolder nowrap"><span class="text-danger">- <?= $contribution->amount ?> <?= $app_params['currency_label'] ?></span></td>
+                                                    <td class="text-right bolder nowrap"></td>
+                                                <?php else : ?>
+                                                    <td class="text-right bolder nowrap"></td>
+                                                    <td class="text-right bolder nowrap"><span class="text-success">+ <?= $contribution->amount ?> <?= $app_params['currency_label'] ?></span></td>
+                                                <?php endif; ?>
                                             </tr>
                                             <?php endforeach; ?>
                                             <!--

@@ -212,7 +212,7 @@ toastr.options = {
       console.log('PushNotification',data.message + ' '+data.name);
        var datagauge1 = ['data', data.data1] || datagauge,
            datagauge2 = ['data', data.data2] || datagauge;
-            <?php  //$_mydata = $_POST['content_data']; ?>
+           <?php  //$_mydata = $_POST['content_data']; ?>
 
         // Notice 
         // Display a info toast, with a title
