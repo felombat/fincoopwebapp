@@ -14,7 +14,7 @@
 
                     <div class="content-box">
                         <div class="element-wrapper compact pt-4">
-                            <div class="element-actions"><a class="btn btn-primary btn-sm" href="apps_bank.html#"><i class="os-icon os-icon-ui-22"></i><span>Add a Client</span></a><a class="btn btn-success btn-sm" href="apps_bank.html#"><i class="os-icon os-icon-grid-10"></i><span>Make Payment / Log a withdrawal</span></a></div>
+                            <div class="element-actions"><a class="btn btn-primary btn-sm" href="<?= Uri::create('client/create')?>"><i class="os-icon os-icon-ui-22"></i><span>Add a Client</span></a><a class="btn btn-success btn-sm" href="<?= Uri::create('contribution/create')?>"><i class="os-icon os-icon-grid-10"></i><span>Make Payment / Log a withdrawal</span></a></div>
                             <h6 class="element-header">Financial Overview</h6>
                             <div class="element-box-tp">
                                 <div class="row">
@@ -23,7 +23,15 @@
                                         <div class="element-balances">
                                             <div class="balance hidden-mobile">
                                                 <div class="balance-title">Total Balance</div>
-                                                <div class="balance-value small"><span><?= $app_params['currency_label'] ." ". number_format(  Model_Account::balance(1) + Model_Account::balance(2)  ,0,","," " );  ?> </span><span class="trending trending-down-basic"><span>%12</span><i class="os-icon os-icon-arrow-2-down"></i></span>
+                                                <div class="balance-value small">
+                                                    <?php if(Auth::member(70) OR Auth::member(100)) :?>
+                                                        <span><?= $app_params['currency_label'] ." ". number_format(  Model_Account::balance(1)  + Model_Account::balance(2) ,0,","," " );  ?> </span><span class="trending trending-down-basic"><span>%12</span><i class="os-icon os-icon-arrow-2-down"></i>
+                                                    <?php elseif(Auth::member(60) ) : ?>
+                                                        <span><?= $app_params['currency_label'] ." ". number_format(  Model_Account::balance(1)  ,0,","," " );  ?> </span><span class="trending trending-down-basic"><span>%12</span><i class="os-icon os-icon-arrow-2-down"></i></span>
+                                                    <?php else: ?>
+                                                        <span><?= $app_params['currency_label'] ." ". number_format(  1,0,","," " );  ?> </span><span class="trending trending-down-basic"><span>%1</span><i class="os-icon os-icon-arrow-2-down"></i></span>
+                                                    <?php endif; ?>
+
                                                 </div>
                                                 <div class="balance-link"><a class="btn btn-link btn-underlined" href="apps_bank.html#"><span>View Statement</span><i class="os-icon os-icon-arrow-right4"></i></a></div>
                                             </div>
@@ -97,54 +105,94 @@
                                         <div class="element-box">
                                             <div class="os-tabs-controls">
 
-                                                <ul class="nav nav-tabs smaller">
-                                                    <li class='nav-item <?php echo Arr::get($subnav, "dashboard" ); ?>'><?php echo Html::anchor('transactions/withdraw','Retrait', array('class'=>'nav-link ' . Arr::get($subnav, "index" )));?></li>
-                                                    <li class='nav-item <?php echo Arr::get($subnav, "withdraw" ); ?>'><?php echo Html::anchor('transactions/payment','Versement',array('class'=>'nav-link'));?></li>
+                                                <ul class="nav nav-tabs smaller" role="tablist">
+                                                    <li class='nav-item <?php echo Arr::get($subnav, "dashboard" ); ?>'><?php echo Html::anchor('#withdraw_mini_form','Retrait', array('class'=>'nav-link ' . Arr::get($subnav, "index" ), 'role'=>"tab", 'data-toggle'=>"tab"));?></li>
+                                                    <li class='nav-item <?php echo Arr::get($subnav, "withdraw" ); ?>'><?php echo Html::anchor('#deposit_mini_form','Versement',array('class'=>'nav-link', 'role'=>"tab", 'data-toggle'=>"tab"));?></li>
                                                 </ul>
 
-                                            </div>
-                                            <form>
-                                                <h5 class="element-box-header">Withdraw Money</h5>
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="lighter" for="">Select Client</label>
-                                                            <?= Form::select('widthdrw_client', '-', Model_Client::get_dropdownlist(), array('class'=>"form-control") );?>
 
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                        <div class="form-group">
-                                                            <label class="lighter" for="">Enter Amount</label>
-                                                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                                                                <input class="form-control" placeholder="Enter Amount..." type="text" value="0">
-                                                                <div class="input-group-append">
-                                                                    <div class="input-group-text"><?= $app_params['currency_code'];?></div>
+                                            </div>
+
+                                                <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                    <div role="tabpanel" class="tab-pane fade in active" id="withdraw_mini_form">
+
+                                                        <form>
+                                                            <h5 class="element-box-header">Withdraw Money</h5>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label class="lighter" for="">Select Client to debit</label>
+                                                                        <?= Form::select('widthdrw_client', '-', Model_Client::get_dropdownlist(), array('class'=>"form-control") );?>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label class="lighter" for="">Enter Amount</label>
+                                                                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                                            <input class="form-control" placeholder="Enter Amount..." type="text" value="0">
+                                                                            <div class="input-group-append">
+                                                                                <div class="input-group-text"><?= $app_params['currency_code'];?></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-7">
+                                                                    <div class="form-group">
+                                                                        <label class="lighter" for="">Method ...</label>
+                                                                        <?= Form::select('widthdrw_client', 'cash', $app_params["payment_methods"], array('class'=>"form-control") );?>
+
+
+
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                            <div class="form-buttons-w text-right compact"><a class="btn btn-grey" href="<?= Uri::create('client/create')?>"><i class="os-icon os-icon-ui-22"></i><span>Add Client</span></a><a class="btn btn-primary" id="submit_withdraw" href="javascript:"><span>Pay </span><i class="os-icon os-icon-grid-18"></i></a></div>
+                                                        </form>
                                                     </div>
-                                                    <div class="col-sm-7">
-                                                        <div class="form-group">
-                                                            <label class="lighter" for="">Method ...</label>
-                                                            <?= Form::select('widthdrw_client', 'cash', $app_params["payment_methods"], array('class'=>"form-control") );?>
+                                                    <div role="tabpanel" class="tab-pane faded" id="deposit_mini_form">
+                                                        <form>
+                                                            <h5 class="element-box-header">Deposit Money</h5>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label class="lighter" for="">Select Client Account to credit</label>
+                                                                        <?= Form::select('widthdrw_client', '-', Model_Client::get_dropdownlist(), array('class'=>"form-control") );?>
 
-                                                            <label class="withdraw_payment_method" for="">From account ...</label>
-                                                            <?= Form::select('country', '-', array(
-                                                                    '-' => 'Please Select ...',
-                                                                    'cash' => 'Cash',
-                                                                    'cheque' => 'Cheque',
-                                                                    'cb' => 'Credit Card',
-                                                                    'bankwire' => 'Bank Transfert',
-                                                                    'ecash' => 'eCash (OM, MoMo)',
-                                                                    'other' => 'Other',
-                                                                ));?>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group">
+                                                                        <label class="lighter" for="">Enter Amount</label>
+                                                                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                                                            <input class="form-control" placeholder="Enter Amount..." type="text" value="0">
+                                                                            <div class="input-group-append">
+                                                                                <div class="input-group-text"><?= $app_params['currency_code'];?></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-7">
+                                                                    <div class="form-group">
+                                                                        <label class="lighter" for="">Method ...</label>
+                                                                        <?= Form::select('widthdrw_client', 'cash', $app_params["payment_methods"], array('class'=>"form-control") );?>
 
-                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-buttons-w text-right compact"><a class="btn btn-grey" href="<?= Uri::create('client/create')?>"><i class="os-icon os-icon-ui-22"></i><span>Add new Client</span></a><a class="btn btn-primary" id="submit_deposit" href="javascript:"><span>Valider</span><i class="os-icon os-icon-grid-18"></i></a></div>
+                                                        </form>
                                                     </div>
+
                                                 </div>
-                                                <div class="form-buttons-w text-right compact"><a class="btn btn-grey" href="apps_bank.html#"><i class="os-icon os-icon-ui-22"></i><span>Add Account</span></a><a class="btn btn-primary" href="apps_bank.html#"><span>Transfer</span><i class="os-icon os-icon-grid-18"></i></a></div>
-                                            </form>
+
+
+
+
+
                                         </div>
                                     </div>
                                     <!--END - Money Withdraw Form-->
@@ -178,7 +226,7 @@
                                                 <td class="nowrap"><span class="status-pill smaller green"></span><span><?= $contribution->status ?></span></td>
                                                 <?php list($date, $time) = explode(' ', trim($contribution->paid_at)); ?>
                                                 <td><span><?= $date ?></span><span class="smaller lighter"><?= $time ?></span></td>
-                                                <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= @$contribution->client->first_name . " " . @$contribution->client->last_name  ?></span></td>
+                                                <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= \Html::anchor(Uri::create('contribution/client/'. @$contribution->budget_id) , @$contribution->client->first_name . " " . @$contribution->client->last_name , array('target' => "_self"))   ?></span></td>
                                                 <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= $contribution->description ?></span></td>
                                                 <td class="text-center"><a class="badge badge-success" href="apps_bank.html"><?= @$contribution->category->title ?></a></td>
                                                 <?php if($contribution->type == 'debit') : ?>

@@ -31,7 +31,7 @@
         'fullcalendar/dist/fullcalendar.min.css',
         'perfect-scrollbar/css/perfect-scrollbar.min.css',
         'slick-carousel/slick/slick.css',
-        'main.css@version=4.3.0',
+        'main.css',
         'themefy/themify-icons.css',
         'font-awesome/css/font-awesome.min.css',
         'entypo/style.css',
@@ -87,6 +87,7 @@
                 </a> -->
                 <?= Html::anchor(URI::base(),'<div class="logo-label"> &nbsp;&nbsp; strio :: Collect</div>',array(" " => ' '));?>
             </div>
+            <?php if(Auth::member(70) OR Auth::member(100)):?>
             <div class="fancy-selector-w">
                 <div class="fancy-selector-current">
                     <div class="fs-img"><img alt="" src="img/card1.png"></div>
@@ -127,6 +128,7 @@
                     <div class="fancy-selector-actions text-right"><a class="btn btn-primary" href="apps_bank.html#"><i class="os-icon os-icon-ui-22"></i><span>Add Account</span></a></div>
                 </div>
             </div>
+            <?php endif; ?>
             <!--------------------
 			START - Top Menu Controls
 			-------------------->
@@ -718,7 +720,9 @@
                                 <ul class="sub-menu">
                                     <li><?= Html::anchor(Uri::create('contribution'), 'Cotisations');?> 
                                     <li><?= Html::anchor(Uri::create('withdraw'), 'Retraits');?></li>
+                                    <?php if(Auth::member(70) OR Auth::member(100)) :?>
                                     <li><?= Html::anchor(Uri::create('transaction'), 'Op Internes' .'<strong class="badge badge-danger">New</strong>');?> </li>
+                                    <?php endif;?>
                                     <li><?= Html::anchor(Uri::create('deposit'), 'Depots' .'<strong class="badge badge-warning">coming soon</strong>');?></li>
                                     
                                 </ul>
@@ -963,8 +967,8 @@
 	    "bootstrap/js/dist/tab.js",
 	    "bootstrap/js/dist/tooltip.js",
 	    "bootstrap/js/dist/popover.js",
-        'demo_customizer.js@version=4.3.0',
-        'main.js@version=4.3.0',
+        'demo_customizer.min.js',
+        'main.js',
 
  
     )); ?>
@@ -996,7 +1000,7 @@
             });
 
 
-    (function(i, s, o, g, r, a, m) {
+    /*(function(i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function() {
             (i[r].q = i[r].q || []).push(arguments)
@@ -1009,7 +1013,7 @@
     })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
     ga('create', 'UA-XXXXXXXX-X', 'auto');
-    ga('send', 'pageview');
+    ga('send', 'pageview');*/
     </script>
 </body>
 

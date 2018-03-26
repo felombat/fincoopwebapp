@@ -5,7 +5,13 @@ class Controller_Transaction extends Controller_Admin
 
 	public function action_index()
 	{
-		$data['transactions'] = Model_Transaction::find('all',
+        if(!Auth::member(70) AND !Auth::member(100)){
+            Session::set_flash('error', 'Droits d\'accès de Manager requis.' );
+             Response::redirect_back();
+        }
+
+
+            $data['transactions'] = Model_Transaction::find('all',
             array(
                 'related' => array('from_account', 'to_account', 'contribution'),
                 'order_by' => array('created_at' => 'desc')

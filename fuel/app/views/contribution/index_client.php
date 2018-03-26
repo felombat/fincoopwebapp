@@ -75,7 +75,7 @@
                     <td colspan="4"> &nbsp;</td>
                     <td>solde :</td>
                     <td> &nbsp;</td>
-                    <td><?= Model_Account::client_balance($client->id) ?></td>
+                    <td class="text-right bolder nowrap"><?= number_format(  Model_Account::client_balance($client->id),0,","," " ) ?></td>
                 </tr>
                 </tbody>
             </table>

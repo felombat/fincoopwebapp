@@ -21,7 +21,7 @@
         'fullcalendar/dist/fullcalendar.min.css',
         'perfect-scrollbar/css/perfect-scrollbar.min.css',
         'slick-carousel/slick/slick.css',
-        'main.css@version=4.3.0',
+        'main.css',
  
     )); ?>
 </head>
@@ -99,8 +99,9 @@
 	    "bootstrap/js/dist/tab.js",
 	    "bootstrap/js/dist/tooltip.js",
 	    "bootstrap/js/dist/popover.js",
-        'demo_customizer.js@version=4.3.0',
-        'main.js@version=4.3.0',
+        //'demo_customizer.js@version=4.3.0',
+        'demo_customizer.min.js',
+        'main.js',
 
  
     )); ?>

@@ -9,6 +9,11 @@ class Controller_Activitystream extends Controller_Admin
 
 	public function action_index()
 	{
+        if( !Auth::member(70) AND !Auth::member(100)){
+            Session::set_flash('error', 'Droits d\'accès insuffisant !' );
+            Response::redirect_back();
+        }
+
 		$this->dt = new Carbon('90 days ago');
 		$data["activitylogs"] = Model_Activitylog::find('all', array('where' => array( 
 													array('created_at','>=' , $this->dt->timestamp),

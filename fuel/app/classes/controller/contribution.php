@@ -5,6 +5,10 @@ class Controller_Contribution extends Controller_Admin
 
 	public function action_index()
 	{
+        if( !Auth::member(60) AND !Auth::member(70) AND !Auth::member(100)){
+            Session::set_flash('error', 'Droits d\'accès insuffisant !' );
+            Response::redirect_back();
+        }
 
         $this->template->title = "Contributions";
 
