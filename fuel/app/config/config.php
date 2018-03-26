@@ -77,9 +77,9 @@ return array(
 	/**
 	 * Localization & internationalization settings
 	 */
-	// 'language'           => 'en', // Default language
-	// 'language_fallback'  => 'en', // Fallback language when file isn't available for default language
-	// 'locale'             => 'en_US', // PHP set_locale() setting, null to not set
+	 'language'           => 'fr', // Default language
+	 'language_fallback'  => 'en', // Fallback language when file isn't available for default language
+	 'locale'             => 'en_US', // PHP set_locale() setting, null to not set
 
 	/**
 	 * Internal string encoding charset
@@ -312,7 +312,13 @@ return array(
 		 * add it like 'validation' => 'forms'.
 		 * If you don't want the lang in a group use null as groupname.
 		 */
-		// 'language'  => array(),
-	),
+		 'language'  => array('lang'),
+ 	),
+
+    'application' => array(
+        'user' => array(
+            'registration' => TRUE
+        )
+    )
 
 );

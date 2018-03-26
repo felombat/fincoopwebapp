@@ -22,8 +22,8 @@
 
     <?php echo Asset::css(array(
         'select2/dist/css/select2.min.css',
-        'font-awesome.css',
-        'font.css',
+        //'font-awesome.css',
+        //'font.css',
         'bootstrap-daterangepicker/daterangepicker.css',
         "bootstrap-datetimepicker/tempusdominus-bootstrap-4.min.css",
         'dropzone/dist/dropzone.css',
@@ -32,7 +32,12 @@
         'perfect-scrollbar/css/perfect-scrollbar.min.css',
         'slick-carousel/slick/slick.css',
         'main.css@version=4.3.0',
- 
+        'themefy/themify-icons.css',
+        'font-awesome/css/font-awesome.min.css',
+        'entypo/style.css',
+        'foundation-icon-font/foundation-icons.css',
+
+
     )); ?>
 
     <style type="text/css">
@@ -86,8 +91,8 @@
                 <div class="fancy-selector-current">
                     <div class="fs-img"><img alt="" src="img/card1.png"></div>
                     <div class="fs-main-info">
-                        <div class="fs-name"><?php $default_account = $data_payload["accounts"][1]; echo $default_account->name ?></div>
-                        <div class="fs-sub"><span>Balance:</span><strong><?= $app_params['currency_label'] ." ". number_format(  Model_Account::balance($default_account->id)  ,2,","," " ); ?></strong></div>
+                        <div class="fs-name"><?php $default_account = @$data_payload["accounts"][1]; echo @$default_account->name ?></div>
+                        <div class="fs-sub"><span>Balance:</span><strong><?= $app_params['currency_label'] ." ". number_format(  Model_Account::balance(@$default_account->id)  ,2,","," " ); ?></strong></div>
                     </div>
                     <div class="fs-extra-info"><strong>5476</strong><span>ending</span></div>
                     <div class="fs-selector-trigger"><i class="os-icon os-icon-arrow-down4"></i></div>
@@ -847,6 +852,25 @@
 				-------------------->
             <div class="content-w">
                 <div class="content-i">
+                    <?php if (\Messages::any()): ?>
+                        <br/>
+                        <?php foreach (array('success', 'info', 'warning', 'error') as $type): ?>
+
+                            <?php foreach (\Messages::instance()->get($type) as $message): ?>
+                                <div class="alert alert-<?= $message['type']; ?>">
+                                    <h4 class="alert-heading"><?= (isset($message['title'])) ? @$message['title']: "Alert !!!"; ?></h4>
+
+                                    <button aria-label="Close" class="close" data-dismiss="alert" type="button"><span aria-hidden="true"> ×</span></button>
+                                    <p class="fade"> <?= $message['body']; ?> </p>
+                                </div>
+                            <?php endforeach; ?>
+
+                        <?php endforeach; ?>
+                        <?php \Messages::reset(); ?>
+                    <?php endif; ?>
+                </div>
+
+                <div class="content-i">
                     <?php if (Session::get_flash('success')): ?>
                         <div class="alert alert-success">
                             <strong>Success</strong>
@@ -948,10 +972,10 @@
         // DateTime Picker Config
         $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
             icons: {
-                time: 'fa fa-clock',
+                time: 'ti-time',
                 date: 'fa fa-calendar',
-                up: 'fa fa-arrow-up',
-                down: 'fa fa-arrow-down',
+                up: 'fa fa-chevron-up',
+                down: 'fa fa-chevron-down',
                 previous: 'fa fa-chevron-left',
                 next: 'fa fa-chevron-right',
                 today: 'fa fa-calendar-check-o',

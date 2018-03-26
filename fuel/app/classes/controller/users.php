@@ -2,13 +2,15 @@
 
 class Controller_Users extends Controller_Base
 {
-	public $template = "_layout/cleanadmin";
+	public $template = "_layout/cleanadmin_login";
 
 	public function action_index()
 	{
 		$data["subnav"] = array('index'=> 'active' );
+        $data["users"] = Model_User::find('all');
+        $data["employees"] = Model_Employee::find('all');
 		$this->template->title = 'Dashboard &raquo; Index';
-		$this->template->content = View::forge('dashboard/index', $data);
+		$this->template->content = View::forge('users/index', $data);
 	}
 
 	public function action_register()
@@ -18,34 +20,42 @@ class Controller_Users extends Controller_Base
 	    {
 	        // inform the user registration is not possible
 	        \Messages::error(__('login.registation-not-enabled'));
-
+            \Session::set_flash("error", 'login.registation-not-enabled');
 	        // and go back to the previous page (or the homepage)
 	        \Response::redirect_back();
-	    }
+	    }else{
+            // \Session::set_flash("success", 'login.registation-enabled');
+            \Messages::success(__('login.registation-enabled'));
+
+        }
 
 	    // create the registration fieldset
-	    $form = \Fieldset::forge('registerform');
+	    $form = \Fieldset::forge('registerform', array("class" => 'm-t'));
 
 	    // add a csrf token to prevent CSRF attacks
 	    $form->form()->add_csrf();
 
 	    // and populate the form with the model properties
-	    $form->add_model('Model\\Auth_User');
+	    //$form->add_model('Model\\Auth_User');
+        $form->add_model('Model_Employee');
 
 	    // add the fullname field, it's a profile property, not a user property
-	    $form->add_after('fullname', __('login.form.fullname'), array(), array(), 'username')->add_rule('required');
+	    $form->add_after('fullname', __('login.form.fullname'), array(), array(), 'last_name')->add_rule('required');
 
 	    // add a password confirmation field
-	    $form->add_after('confirm', __('login.form.confirm'), array('type' => 'password'), array(), 'password')->add_rule('required');
+	    $form->add_after('confirm', __('login.form.confirm'), array('type' => 'password'), array(), 'email')->add_rule('required');
 
 	    // make sure the password is required
-	    $form->field('password')->add_rule('required');
+	    //$form->field('password')->add_rule('required');
 
 	    // and new users are not allowed to select the group they're in (duh!)
-	    $form->disable('group_id');
+	    //$form->disable('group');
+        $form->disable('deleted_at');
+        $form->disable('created_at');
+        $form->disable('updated_at');
 
 	    // since it's not on the form, make sure validation doesn't trip on its absence
-	    $form->field('group_id')->delete_rule('required')->delete_rule('is_numeric');
+	    //$form->field('group')->delete_rule('required')->delete_rule('is_numeric');
 
 	    // was the registration form posted?
 	    if (\Input::method() == 'POST')
@@ -114,7 +124,9 @@ class Controller_Users extends Controller_Base
 	    }
 
 	    // pass the fieldset to the form, and display the new user registration view
-	    return \View::forge('login/registration')->set('form', $form, false);
+	    //return \View::forge('users/registration')->set('form', $form, false);
+        $this->template->title = "Registration";
+        $this->template->content = \View::forge('users/registration')->set('form', $form, false);
 	}
 
 

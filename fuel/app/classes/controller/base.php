@@ -24,6 +24,13 @@ class Controller_Base extends Controller_Template
 	{
 		parent::before();
 
+
+        if(!Session::get('lang')){
+            Session::set('lang', 'fr');
+        }
+        Config::set('language', Session::get('lang'));
+        Lang::load('lang');
+
 		if(!Auth::check()){
 		 //$this->template = "_layout/inspinia_login";
 
@@ -93,12 +100,32 @@ class Controller_Base extends Controller_Template
 						],
 						'limit'=> 5
 					]);
+            $this->data_payload['accounts'] = Model_Account::find('all',
+                [
+                    'where' =>  [
+                        ['company_id' => 1] // $this->employee_user->company_id
+                    ],
+                    'order_by'=> ["name" => "asc"]
+                ]);
+            $this->data_payload['contributions'] = Model_Contribution::find('all',
+                [
+                    'related' => ['client', 'category'],
+                    'where' =>  [
+                        ['company_id' => 1] // $this->employee_user->company_id
+                    ],
+                    'order_by'=> ["paid_at" => "desc"]
+                ]);
 		}else{
 			$this->data_payload['chats'] = array();
 			$this->data_payload['messages'] = array();
 			$this->data_payload['todos'] = array();
+            $this->data_payload['accounts'] = array();
+            $this->data_payload['contributions'] = array();
 
 		}
+
+        // Load Config App params
+        $this->app_params = Config::load('app');
 		
 
 		$session = Session::instance();

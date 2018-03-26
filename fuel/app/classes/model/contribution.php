@@ -75,6 +75,10 @@ class Model_Contribution extends \Orm\Model_Soft
         //),
     );
 
+    protected static $_soft_delete = array(
+        'mysql_timestamp' => false,
+    );
+
 	public static function validate($factory)
 	{
 		$val = Validation::forge($factory);

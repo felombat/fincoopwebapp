@@ -75,6 +75,10 @@ class Model_Transaction extends \Orm\Model_Soft
 	//     )
 	// );
 
+    protected static $_soft_delete = array(
+        'mysql_timestamp' => false,
+    );
+
 
 	protected static $_table_name = 'transactions';
 

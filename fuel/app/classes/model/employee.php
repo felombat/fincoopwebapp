@@ -4,22 +4,93 @@ class Model_Employee extends \Orm\Model_Soft
 {
 	protected static $_properties = array(
 		'id',
-		'first_name',
-		'last_name',
+		'first_name' => array( //column name
+            'data_type' => 'string',
+            'label' => 'First Name', //label for the input field
+            'validation' => array('required', 'max_length'=>array(100), 'min_length'=>array(3)) //validation rules
+            ),
+		'last_name'=> array( //column name
+            'data_type' => 'string',
+            'label' => 'Last Name', //label for the input field
+            'validation' => array('required', 'max_length'=>array(65), 'min_length'=>array(2)) //validation rules
+        ),
 		'user_id',
 		'role_id',
-		'jobtile_id',
-		'company_id',
-		'tel',
-		'email',
-		'address1',
-		'address2',
+		'jobtile_id'=> array( //column name
+            'data_type' => 'string',
+            'label' => 'Job Title', //label for the input field
+            'validation' => array('required', 'max_length'=>array(100), 'min_length'=>array(3)) //validation rules
+        ),
+		'company_id'=> array( //column name
+            'data_type' => 'string',
+            'label' => 'Company', //label for the input field
+            'validation' => array('required', 'max_length'=>array(100), 'min_length'=>array(3)), //validation rules
+            'form' => array('type' => 'select', 'options' => array(1=>'Astrio', 2=>'ISMACOM' , 3=>'Astrio Tech')),
+        ),
+		'tel'=> array( //column name
+            'data_type' => 'string',
+            'label' => 'Mobile/Tel', //label for the input field
+            'validation' => array('required', 'max_length'=>array(100), 'min_length'=>array(3)) //validation rules
+        ),
+		'email'=> array( //column name
+            'data_type' => 'string',
+            'label' => 'Email', //label for the input field
+            'validation' =>  array('required', 'valid_email') //validation rules
+        ),
+		'address1'=> array( //column name
+            'data_type' => 'string',
+            'label' => 'Address Line 1', //label for the input field
+            'validation' => array('required', 'max_length'=>array(100), 'min_length'=>array(3)) //validation rules
+        ),
+		'address2' => array( //column name
+            'data_type' => 'string',
+            'label' => 'Address Line 2', //label for the input field
+            'validation' => array('required', 'max_length'=>array(100), 'min_length'=>array(3)) //validation rules
+        ),
 		'avatar_file',
-		'notes',
+		'notes'=> array( //column name
+            'data_type' => 'string',
+            'label' => 'Notes / About ', //label for the input field
+            'validation' => array('required', 'max_length'=>array(100), 'min_length'=>array(3)), //validation rules
+            'form' => array('type' => 'textarea', 'placeholder' => "About ... "),
+        ),
 		'deleted_at',
 		'created_at',
 		'updated_at',
 	);
+    protected static $_props = array(
+        'post_title' => array( //column name
+        'data_type' => 'string',
+        'label' => 'Post Title', //label for the input field
+        'validation' => array('required', 'max_length'=>array(100), 'min_length'=>array(10)) //validation rules
+        ),
+        'post_content' => array(
+        'data_type' => 'string',
+        'label' => 'Post Content',
+        'validation' => array('required')
+        ),
+        'author_name' => array(
+        'data_type' => 'string',
+        'label' => 'Author Name',
+        'validation' =>  array('required', 'max_length'=>array(65), 'min_length'=>array(2))
+        ),
+        'author_email' => array(
+        'data_type' => 'string',
+        'label' => 'Author Email',
+        'validation' =>  array('required', 'valid_email')
+        ),
+        'author_website' => array(
+        'data_type' => 'string',
+        'label' => 'Author Website',
+        'validation' =>  array('required', 'valid_url', 'max_length'=>array(60))
+        ),
+        'post_status' => array(
+        'data_type' => 'string',
+        'label' => 'Post Status',
+        'validation' => array('required'),
+        'form' => array('type' => 'select', 'options' => array(1=>'Published', 2=>'Draft')),
+        )
+    );
 
 	protected static $_belongs_to = array(
 		"user" => array(
@@ -107,6 +178,10 @@ class Model_Employee extends \Orm\Model_Soft
 	protected static $_soft_delete = array(
 		'mysql_timestamp' => false,
 	);
+
+    protected static $_to_array_exclude = array(
+        'password', 'login_hash' 	// exclude these columns from being exported
+    );
 
 	protected static $_table_name = 'employees';
 

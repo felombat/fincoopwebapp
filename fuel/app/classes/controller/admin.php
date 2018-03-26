@@ -9,18 +9,20 @@ class Controller_Admin extends Controller_Common
 	{
 		parent::before();
 
-		if (Request::active()->controller !== 'Controller_Admin' or ! in_array(Request::active()->action, array('login', 'logout', 'register')))
+		if (Request::active()->controller !== 'Controller_Admin' or
+            //Request::active()->controller !== 'Controller_Users' or
+            ! in_array(Request::active()->action, array('login', 'logout', 'register')))
 		{
 			if (Auth::check())
 			{
 				$admin_group_id = Config::get('auth.driver', 'Simpleauth') == 'Ormauth' ? 6 : 100;
-				if ( ! Auth::member($admin_group_id) AND ! Auth::member(70))
+				if ( ! Auth::member($admin_group_id) AND ! Auth::member(70) AND ! Auth::member(50))
 				{
 					Session::set_flash('error', e('You don\'t have access to the admin panel'));
 					Response::redirect('admin');
 				} 
-			//}elseif (Request::active()->action == 'register') {
-			//	Response::redirect('users/register');
+			}elseif (Request::active()->action == 'register') {
+				Response::redirect('users/register');
 			}else{
 				//die(Request::active()->action);
 				Response::redirect('admin/login');

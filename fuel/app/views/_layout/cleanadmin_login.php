@@ -28,12 +28,29 @@
 
 <body class="auth-wrapper">
 
-<?php if (Session::get_flash('success')  OR Session::get_flash('error')): ?>
+                <?php if (\Messages::any()): ?>
+                    <br/>
+                    <?php foreach (array('success', 'info', 'warning', 'error') as $type): ?>
+
+                        <?php foreach (\Messages::instance()->get($type) as $message): ?>
+                            <div class="alert alert-<?= $message['type']; ?>">
+                                <button aria-label="Close" class="close" data-dismiss="alert" type="button"><span aria-hidden="true"> ×</span></button>
+                                <h4 class="alert-heading"><?= (isset($message['title'])) ? @$message['title']: "Alert !!!"; ?></h4>
+
+                                  <?= $message['body']; ?>
+                            </div>
+                        <?php endforeach; ?>
+
+                    <?php endforeach; ?>
+                    <?php \Messages::reset(); ?>
+                <?php endif; ?>
+
+                <?php if (Session::get_flash('success')  OR Session::get_flash('error')): ?>
                 <!-- <div class="wrapper"> -->
                     <div class="row">
                         <div class="col-md-3 col-md-offset-4">
                             
-                            <hr>
+
                         <?php if (Session::get_flash('success')): ?>
                             <div class="alert alert-success">
                                 <strong>Success</strong>
@@ -42,7 +59,7 @@
                                 </p>
                             </div>
                         <?php endif; ?>
-                        <?php if (Session::get_flash('error')): ?>
+                        <?php if (Session::get_flash('error')) : ?>
                             <div class="alert alert-danger">
                                 <strong>Error</strong>
                                 <p>

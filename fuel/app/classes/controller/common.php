@@ -27,6 +27,13 @@ class Controller_Common extends Controller_Template
 	{
 		parent::before();
 
+
+        if(!Session::get('lang')){
+            Session::set('lang', 'fr');
+        }
+        Config::set('language', Session::get('lang'));
+        Lang::load('lang');
+
 		if(!Auth::check()){
 		 //$this->template = "_layout/inspinia_login";
 
@@ -110,6 +117,7 @@ class Controller_Common extends Controller_Template
 			$this->data_payload['messages'] = array();
             $this->data_payload['todos'] = array();
             $this->data_payload['accounts'] = array();
+            $this->data_payload['contributions'] = array();
 
 		}
 
