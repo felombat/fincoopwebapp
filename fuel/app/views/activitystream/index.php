@@ -29,7 +29,8 @@ Carbon::setLocale('fr');
                                     <span class="text-muted"> <?= Carbon::createFromTimestamp($log_item->created_at, 'Europe/Berlin')->diffForHumans() ; 
                                     // echo "Today at 10:30:50 pm " ; ?> </span> / 
                                     <a href="#">
-                                    	<?= $log_item->owner->first_name ." ". $log_item->owner->last_name ; ?>	
+                                    	<?= @$log_item->owner->first_name ." ". @$log_item->owner->last_name ; ?>
+                                        <?= json_encode($log_item); ?>
                                     </a>  
                                     <?= $log_item->action .' <span class="label label-default">'.$log_item->log_type.'</span>'.  $log_item->log_type_title ." -- <small>".
                                     Carbon::createFromTimestamp($log_item->created_at, 'Europe/Berlin')->toFormattedDateString() ."</small>"; ?> 

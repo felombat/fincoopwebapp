@@ -32,7 +32,9 @@ class Observer_Contribution extends Observer {
 
         //Debug::dump($contribution);  die();
         $activity = \Model_Activitylog::forge();
-        list ($auth_driver, $activity->created_by) = \Auth::get_user_id();
+        list ($auth_driver, $user_id) = \Auth::get_user_id();
+        $user = \Model_User::find($user_id);
+        $activity->created_by = $user->employee->id;
         //list ($auth_driver, $activitylog->message_id) = \Auth::get_user_id(); // $contribution->message_id; // $this->current_user->id; 
         $activity->action = "created"; 
         $activity->log_type = preg_replace("/Model_/", '',get_class($contribution));; 
@@ -41,7 +43,7 @@ class Observer_Contribution extends Observer {
         $activity->changes = serialize($contribution->to_array()); 
         $activity->log_for = "Client";
         $activity->log_for_id = @$contribution->client->id;
-        $activity->log_for2 = "Company"; 
+        $activity->log_for2 = "Account";
         $activity->log_for_id2 = $contribution->company_id;
 
         //Debug::dump($activity);  die();
@@ -64,8 +66,8 @@ class Observer_Contribution extends Observer {
             "status" => $contribution->status,
             "category" => $contribution->category->title
         );
-        $transaction->from_account_id = 0;
-        $transaction->to_account_id = 1;
+        $transaction->from_account_id = ($contribution->type == 'debit') ? 1 : 0 ;
+        $transaction->to_account_id = ($contribution->type == 'credit') ? 1 : 0 ;
         $transaction->amount = $contribution->amount;
         $transaction->currency_code = 'XAF';
         $transaction->currency_rate = 1;

@@ -32,7 +32,9 @@ class Observer_Transaction extends Observer {
 
         //Debug::dump($transaction);  die();
         $activity = \Model_Activitylog::forge();
-        list ($auth_driver, $activity->created_by) = \Auth::get_user_id();
+        list ($auth_driver, $user_id) = \Auth::get_user_id();
+        $user = \Model_User::find($user_id);
+        $activity->created_by = $user->employee->id;
         //list ($auth_driver, $activitylog->message_id) = \Auth::get_user_id(); // $transaction->message_id; // $this->current_user->id; 
         $activity->action = "created"; 
         $activity->log_type = preg_replace("/Model_/", '',get_class($transaction));; 

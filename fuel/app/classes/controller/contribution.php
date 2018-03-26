@@ -5,11 +5,30 @@ class Controller_Contribution extends Controller_Admin
 
 	public function action_index()
 	{
+
+        $this->template->title = "Contributions";
+
 		$data['contributions'] = Model_Contribution::find('all', array('related' => array('client')));
-		$this->template->title = "Contributions";
+
 		$this->template->content = View::forge('contribution/index', $data);
 
 	}
+
+    public function action_client($client_id = null)
+    {
+        (is_null($client_id) OR $client_id == 0) and Response::redirect('contribution');
+
+        $this->template->title = "Contributions Client";
+
+
+            $this->template->title = "Contributions of : " . $client_id;
+            $data['client'] = Model_Client::find($client_id);
+            $data['contributions'] = Model_Contribution::find('all', array('related' => array('client'), 'where' => array(array('budget_id', '=', $client_id))));
+            $this->template->content = View::forge('contribution/index_client', $data);
+
+
+
+    }
 
 	public function action_withdraw($client_id = 0, $type = 'debit' )
 	{
@@ -58,9 +77,9 @@ class Controller_Contribution extends Controller_Admin
 					'payment_method' => Input::post('payment_method'),
 					'reference' => Input::post('reference'),
                     'status' => 'paid',
-                    'type' => 'credit',
+                    'type' => Input::post('type'), //'credit',
                     'created_by' => $this->current_user->id,
-                    'category_id' => 1,
+                    'category_id' => (Input::post('type') == 'credit') ? 1 : 5,
 
                 ));
 

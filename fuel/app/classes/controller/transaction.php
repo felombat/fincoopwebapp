@@ -5,7 +5,12 @@ class Controller_Transaction extends Controller_Admin
 
 	public function action_index()
 	{
-		$data['transactions'] = Model_Transaction::find('all', array('related' => array('from_account', 'to_account')));
+		$data['transactions'] = Model_Transaction::find('all',
+            array(
+                'related' => array('from_account', 'to_account', 'contribution'),
+                'order_by' => array('created_at' => 'desc')
+            )
+        );
 		$this->template->title = "Transactions";
 		$this->template->content = View::forge('transaction/index', $data);
 

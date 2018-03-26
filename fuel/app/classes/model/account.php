@@ -167,6 +167,30 @@ class Model_Account extends Model
     }
 
 
+    public static function client_balance($budget_id = 0, $deficit = FALSE  )
+    {
+        $app_params = Config::load('app');
+        $client = Model_Client::find($budget_id);
+        $contributions = Model_Contribution::find('all', array('related' => array('client'), 'where' => array(array('budget_id', '=', $budget_id))));
+
+        if (!$client) {
+
+            return 0;
+        } else {
+            $query = DB::select(DB::expr(' SUM(IF(type = "credit", amount, 0)) AS creditTotal, 
+                    SUM(IF(type = "debit", amount, 0 )) AS debitTotal , 
+                    budget_id as account'))->from('contributions');
+            $query->where('budget_id', $client->id);
+            //$query->or_where('from_account_id', $account_id);
+            $query->group_by('account');
+            $result = $query->execute();
+
+            return (!$deficit) ? $app_params["currency_label"] . floor( $result[0]['creditTotal'] - $result[0]['debitTotal'] ) : $app_params["currency_label"] . floor(-1 . ($result[0]['creditTotal'] - $result[0]['debitTotal'] ));
+            //return (!$deficit) ? $app_params["currency_label"] . floor($_myaccount->opening_balance + self::transferted_to($account_id) - self::transferted_from($account_id)) : $app_params["currency_label"] . floor(-1 . ($_myaccount->opening_balance + self::transferted_to($account_id)  - self::transferted_from($account_id)));
+
+        }
+    }
+
 
     public static function get_dropdownlist($exclude = array() ){
         $dlist = [];

@@ -196,6 +196,71 @@ class Seeddata
 		/***************************
 		 Put in TASK DETAILS HERE
 		 **************************/
+
+        $auth = \Auth::instance();
+        try {
+
+            /*$user = \Model_User::forge(array(
+                'username' => 'f.elombat',
+                'password' => 'Dare2Impress',
+                'email' => 'f.elombat@gmail.com',
+                'group' => 100,
+                'profile_fields' => array(
+                    'fullname' => 'Franck Elombat',
+                    'jobtitle' => 'CTO'
+                ),
+
+            ));*/
+
+
+
+
+            $user_data = array(
+                'username' => 'm.mepouli',
+                'password' => 'Astrio@2018',
+                'email' => 'm.mepouli@astrio.net',
+                'group' => 100,
+                'profile_fields' => array(
+                    'fullname' => 'Mireille Mepouli',
+                    'jobtitle' => 'ASR'
+                ),
+            );
+
+
+
+
+            $last_id =  $auth->create_user($user_data['username'],$user_data['password'],$user_data['email'],$user_data['group'],$user_data['profile_fields']);
+            //$user->save();
+
+            $employee = \Model_Employee::forge(array(
+                'first_name' => "Mireille",
+                'last_name' => 'Mepouli',
+                'user_id' => $last_id,
+                'role_id' => 5,
+                'jobtile_id' => 3,
+                'company_id' => 1,
+                'address1' => 'Mobile BonaKoumouang, Douala',
+                'address2' => 'LIT ',
+                'notes' => ' - ',
+                'tel' => '+237 6 000 000 00',
+                'email' => 'm.mepouli@astrio.net',
+                'avatar_file' => ' ',
+            ));
+
+            $employee->save();
+
+            // Prints this message on terminal
+            echo '\n\r'  . $user->username . ' : '  . $last_id;
+            echo '\n\r' .  "New employee: ".$employee->first_name . "#: " . $employee->last_name  ;
+
+        } catch (\Exception $e) {
+
+            // In case of error, prints the message on terminal,
+            // You can implement any error handling you need
+            echo "\nError saving the object " . get_class($user);
+            echo "\nError saving the object " . get_class($employee);
+            echo "\n" . $e->getMessage(). "\n";
+        }
 	}
 
 	/**

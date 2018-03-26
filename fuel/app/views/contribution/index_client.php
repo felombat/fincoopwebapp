@@ -1,5 +1,5 @@
 <div class="content-box"> 
-<h2>Listing <span class='muted'>Contributions</span></h2>
+<h2>Listing <span class='muted'>Contributions</span> de : <?= @$client->first_name . " " . @$client->last_name ?></h2>
 <br>
 
     <?php if(!empty($contributions ) ) :?>
@@ -71,8 +71,15 @@
                     <td class="text-right bolder nowrap"><span class="text-success">+ 340 USD</span></td>
                 </tr>
                 -->
+                <tr>
+                    <td colspan="4"> &nbsp;</td>
+                    <td>solde :</td>
+                    <td> &nbsp;</td>
+                    <td><?= Model_Account::client_balance($client->id) ?></td>
+                </tr>
                 </tbody>
             </table>
+
         </div>
     <?php else :?>
         <p> Aucun mouvement de collecte trouvé dans notre fichier</p>

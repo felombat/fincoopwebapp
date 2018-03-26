@@ -96,9 +96,9 @@ return array(
 		 -1   => array('name' => 'Banned', 'roles' => array('banned')),
 		 0    => array('name' => 'Guests', 'roles' => array()),
 		 1    => array('name' => 'Users', 'roles' => array('user')),
-		 50   => array('name' => 'Moderators', 'roles' => array('user', 'moderator')),
-		 60   => array('name' => 'AGM', 'roles' => array('user', 'moderator')),
-		 70   => array('name' => 'Managers', 'roles' => array('user', 'moderator', 'settings', 'hr')),
+		 50   => array('name' => 'Clients', 'roles' => array('user', 'moderator', 'contribution_personal')),
+		 60   => array('name' => 'Sales Force', 'roles' => array('user', 'moderator', 'client' , 'contribution_relational' )),
+		 70   => array('name' => 'Managers', 'roles' => array('user', 'moderator', 'settings', 'client', 'account' , 'hr', 'contribution', 'transaction')),
 		 100  => array('name' => 'Administrators', 'roles' => array('user', 'moderator', 'admin')),
 		 
 	),

@@ -16,7 +16,7 @@ class Controller_Admin extends Controller_Common
 			if (Auth::check())
 			{
 				$admin_group_id = Config::get('auth.driver', 'Simpleauth') == 'Ormauth' ? 6 : 100;
-				if ( ! Auth::member($admin_group_id) AND ! Auth::member(70) AND ! Auth::member(50))
+				if ( ! Auth::member($admin_group_id) AND ! Auth::member(70) AND ! Auth::member(60) AND ! Auth::member(50))
 				{
 					Session::set_flash('error', e('You don\'t have access to the admin panel'));
 					Response::redirect('admin');

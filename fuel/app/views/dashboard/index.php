@@ -160,7 +160,7 @@
                             <div class="element-box-tp">
                             <?php if(!empty($contributions ) ) :?>
                                 <div class="table-responsive">
-                                    <table class="table table-padded">
+                                    <table class="table table-padded dTable">
                                         <thead>
                                             <tr>
                                                 <th>Status</th>
@@ -231,7 +231,7 @@
                                     </table>
                                 </div>
                             <?php else :?>
-                                <p> Aucun mouvement de collecte dans notre fichier</p>
+                                <p> Aucun mouvement de collecte trouvé dans notre fichier</p>
 
                             <?php endif;?>
                             </div>
