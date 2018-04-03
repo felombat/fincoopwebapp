@@ -71,4 +71,29 @@ class Validation extends Fuel\Core\Validation
   {
     return $val === '' || preg_match('/\d{4}-\d{2}-\d{2}/', $val);
   }
+
+    /**
+     * Unique_val field validation in a day
+     * Use inside a Model:
+     *
+     * property_name =>  array(
+     *    'validation' => array(
+     *      'unique' => array('table_name.column_name')
+     *    ),
+     * ),
+     */
+    public static function _validation_unique_on_date($val, $options)
+    {
+        list($table, $field) = explode('.', $options);
+
+        $result = \DB::select("LOWER (\"" . $field . "\")")
+            ->where($field, '=', MBSTRING ? DB::expr( mb_strtolower($val) ) : DB::expr( strtolower($val)))
+            ->and_where('paid_at', DB::expr( "DAY($val)"))
+            ->from($table)->execute();
+
+        if($result->count() > 0)
+            return false;
+        else
+            return true;
+    }
 }
