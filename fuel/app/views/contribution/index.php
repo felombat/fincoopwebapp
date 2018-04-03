@@ -9,8 +9,8 @@
                 <tr>
                     <th>Status</th>
                     <th>Date</th>
-                    <th>Client</th>
-                    <th>Description</th>
+                    <th width="300px">Client</th>
+                    <th width="350px">Description</th>
                     <th class="text-center">Category</th>
                     <th class="text-right">Debit</th>
                     <th class="text-right">Credit</th>
@@ -21,11 +21,15 @@
                     <tr>
                         <td class="nowrap"><span class="status-pill smaller green"></span><span><?= $contribution->status ?></span></td>
                         <?php list($date, $time) = explode(' ', trim($contribution->paid_at)); ?>
+                        <?php if( Auth::member(70) OR Auth::member(100)) : ?>
+                            <td><span><?= Html::anchor(Uri::create('contribution/edit/'.$contribution->id), $date) ?></span><span class="smaller lighter"><?= $time ?></span></td>
+                        <?php else: ?>
                         <td><span><?= $date ?></span><span class="smaller lighter"><?= $time ?></span></td>
+                        <?php endif; ?>
                         <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= \Html::anchor(Uri::create('contribution/client/'. @$contribution->budget_id) , @$contribution->client->first_name . " " . @$contribution->client->last_name , array('target' => "_self"))   ?></span></td>
                         <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= $contribution->description ?></span></td>
                         <td class="text-center"><a class="badge badge-success" href="apps_bank.html"><?= @$contribution->category->title ?></a></td>
-                        <?php if($contribution->type == 'debit') : ?>
+                        <?php if($contribution->type == 'debit' OR $contribution->type == 'fees' OR $contribution->type == 'commission') : ?>
                             <td class="text-right bolder nowrap"><span class="text-danger">- <?= $contribution->amount ?> <?= $app_params['currency_label'] ?></span></td>
                             <td class="text-right bolder nowrap"></td>
                         <?php else : ?>

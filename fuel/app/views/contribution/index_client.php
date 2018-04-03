@@ -4,13 +4,13 @@
 
     <?php if(!empty($contributions ) ) :?>
         <div class="table-responsive">
-            <table class="table table-padded dTable">
+            <table class="table table-padded dataTabless">
                 <thead>
                 <tr>
                     <th>Status</th>
                     <th>Date</th>
-                    <th>Client</th>
-                    <th>Description</th>
+<!--                    <th width="300px">Client</th>-->
+                    <th width="600px">Description</th>
                     <th class="text-center">Category</th>
                     <th class="text-right">Debit</th>
                     <th class="text-right">Credit</th>
@@ -22,10 +22,10 @@
                         <td class="nowrap"><span class="status-pill smaller green"></span><span><?= $contribution->status ?></span></td>
                         <?php list($date, $time) = explode(' ', trim($contribution->paid_at)); ?>
                         <td><span><?= $date ?></span><span class="smaller lighter"><?= $time ?></span></td>
-                        <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= \Html::anchor(Uri::create('contribution/client/'. @$contribution->budget_id) , @$contribution->client->first_name . " " . @$contribution->client->last_name , array('target' => "_self"))   ?></span></td>
+                        <!--<td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span>--><?php //echo @$contribution->client->first_name . " " . @$contribution->client->last_name  ?><!--</span></td>-->
                         <td class="cell-with-media"><img alt="" src="img/company1.png" style="height: 25px;"><span><?= $contribution->description ?></span></td>
                         <td class="text-center"><a class="badge badge-success" href="apps_bank.html"><?= @$contribution->category->title ?></a></td>
-                        <?php if($contribution->type == 'debit') : ?>
+                        <?php if($contribution->type == 'debit' OR $contribution->type == 'fees' OR $contribution->type == 'commission') : ?>
                             <td class="text-right bolder nowrap"><span class="text-danger">- <?= $contribution->amount ?> <?= $app_params['currency_label'] ?></span></td>
                             <td class="text-right bolder nowrap"></td>
                         <?php else : ?>
@@ -72,10 +72,10 @@
                 </tr>
                 -->
                 <tr>
-                    <td colspan="4"> &nbsp;</td>
+                    <td colspan="3"> &nbsp;</td>
                     <td>solde :</td>
                     <td> &nbsp;</td>
-                    <td class="text-right bolder nowrap"><?= number_format(  Model_Account::client_balance($client->id),0,","," " ) ?></td>
+                    <td class="text-right bolder nowrap"><span style="font-size: 2.3em"><?= number_format(  Model_Account::client_balance($client->id),0,","," " ) ?></span></td>
                 </tr>
                 </tbody>
             </table>
@@ -87,7 +87,7 @@
     <?php endif;?>
 
     <p>
-	<?php echo Html::anchor('contribution/create', 'Add new Contribution', array('class' => 'btn btn-success')); ?>
+	<?php echo Html::anchor('contribution/create/'.$client->id, 'Add new Contribution', array('class' => 'btn btn-success')); ?>
 
 </p>
 </div>

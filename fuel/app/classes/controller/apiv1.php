@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 //require_once APPPATH.'vendor/api.php';
 
 /*$api = new PHP_CRUD_API(array(
@@ -58,7 +59,9 @@ class Controller_Apiv1 extends Controller_Rest
 	}
 
 	public function get_contribution_by_month(){
-		$sql = "SELECT  `company_id`,`budget_id`,`paid_at`, MONTH(`paid_at`) as month ,SUM(`amount`) as total_month FROM `contributions`   GROUP by month ORDER by month asc";
+		$sql = "SELECT   `company_id`,`budget_id`,`paid_at`, 
+        DAY(`paid_at`) as day ,
+        MONTH(`paid_at`) as month ,SUM(`amount`) as total_month FROM `contributions`   GROUP by day, month,company_id ORDER by day asc";
 
 		$query = DB::query($sql);
 
@@ -88,5 +91,60 @@ class Controller_Apiv1 extends Controller_Rest
 
 		return $this->response( $obj);
 	}
+
+    public function get_contributions_monthly_data($month_num = 1){
+
+
+        $results = Model_Contribution::get_total_contributions($month_num);
+        //return $this->response( json_encode($results));
+
+
+       /* $dt = new Carbon('now');
+        $dt->day;
+
+        $temp = array();
+        foreach ($results as $key => $result) {
+            $payload[$month_num][$result['num_day']] = $result->total;
+
+        }
+
+        for ($int = 1; $int++; $int<= $dt->day){
+            $temp['days'][] = (int)$int;
+           if(isset($payload[$month_num][$int]) AND  $result['num_day'] == $int){
+               $temp['total'][] = $payload[$month_num][$int];
+           }else{
+               $temp['total'][] = 0;
+           }
+
+        }*/
+
+        //return $temp;
+
+        //var_dump($results);
+        $days = [1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30] ;
+
+        $data = array();
+        foreach ($days as $key => $item) {
+            if(isset($results[$item-1]) ){
+
+                    $data[] = (float)$results[$item-1]['num_day'] ; //$results[$item-1]['total'];
+                    $data_chart[] = (float)$results[$item-1]['total'];
+
+
+            }else{
+                $data[] = 0;
+                $data_chart[] = 0;
+            }
+
+        }
+        //$results['data'] = $data;
+        $obj = new StdClass();
+        $obj->results = $results;
+        $obj->data =  $data;
+        $obj->data_chart =  $data_chart;
+
+
+        return $this->response( $obj);
+    }
 
 }

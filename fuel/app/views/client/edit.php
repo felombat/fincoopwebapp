@@ -1,8 +1,9 @@
-<ul class="nav nav-pills">
-	<li class='<?php echo Arr::get($subnav, "index" ); ?>'><?php echo Html::anchor('client/index','Index');?></li>
-	<li class='<?php echo Arr::get($subnav, "create" ); ?>'><?php echo Html::anchor('client/create','Create');?></li>
-	<li class='<?php echo Arr::get($subnav, "edit" ); ?>'><?php echo Html::anchor('client/edit','Edit');?></li>
-	<li class='<?php echo Arr::get($subnav, "delete" ); ?>'><?php echo Html::anchor('client/delete','Delete');?></li>
+<div class="content-box">
+    <h2>Editing <span class='muted'>client</span></h2>
+    <br>
 
-</ul>
-<p>Edit</p>
+    <?php echo render('client/_form'); ?>
+    <p>
+        <?php echo Html::anchor('client/view/'.$client->id, 'View'); ?> |
+        <?php echo Html::anchor('client', 'Back'); ?></p>
+</div>

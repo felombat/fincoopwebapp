@@ -33,17 +33,17 @@
                                                     <?php endif; ?>
 
                                                 </div>
-                                                <div class="balance-link"><a class="btn btn-link btn-underlined" href="apps_bank.html#"><span>View Statement</span><i class="os-icon os-icon-arrow-right4"></i></a></div>
+                                                <div class="balance-link"><a class="btn btn-link btn-underlined" href="<?= Uri::create('account')?>"><span>View Statement</span><i class="os-icon os-icon-arrow-right4"></i></a></div>
                                             </div>
                                             <div class="balance">
                                                 <div class="balance-title">Credit Available</div>
                                                 <div class="balance-value"><?= $app_params['currency_label'] ." ". number_format(  Model_Account::balance(3) + Model_Account::balance(0)  ,0,","," " ); ?></div>
-                                                <div class="balance-link"><a class="btn btn-link btn-underlined" href="apps_bank.html#"><span>Request Increase</span><i class="os-icon os-icon-arrow-right4"></i></a></div>
+                                                <div class="balance-link"><a class="btn btn-link btn-underlined" href="<?= Uri::create('transaction/requestappro')?>"><span>Request Increase</span><i class="os-icon os-icon-arrow-right4"></i></a></div>
                                             </div>
                                             <div class="balance">
                                                 <div class="balance-title">Due Today</div>
                                                 <div class="balance-value danger"><?= $app_params['currency_label'];?>180</div>
-                                                <div class="balance-link"><a class="btn btn-link btn-underlined btn-gold" href="apps_bank.html#"><span>Pay Now</span><i class="os-icon os-icon-arrow-right4"></i></a></div>
+                                                <div class="balance-link"><a class="btn btn-link btn-underlined btn-gold" href="<?= Uri::create('transction/create')?>"><span>Pay Now</span><i class="os-icon os-icon-arrow-right4"></i></a></div>
                                             </div>
                                         </div>
                                         <!--END - BALANCES-->
@@ -85,7 +85,7 @@
                                                     <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
                                                 </div>
                                             </div>
-                                            <canvas data-chart-data="13,28,19,24,43,49,40,35,42,46" height="196" id="liteLineChartV2" width="658" class="chartjs-render-monitor" style="display: block; height: 179px; width: 599px;"></canvas>
+                                            <canvas data-chart-data="13,28,19,24,43,49,40,35,42,46" height="196" id="savings_client" idx="liteLineChartV2" width="658" class="chartjs-render-monitor" style="display: block; height: 179px; width: 599px;"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -208,13 +208,13 @@
                             <div class="element-box-tp">
                             <?php if(!empty($contributions ) ) :?>
                                 <div class="table-responsive">
-                                    <table class="table table-padded dTable">
+                                    <table class="table  dTable container-fluid table-bordered table-lg table-v2 table-striped" width="100%">
                                         <thead>
                                             <tr>
                                                 <th>Status</th>
                                                 <th>Date</th>
-                                                <th>Client</th>
-                                                <th>Description</th>
+                                                <th width="300px">Client</th>
+                                                <th width="350px">Description</th>
                                                 <th class="text-center">Category</th>
                                                 <th class="text-right">Debit</th>
                                                 <th class="text-right">Credit</th>
@@ -450,5 +450,38 @@
 						-------------------->
                     </div>
 
-                    
+                <script  >
+                    $('document').ready(function (e) {
+                        var ctx = document.getElementById("savings_client").getContext('2d');
+
+                        var mixedChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                datasets: [{
+                                    label: 'Bar Dataset',
+                                    data:  [8,15,20,21,22,23,24,25,26,27,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]   //$contributions_widget_data  ,//[10, 20, 30, 40]
+                                }, {
+                                    label: 'Line Dataset',
+                                    data: [3500,10000,1000,2500,7000,8000,22000,29000,87500,4500,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], //,[50, 50, 50, 50],
+
+                                    // Changes this dataset to become a line
+                                    type: 'line'
+                                }],
+                                labels: ['1','2','3','4','5','6','7','8','9','10','12','13','14','15']
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero:true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                    })
+                    //$("#savings_client");
+
+
+                </script>
  

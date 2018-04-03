@@ -19,6 +19,7 @@
     <link href="bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet">
     <link href="bower_components/slick-carousel/slick/slick.css" rel="stylesheet">
     <link href="css/main.css@version=4.3.0" rel="stylesheet">  -->
+<!--    <link href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">-->
 
     <?php echo Asset::css(array(
         'select2/dist/css/select2.min.css',
@@ -27,15 +28,18 @@
         'bootstrap-daterangepicker/daterangepicker.css',
         "bootstrap-datetimepicker/tempusdominus-bootstrap-4.min.css",
         'dropzone/dist/dropzone.css',
-        'datatables.net-bs/css/dataTables.bootstrap.min.css',
+        //'datatables.net-bs/css/dataTables.bootstrap.min.css',
+        'jquery.dataTables.min.css',
         'fullcalendar/dist/fullcalendar.min.css',
         'perfect-scrollbar/css/perfect-scrollbar.min.css',
         'slick-carousel/slick/slick.css',
-        'main.css',
+
         'themefy/themify-icons.css',
-        'font-awesome/css/font-awesome.min.css',
+        //'font-awesome/css/font-awesome.min.css',
+        'font-awesome.css',
         'entypo/style.css',
         'foundation-icon-font/foundation-icons.css',
+        'main.css',
 
 
     )); ?>
@@ -71,6 +75,13 @@
         visibility: hidden;
     }
     </style>
+
+    <?php echo Asset::js(array(
+                "jquery/dist/jquery.min.js",
+                "popper.js/dist/umd/popper.min.js",
+                "moment/moment.js",
+            ));
+    ?>
 </head>
 
 <body class="full-screen menu-position-side menu-side-left">
@@ -719,17 +730,18 @@
                             <div class="sub-menu-i">
                                 <ul class="sub-menu">
                                     <li><?= Html::anchor(Uri::create('contribution'), 'Cotisations');?> 
-                                    <li><?= Html::anchor(Uri::create('withdraw'), 'Retraits');?></li>
+<!--                                    <li>--><?//= Html::anchor(Uri::create('withdraw'), 'Retraits');?><!--</li>-->
                                     <?php if(Auth::member(70) OR Auth::member(100)) :?>
                                     <li><?= Html::anchor(Uri::create('transaction'), 'Op Internes' .'<strong class="badge badge-danger">New</strong>');?> </li>
                                     <?php endif;?>
-                                    <li><?= Html::anchor(Uri::create('deposit'), 'Depots' .'<strong class="badge badge-warning">coming soon</strong>');?></li>
+<!--                                    <li>--><?//= Html::anchor(Uri::create('deposit'), 'Depots' .'<strong class="badge badge-warning">coming soon</strong>');?><!--</li>-->
                                     
                                 </ul>
                                 
                             </div>
                         </div>
                     </li>
+                    <?php /*
                     <li class="has-sub-menu">
                         <a href="apps_bank.html#">
                             <div class="icon-w">
@@ -754,7 +766,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </li>
+                    </li> */ ?>
                     <li class="has-sub-menu">
                         <a href="javascript:">
                             <div class="icon-w">
@@ -766,14 +778,15 @@
                             <div class="sub-menu-i">
                                 <ul class="sub-menu">
                                     <li><?= Html::anchor(Uri::create('client'), 'Dossiers');?> </li>
-                                    <li><?= Html::anchor(Uri::create('client/rapports'), 'Rapports');?> </li>
-                                    <li><?= Html::anchor(Uri::create('contribution'), 'Suivi' .'<strong class="badge badge-danger">New</strong>');?>  </li>
-                                    <li><?= Html::anchor(Uri::create('employee/rapports'), 'Progress');?> </li>
-                                    <li><?= Html::anchor(Uri::create('employee/covrage'), 'Popover');?> </li>
+                                    <!--<li><?/*= Html::anchor(Uri::create('client/rapports'), 'Rapports');*/?> </li>
+                                    <li><?/*= Html::anchor(Uri::create('contribution'), 'Suivi' .'<strong class="badge badge-danger">New</strong>');*/?>  </li>
+                                    <li><?/*= Html::anchor(Uri::create('employee/rapports'), 'Progress');*/?> </li>
+                                    <li><?/*= Html::anchor(Uri::create('employee/covrage'), 'Popover');*/?> </li>-->
                                 </ul>
                                 
                         </div>
                     </li>
+                    <?php /*
                     <li class="sub-header"><span>Settings</span></li>
                      <li class="has-sub-menu">
                             <a href="layouts_menu_top_image.html">
@@ -849,6 +862,7 @@
                             </div>
                         </div>
                     </li>
+                    */ ?>
                 </ul>
             </div>
             <!--------------------
@@ -882,9 +896,10 @@
                                 <?php echo implode('</p><p>', e((array) Session::get_flash('success'))); ?>
                             </p>
                         </div>
-                        <script>
+                        <script async>
                             // Notice
                             // Display a info toast, with a title
+
                             toastr.info('Notice:',"<?php echo implode('</p><p>', e((array) Session::get_flash('success'))); ?>");
                         </script>
                     <?php endif; ?>
@@ -937,10 +952,11 @@
     <script src="bower_components/bootstrap/js/dist/popover.js"></script>
     <script src="js/demo_customizer.js@version=4.3.0"></script>
     <script src="js/main.js@version=4.3.0"></script> -->
+<!--    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>-->
 	 <?php echo Asset::js(array(
-        "jquery/dist/jquery.min.js",
-        "popper.js/dist/umd/popper.min.js",
-        "moment/moment.js",
+        //"jquery/dist/jquery.min.js",
+        //"popper.js/dist/umd/popper.min.js",
+        //"moment/moment.js",
         "chart.js/dist/Chart.min.js",
         "select2/dist/js/select2.full.min.js",
         "jquery-bar-rating/dist/jquery.barrating.min.js",
@@ -952,7 +968,7 @@
 	    "dropzone/dist/dropzone.js",
 	    "editable-table/mindmup-editabletable.js",
 	    "datatables.net/js/jquery.dataTables.min.js",
-	    "datatables.net-bs/js/dataTables.bootstrap.min.js",
+	    //"datatables.net-bs/js/dataTables.bootstrap.min.js",
 	    "fullcalendar/dist/fullcalendar.min.js",
 	    "perfect-scrollbar/js/perfect-scrollbar.jquery.min.js",
 	    "tether/dist/js/tether.min.js",
@@ -997,10 +1013,23 @@
                  // Select2 Config
                  $('.select2').select2();
 
+                 // DataTables init
+                 //$('.dTable').animate(function (e) {
+                 //    $this = $(this);
+
+                 if ($('.dTable').length) {
+                    $('.dTable').DataTable({ buttons: ['copy', 'excel', 'pdf'] });
+//                     $('.dTable').hide();
+//                     $('.dTable').dataTable();
+//                     $('.dTable').fadeIn(800);
+
+                 }
+
+
             });
 
 
-    /*(function(i, s, o, g, r, a, m) {
+    (function(i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function() {
             (i[r].q = i[r].q || []).push(arguments)
@@ -1012,8 +1041,9 @@
         m.parentNode.insertBefore(a, m)
     })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', 'UA-XXXXXXXX-X', 'auto');
-    ga('send', 'pageview');*/
+    ga('create', 'UA-116484040-1', 'auto');
+    ga('send', 'pageview');
+
     </script>
 </body>
 

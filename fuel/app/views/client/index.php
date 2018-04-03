@@ -1,11 +1,3 @@
-<ul class="nav nav-pills">
-	<li class='<?php echo Arr::get($subnav, "index" ); ?>'><?php echo Html::anchor('client/index','Index');?></li>
-	<li class='<?php echo Arr::get($subnav, "create" ); ?>'><?php echo Html::anchor('client/create','Create');?></li>
-	<li class='<?php echo Arr::get($subnav, "edit" ); ?>'><?php echo Html::anchor('client/edit','Edit');?></li>
-	<li class='<?php echo Arr::get($subnav, "delete" ); ?>'><?php echo Html::anchor('client/delete','Delete');?></li>
-
-</ul>
-<p>Index</p>
 
 
 <div class="content-box">
@@ -18,12 +10,12 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Client</th>
+                    <th width="300px">Client</th>
                     <th>Email</th>
                     <th>Adresse</th>
                     <th>Tel</th>
-                    <th class="text-center">Category</th>
-                    <th class="text-right">Solde</th>
+                    <th class="text-center" width="250px">Category</th>
+                    <th class="text-right" width="200px">Solde</th>
 <!--                    <th class="text-right">Credit</th>-->
                 </tr>
                 </thead>
@@ -31,7 +23,10 @@
                 <?php foreach ($clients as $k => $client) :?>
                     <tr>
                         <td class="text-center">  <?= $k ;?></td>
-                        <td class="cell-with-media"> <span><?= \Html::anchor(Uri::create('contribution/client/'. @$client->id) , @$client->first_name . " " . @$client->last_name , array('target' => "_self"))   ?></span></td>
+                        <td class="cell-with-media">
+                            <span><?= \Html::anchor(Uri::create('contribution/client/'. @$client->id) , @$client->first_name . " " . @$client->last_name , array('target' => "_self"))   ?></span>
+                            <?= \Html::anchor(Uri::create('client/edit/'. @$client->id) , '<i data-toggle="tooltip" class="os-icon os-icon-edit"> </i> ', array('target' => "_blank"))   ?>
+                        </td>
 
                         <td class="nowrap"><span class="status-pill smaller green"></span><span><?= @$client->email ?></span></td>
 
@@ -61,7 +56,7 @@
     <?php endif;?>
 
     <p>
-        <?php echo Html::anchor('contribution/create', 'Add new Contribution', array('class' => 'btn btn-success')); ?>
+        <?php echo Html::anchor('client/create', 'Add new Client', array('class' => 'btn btn-success')); ?>
 
     </p>
 </div>

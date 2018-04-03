@@ -342,6 +342,19 @@ class Controller_Admin extends Controller_Common
 	}
 
 
+    /**
+     * The 404 action for the application.
+     *
+     * @access  public
+     * @return  Response
+     */
+    public function action_404()
+    {
+        return Response::forge(Presenter::forge('admin/404'), 404);
+    }
+
+
+
 
 }
 

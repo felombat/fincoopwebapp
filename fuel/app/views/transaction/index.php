@@ -30,7 +30,7 @@
             <td><?php echo  @$item->contribution->paid_at ; ?></td>
             <!--            <td>--><?php //echo $item->created_by; ?><!--</td>-->
 
-            <?php if(!$item->type) :?>
+            <?php if($item->type == 0 OR $item->type == 2 OR $item->type == 3 OR $item->type == 4) :?>
                 <td class="text-danger"><?php echo '- ' . $item->amount; ?></td>
                 <td> </td>
             <?php else : ?>
@@ -54,10 +54,10 @@
 </table>
 
 <?php else: ?>
-<p>No Contributions.</p>
+<p>No Transacrions yet!</p>
 
 <?php endif; ?><p>
-	<?php echo Html::anchor('contribution/create', 'Add new Contribution', array('class' => 'btn btn-success')); ?>
+	<?php echo Html::anchor('transaction/create', 'Add new Transaction', array('class' => 'btn btn-success')); ?>
 
 </p>
 </div>

@@ -60,21 +60,43 @@ class Observer_Contribution extends Observer {
         $transaction = \Model_Transaction::forge();
 
         $ref = array(
-            "client" => @$contribution->client->first_name ." ". $contribution->client->last_name,
+            "client" => @$contribution->client->first_name ." ". @$contribution->client->last_name,
             "reference" => $contribution->reference,
             "description" => $contribution->description,
             "status" => $contribution->status,
             "category" => $contribution->category->title
         );
-        $transaction->from_account_id = ($contribution->type == 'debit') ? 1 : 0 ;
-        $transaction->to_account_id = ($contribution->type == 'credit') ? 1 : 0 ;
+        $transaction->from_account_id = ($contribution->type == 'debit') ? 1 : 0;
+        $transaction->to_account_id = ($contribution->type == 'credit') ? 1 : 0  ;
         $transaction->amount = $contribution->amount;
         $transaction->currency_code = 'XAF';
         $transaction->currency_rate = 1;
         $transaction->payment_method = $contribution->payment_method;
         $transaction->reference = serialize($ref);
-        $transaction->type = ($contribution->type == 'credit') ? 1 : 0 ;
+        //$transaction->type = ($contribution->type == 'credit') ? 1 : 0 ;
+        switch ($contribution->type ){
+            case 'credit' :
+                $transaction->type = 1;
+                break;
 
+            case 'debit' :
+                $transaction->type = 0;
+                break;
+
+            case 'fees' :
+                $transaction->type = 4;
+                $transaction->to_account_id = 4;
+                break;
+
+            case 'commission' :
+                $transaction->type = 3;
+                $transaction->to_account_id = 4;
+                break;
+
+            default:
+                $transaction->type = 1;
+                break;
+        }
 
         if($transaction->save()){
             //echo "\nRunning task [Seedcontribtable:Fixfields]";

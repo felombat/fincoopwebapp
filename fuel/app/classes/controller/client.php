@@ -182,14 +182,21 @@ class Controller_Client extends Controller_Admin
 
 			if ($val->run())
 			{
-				$client = Model_Client::forge(array(
-					'created_by' => Input::post('created_by'),
-					'title' => Input::post('title'),
-					'description' => Input::post('description'),
-					'labels' => Input::post('labels'),
-					'status' => Input::post('status'),
-					'start_date' => Input::post('start_date'),
-				));
+				$client = \Model_Client::forge(array(
+                    // 'id' => $last_client->id + 1,
+                    'first_name' => Input::post('first_name'),
+                    'last_name' => Input::post('last_name'),
+                    'user_id' =>  0,
+                    'role_id' => 6,
+                    'jobtile_id' => 6,
+                    'company_id' => 1,
+                    'address1' => Input::post('address1'),
+                    'address2' => " ",//Input::post('address2'),
+                    'notes' => Input::post('notes'),
+                    'tel' => Input::post('tel'),
+                    'email' => Input::post('email'),
+                    'avatar_file' => " "    //Input::post('avatar_file'),
+                ));
 
 				if ($client and $client->save())
 				{
@@ -285,12 +292,15 @@ class Controller_Client extends Controller_Admin
 
 		if ($val->run())
 		{
-			$client->created_by = Input::post('created_by');
-			$client->title = Input::post('title');
-			$client->description = Input::post('description');
-			$client->labels = Input::post('labels');
-			$client->status = Input::post('status');
-			$client->start_date = Input::post('start_date');
+			$client->first_name = Input::post('first_name');
+			$client->last_name = Input::post('last_name');
+			$client->address1 = Input::post('address1');
+			$client->address2 = Input::post('address2');
+			//$client->company_id = Input::post('company_id');
+			$client->notes = Input::post('notes');
+            $client->tel = Input::post('tel');
+            $client->email = Input::post('email');
+            //$client->avatar_file = '';
 
 			if ($client->save())
 			{
@@ -307,14 +317,17 @@ class Controller_Client extends Controller_Admin
 
 		else
 		{
-			if (Input::method() == 'POST')
+			if                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   (Input::method() == 'POST')
 			{
-				$client->created_by = $val->validated('created_by');
-				$client->title = $val->validated('title');
-				$client->description = $val->validated('description');
-				$client->labels = $val->validated('labels');
-				$client->status = $val->validated('status');
-				$client->start_date = $val->validated('start_date');
+                $client->first_name = Input::post('first_name');
+                $client->last_name = Input::post('last_name');
+                $client->address1 = Input::post('address1');
+                $client->address2 = Input::post('address2');
+                //$client->company_id = Input::post('company_id');
+                $client->notes = Input::post('notes');
+                $client->tel = Input::post('tel');
+                $client->email = Input::post('email');
+                //$client->avatar_file = '';
 
 				Session::set_flash('error', $val->error());
 			}

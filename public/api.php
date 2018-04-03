@@ -2100,15 +2100,28 @@ class PHP_API_AUTH {
 // if (empty($_SESSION['user'])) exit(403);
 
 // uncomment the lines below when running in stand-alone mode:
-
-$api = new PHP_CRUD_API(array(
+$credentials = array(
+    // project Name : AstrioCollect
+    'astriocollectapp' => array(
+        'dbengine'=>'MySQL',
+        'hostname'=>'localhost',
+        //'username'=> 'phpuserdb',
+        //'password'=>'appPa$$',
+        'username'=> 'root',
+        'password'=>'mysql',
+        'database'=>'astriocollectdb',
+        'charset'=>'utf8'
+    )
+);
+/*$api = new PHP_CRUD_API(array(
 	'dbengine'=>'MySQL',
 	'hostname'=>'localhost',
 	'username'=>'wpappuser',
 	'password'=>'Localw3bP$$',
 	'database'=>'aseelecportaldb',
 	'charset'=>'utf8'
-));
+));*/
+$api = new PHP_CRUD_API($credentials['astriocollectapp']);
 $api->executeCommand();
 
 // For Microsoft SQL Server 2012 use:

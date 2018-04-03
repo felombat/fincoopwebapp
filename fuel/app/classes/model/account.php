@@ -49,14 +49,14 @@ class Model_Account extends Model
     protected static $_has_many = array(
         "debits" => array(
             'key_from' => 'id',
-            'model_to' => 'Model_Transfaction',
+            'model_to' => 'Model_Transaction',
             'key_to' => 'from_account_id',
             'cascade_save' => true,
             'cascade_delete' => false,
         ),
         "credits" => array(
             'key_from' => 'id',
-            'model_to' => 'Model_Transfaction',
+            'model_to' => 'Model_Transaction',
             'key_to' => 'to_account_id',
             'cascade_save' => true,
             'cascade_delete' => false,
@@ -129,12 +129,13 @@ class Model_Account extends Model
         } else {
             $query = DB::select(DB::expr(' 
                     # SUM(IF(type = 1, amount, 0)) AS creditTotal, 
-                    # SUM(IF(type = 0, amount, 0 )) AS debitTotal ,
-                     SUM( amount ) AS debitTotal, 
+                    # SUM(IF(type in (0,2,3,4) , amount, 0 )) AS debitTotal ,
+                     SUM( IF(type in (0,2,3,4) , amount, 0 ) ) AS debitTotal, 
                     from_account_id as account'))->from('transactions');
             //$query->where('to_account_id', $account_id);
             $query->where('from_account_id', $account_id);
             $query->and_where('deleted_at', null);
+            //$query->and_where('type', 'in', '(0,2,3,4)');
             $query->group_by('account');
             $result = $query->execute();
 
@@ -178,7 +179,7 @@ class Model_Account extends Model
             return 0;
         } else {
             $query = DB::select(DB::expr(' SUM(IF(type = "credit", amount, 0)) AS creditTotal, 
-                    SUM(IF(type = "debit", amount, 0 )) AS debitTotal , 
+                    SUM(IF(type in ("debit","fees","commission"), amount, 0 )) AS debitTotal , 
                     budget_id as account'))->from('contributions');
             $query->where('budget_id', $client->id);
             //$query->or_where('from_account_id', $account_id);
@@ -196,7 +197,7 @@ class Model_Account extends Model
         $dlist = [];
         $empty= ['-' => "Please select ..."];
         $dlist['-']= "Please select ...";
-        $entry = Model_Jobtitle::find('all', array('array(select)' => array( 'name')));
+        $entry = Model_Account::find('all', array('array(select)' => array( 'name')));
         foreach ($entry as $key => $row) {
             if(isset($exclude) && !in_array($row->id, $exclude)){
 

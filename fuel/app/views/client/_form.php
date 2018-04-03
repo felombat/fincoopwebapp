@@ -22,7 +22,7 @@
 		<!--<div class="form-group">-->
 			 
 
-				<?php echo Form::hidden('jobtitle_id', Input::post('jobtitle_id', isset($client) ? $client->jobtitle_id : ''), array('class' => 'col-md-4 form-control', 'value'=>'6')); ?>
+				<?php echo Form::hidden('jobtile_id', Input::post('jobtile_id', isset($client) ? $client->jobtile_id : ''), array('class' => 'col-md-4 form-control', 'value'=>'6')); ?>
 
 		<!--</div>-->
         <!--<div class="form-group">-->

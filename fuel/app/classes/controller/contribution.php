@@ -62,51 +62,79 @@ class Controller_Contribution extends Controller_Admin
 
 	}
 
-	public function action_create()
-	{
-		if (Input::method() == 'POST')
-		{
-			$val = Model_Contribution::validate('create');
+	public function action_create( $client_id = null )
+    {
+        $data = array();
+        if (isset($client_id) AND $client_id > 0) {
+            $client_obj = Model_Client::find($client_id);
+            !isset($client_obj) AND Response::redirect('contribution/create');
 
-			if ($val->run())
-			{
-				$contribution = Model_Contribution::forge(array(
-					'company_id' => Input::post('company_id'),
-					'budget_id' => Input::post('budget_id'),
-					'paid_at' => Input::post('paid_at'),
-					'amount' => Input::post('amount'),
-					'currency_code' => Input::post('currency_code'),
-					'currency_rate' => Input::post('currency_rate'),
-					'description' => Input::post('description'),
-					'payment_method' => Input::post('payment_method'),
-					'reference' => Input::post('reference'),
+            $data['client'] = $client_obj;
+
+            $this->template->title = $data['title'] =  "Contributions of $client_obj->first_name $client_obj->last_name";
+            $this->template->content = View::forge('contribution/create', $data);
+        }
+            if (Input::method() == 'POST') {
+            $val = Model_Contribution::validate('create');
+
+            if ($val->run()) {
+                $contribution = Model_Contribution::forge(array(
+                    'company_id' => Input::post('company_id'),
+                    'budget_id' => Input::post('budget_id'),
+                    'paid_at' => Input::post('paid_at'),
+                    'amount' => Input::post('amount'),
+                    'currency_code' => Input::post('currency_code'),
+                    'currency_rate' => Input::post('currency_rate'),
+                    'description' => Input::post('description'),
+                    'payment_method' => Input::post('payment_method'),
+                    'reference' => Input::post('reference'),
                     'status' => 'paid',
                     'type' => Input::post('type'), //'credit',
                     'created_by' => $this->current_user->id,
-                    'category_id' => (Input::post('type') == 'credit') ? 1 : 5,
+                    //'category_id' => (Input::post('type') == 'credit') ? 1 : 5,
 
                 ));
+                switch (Input::post('type')){
+                    case 'credit' :
+                        $contribution->category_id = 1;
+                        break;
 
-				if ($contribution and $contribution->save())
-				{
-					Session::set_flash('success', 'Added contribution #'.$contribution->id.'.');
+                    case 'debit' :
+                        $contribution->category_id = 5;
+                        break;
 
-					Response::redirect('contribution');
-				}
+                    case 'fees' :
+                        $contribution->category_id = 4;
+                        break;
 
-				else
-				{
-					Session::set_flash('error', 'Could not save contribution.');
-				}
-			}
-			else
-			{
-				Session::set_flash('error', $val->error());
-			}
-		}
+                    case 'commission' :
+                        $contribution->category_id = 3;
+                        break;
+
+                    default:
+                        $contribution->category_id = 5;
+                        break;
+                }
+
+
+                if ($contribution and $contribution->save()) {
+                    Session::set_flash('success', 'Added contribution #' . $contribution->id . '.');
+                    if(isset($client_id)){
+                        Response::redirect('contribution/create/'.$client_id);
+                    }else{
+                        Response::redirect('contribution');
+                    }
+
+                } else {
+                    Session::set_flash('error', 'Could not save contribution.');
+                }
+            } else {
+                Session::set_flash('error', $val->error());
+            }
+        }
 
 		$this->template->title = "Contributions";
-		$this->template->content = View::forge('contribution/create');
+		$this->template->content = View::forge('contribution/create', $data);
 
 	}
 

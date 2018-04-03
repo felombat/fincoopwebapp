@@ -8,7 +8,7 @@ return array(
 	'login'   => 'admin/login',    // The main login/signin route
 	'logout'   => 'admin/logout',    // The logout/signout route
 	'signin'   => 'admin/sigin',    // The main registration route
-	//'_404_'   => 'cleanadmin/404',    // The main 404 route
+	'_404_'   => 'admin/404',    // The main 404 route
 
 	'contributions' => 'finances/contributions',
     'withdraw(/:client_id/:type)' => array('contribution/withdraw', 'client_id' => 1, 'type' => 'debit' ),

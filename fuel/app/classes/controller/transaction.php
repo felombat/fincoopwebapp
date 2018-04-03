@@ -47,12 +47,13 @@ class Controller_Transaction extends Controller_Admin
 			{
 				$transaction = Model_Transaction::forge(array(
 					'company_id' => Input::post('company_id'),
-					'budget_id' => Input::post('budget_id'),
-					'paid_at' => Input::post('paid_at'),
+					'from_account_id' => Input::post('from_account_id'),
+					'to_account_id' => Input::post('to_account_id'),
 					'amount' => Input::post('amount'),
+					'type' => Input::post('type'),
+
 					'currency_code' => Input::post('currency_code'),
 					'currency_rate' => Input::post('currency_rate'),
-					'description' => Input::post('description'),
 					'payment_method' => Input::post('payment_method'),
 					'reference' => Input::post('reference'),
 				));
