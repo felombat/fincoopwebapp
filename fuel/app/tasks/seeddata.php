@@ -1,5 +1,4 @@
 <?php
-
 namespace Fuel\Tasks;
 
 class Seeddata
@@ -473,6 +472,125 @@ class Seeddata
 
 		 }
 	}
+
+
+    /**
+     *
+     */
+    public function inscription_fees(){
+        $auth = \Auth::instance();
+        $auth->force_login(2);
+
+        $processed_fees_accounts = \Model_Contribution::find('all', ['where' => ['type'=>'fees']] );
+
+        $opreations_ids = array_keys($processed_fees_accounts);
+
+        $process_client_ids = [];
+        foreach ($processed_fees_accounts as $key => $processed_fees_account){
+            $process_client_ids[] = $processed_fees_account->budget_id;
+        }
+
+        $clients_accounts = \Model_Client::find('all');
+        $delay = 0;
+        foreach ($clients_accounts as $clients_account){
+            if(!in_array($clients_account->id,$process_client_ids)){
+
+                // add fee to the account
+                try {
+
+
+                    $fee = \Model_Contribution::forge();
+                    $fee->company_id = 1;
+                    $fee->budget_id = $clients_account->id;
+                    $fee->paid_at = "2018-03-12 ". printf('%s', $delay); //date('Y-m-d h:i:s', time());
+                    $fee->amount = 1000;
+                    $fee->currency_code = 'XAF';
+                    $fee->currency_rate = 1.0000;
+                    $fee->description = 'Frais d\'inscription';
+                    $fee->payment_method = 'other';
+                    $fee->reference = 'Frais d\'inscription';
+                    $fee->status = 'paid';
+                    $fee->type = 'fees';
+                    $fee->created_by = 2;
+                    $fee->category_id = 4;
+                    $fee->save();
+                    $delay = date('h:i:s', time());//$delay + 7 % 10 ;
+                    sleep(6);
+
+                    // Prints this message on terminal
+                    echo "\n". $fee->client->first_name ."#: charged with subscription fees " ;
+                }
+                catch(\Exception $e) {
+                    // In case of error, prints the message on terminal,
+                    // You can implement any error handling you need
+                    echo "\nError while charging  account User:";
+                    echo "\n" . \DB::last_query(). "\n";
+                }
+
+            }
+        }
+    }
+
+
+
+    public function commission_fees($month_num = 1){
+
+        $auth = \Auth::instance();
+        $auth->force_login(2);
+        $processed_fees_accounts = \Model_Contribution::find('all', ['where' => ['type'=>'commission']] );
+
+        $opreations_ids = array_keys($processed_fees_accounts);
+
+        $process_client_ids = [];
+        foreach ($processed_fees_accounts as $key => $processed_fees_account){
+            $process_client_ids[] = $processed_fees_account->budget_id;
+        }
+
+        $clients_accounts = \Model_Client::find('all');
+        $delay = 0;
+        foreach ($clients_accounts as $clients_account){
+            if(!in_array($clients_account->id,$process_client_ids)){
+
+                //$fee = \Model_Contribution::forge();
+                // add fee to the account
+                try {
+
+
+                    $fee = \Model_Contribution::forge();
+                    $fee->company_id = 1;
+                    $fee->budget_id = $clients_account->id;
+                    $fee->paid_at = "2018-03-31 ". printf('%s', $delay); //date('Y-m-d h:i:s', time());
+                    $fee->amount = 3000;
+                    $fee->currency_code = 'XAF';
+                    $fee->currency_rate = 1.0000;
+                    $fee->description = 'Commission Collecte of : '. date('F Y', strtotime('2018-0'.$month_num.'-15'));
+                    $fee->payment_method = 'other';
+                    $fee->reference = $fee->description ;
+                    $fee->status = 'paid';
+                    $fee->type = 'commission';
+                    $fee->created_by = 2;
+                    $fee->category_id = 3;
+                    $last_id = $fee->save();
+                    $delay = date('18:i:s', time());//$delay + 7 % 10 ;
+                    sleep(10);
+
+
+                    // Prints this message on terminal
+                    echo "\n". $clients_account->id ."#: charged with subscription fees " ;
+
+                }
+                catch(\Exception $e) {
+                    // In case of error, prints the message on terminal,
+                    // You can implement any error handling you need
+                    echo "\nError while charging  account :" . $clients_account->id;
+                    echo "\n" . $e->getMessage(). "\n";
+                    echo "\n" . \DB::last_query(). "\n";
+                    //exit(1);
+                }
+
+            }
+        }
+    }
 
 }
 /* End of file tasks/seeddata.php */
