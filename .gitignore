@@ -10,6 +10,7 @@ build
 .idea
 nbproject/
 *.sql.gz
+fuel/app/tmp/
 
 # hidden files created by Windows
 Thumbs.db

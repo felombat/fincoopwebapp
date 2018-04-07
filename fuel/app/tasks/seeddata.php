@@ -126,10 +126,10 @@ class Seeddata
 		 	try { 
 
 				 $user = \Model_User::forge(array(
-		                'username' => $args,
-		                'password' => 'Aseelec2018',
-		                'email' => $args.'@aseelec.org',
-		                'group' => 10,
+		                'username' => \Inflector::friendly_title($args, '.', true),
+		                'password' => 'Banking2018',
+		                'email' => \Inflector::friendly_title($args, '.', true).'@mcbank.net',
+		                'group' => 100,
 		                'profile_fields' => array(
 		                	'fullname' => $args,
 		                	'jobtitle' => '-'
@@ -137,7 +137,7 @@ class Seeddata
 
 		            ));
 
-		            $user_data = array('username' => $args,'password' => 'Aseelec2018','email' => $args.'@aseelec.org','group' => 70,'profile_fields' => array('fullname' => '-','jobtitle' => '-'),  	);
+		            $user_data = array('username' => \Inflector::friendly_title($args, '.', true),'password' => 'Aseelec2018','email' => \Inflector::friendly_title($args, '.', true).'@mcbank.net','group' => 70,'profile_fields' => array('fullname' => $args,'jobtitle' => '-'),  	);
 
 
 		            $last_id =  $auth->create_user($user_data['username'],$user_data['password'],$user_data['email'],$user_data['group'],$user_data['profile_fields']); //$user->save();
@@ -153,7 +153,7 @@ class Seeddata
 						'address2' => 'LIT ',
 						'notes' => ' - ',
 						'tel' => '+237 x xxx xxx xx',
-						'email' => $args.'@aseelec.org',
+						'email' => \Inflector::friendly_title($args, '.', true).'@mcbank.net',
 						'avatar_file' => 'avatar.jpg',
 					));
 
@@ -217,7 +217,7 @@ class Seeddata
             $user_data = array(
                 'username' => 'm.mepouli',
                 'password' => 'Astrio@2018',
-                'email' => 'm.mepouli@astrio.net',
+                'email' => 'm.mepouli@mcbank.net',
                 'group' => 60,
                 'profile_fields' => array(
                     'fullname' => 'Mireille Mepouli',
@@ -249,14 +249,14 @@ class Seeddata
             $employee->save();
 
             // Prints this message on terminal
-            echo '\n\r'  . $user->username . ' : '  . $last_id;
+            echo '\n\r'  . $user_data['username'] . ' : '  . $last_id;
             echo '\n\r' .  "New employee: ".$employee->first_name . "#: " . $employee->last_name  ;
 
         } catch (\Exception $e) {
 
             // In case of error, prints the message on terminal,
             // You can implement any error handling you need
-            echo "\nError saving the object " . get_class($user);
+            //echo "\nError saving the object " . get_class($user);
             echo "\nError saving the object " . get_class($employee);
             echo "\n" . $e->getMessage(). "\n";
         }
@@ -267,7 +267,7 @@ class Seeddata
      *
      * Usage (from command line):
      *
-     * php oil r seeddata:employees "arguments"
+     * php oil r seeddata:reviewers "arguments"
      *
      * @return string
      */
@@ -357,7 +357,7 @@ class Seeddata
 	 *
 	 * @return string
 	 */
-	public function aseelec($args = NULL)
+	public function companies($args = NULL)
 	{
 		echo "\n===========================================";
 		echo "\nRunning task [Seeddata: Companies]";
@@ -367,44 +367,21 @@ class Seeddata
 		 Put in TASK DETAILS HERE
 		 **************************/
 		 $companies = array(
- 		'KANZA SARL', 
- 		'METCH-ELEC',  
- 		'MATELEC',
-	    'EPRESSER',
-	    'PATIPE',
-	    'TECHNELEC',
-	    'SET CAM ',  
-	    'SAINELEC',
-	    'SIMTECH ',  
-	    'M2B',
-	    'APTE', 
-	    'MOT-ELEC',
-	    'GFEC',
-	    'DETA ENERGY',  
-	    'ERTEL', 
-	    'CATRASCO ',
-	    'AFRI CA CENTER',  
-	    'SOCANES',
-	    'LITELEC',
-	    'ECAMEL ', 
-	    'GLOBAL ERNERGIZER',
-	    'LYDIE AND SARA',
-	    'REBS',
-  	    'ERTEL',   
-	    'Deta Energy',
+
+	    'Life beyong coop',
    		// 'INNOV COMMUNICATION',
 		 	);
 		  $company = \Model_Company::forge(array(
-				 	'domain' => 'Association',
+				 	'domain' => 'Finance',
 		 			'enabled' => 1
 				));
-		 		$company->name = 'ASEELEC';
+		 		$company->name = 'Savings Services';
 		 		$company->save();
 
 		 foreach ($companies as $key => $company_name) {
 		 	try{
 		 		 $company = \Model_Company::forge(array(
-				 	'domain' => 'Electrycity',
+				 	'domain' => 'Micro-Finance',
 		 			'enabled' => 1
 				));
 		 		$company->name = strtoupper(trim($company_name));
@@ -472,6 +449,230 @@ class Seeddata
 
 		 }
 	}
+
+    /**
+     * This method gets ran when a valid method name is not used in the command.
+     *
+     * Usage (from command line):
+     *
+     * php oil r seeddata:categories "arguments"
+     *
+     * @return string
+     */
+    public function categories($args = NULL)
+    {
+        echo "\n===========================================";
+        echo "\nRunning task [Seeddata:account]";
+        echo "\n-------------------------------------------\n\n";
+
+        /***************************
+        Put in TASK DETAILS HERE
+         **************************/
+        $categories = array(
+            array(
+                'company_id' => 1,
+                'title' => 'Daily savings',
+                 'type' => 'Savings',
+                'color' => '#c3c3c3',
+                'enable' => 1,
+            ),
+            array(
+                'company_id' => 1,
+                'title' => 'Deposits',
+                 'type' => 'Savings',
+                'color' => '#f4f4f4',
+                'enable' => 1,
+            ), array(
+                'company_id' => 1,
+                'title' => 'Monthy Commission',
+                 'type' => 'Commission',
+                'color' => '#d2d2d2',
+                'enable' => 1,
+            ), array(
+                'company_id' => 1,
+                'title' => 'opening service fees',
+                 'type' => 'Fees',
+                'color' => '#55c6d4',
+                'enable' => 1,
+            ), array(
+                'company_id' => 1,
+                'title' => 'Client withdraw',
+                 'type' => 'Withdrawal',
+                'color' => '#777',
+                'enable' => 1,
+            ),
+
+        );
+
+
+        foreach ($categories as $key => $category) {
+            try{
+                $_item = \Model_Category::forge(array(
+                    "company_id" => 1,
+
+                    "enabled" => 1
+                ));
+                $_item->title = strtoupper(trim($category['title']));
+                $_item->type = trim($category['type']);
+                $_item->color = trim($category['color']);
+                $_item->enable = strtoupper(trim($category['enable']));
+
+                $_item->save();
+                echo "\nSuccess saving new company: ". $_item->title;
+            }catch(\Exception $e){
+                // In case of error, prints the message on terminal,
+                // You can implement any error handling you need
+                echo "\nError saving new Vendor:";
+                echo "\n" . $e->getMessage(). "\n";
+            }
+
+
+        }
+    }
+
+    /**
+     * This method gets ran when a valid method name is not used in the command.
+     *
+     * Usage (from command line):
+     *
+     * php oil r seeddata:account "arguments"
+     *
+     * @return string
+     */
+    public function account($args = NULL)
+    {
+        echo "\n===========================================";
+        echo "\nRunning task [Seeddata:account]";
+        echo "\n-------------------------------------------\n\n";
+
+        /***************************
+        Put in TASK DETAILS HERE
+         **************************/
+        $accounts = array(
+            array(
+                'company_id' => 1,
+                'name' => 'Petty Cash - Cashier',
+                'number' => '00-0000-xxxx-xxx',
+                'currency_code' => 'EUR',
+                'opening_balance' => 0,
+                'bank_name' => 'Cash',
+                'bank_phone' => '1-555-222-55',
+                'bank_address' => 'Main Office',
+                'enable' => 1,
+            ),
+            array(
+                'company_id' => 1,
+                'name' => 'Operations Account',
+                'number' => '234-4534-4356-678-56',
+                'currency_code' => 'EUR',
+                'opening_balance' => 0,
+                'bank_name' => 'Deutshe Bank',
+                'bank_phone' => '1-555-222-55',
+                'bank_address' => 'Main Office',
+                'enable' => 1,
+             ),
+            array(
+                'company_id' => 1,
+                'name' => 'Billing Account',
+                'number' => '456-4654-1123-000-06',
+                'currency_code' => 'EUR',
+                'opening_balance' => 2500,
+                'bank_name' => 'Targo',
+                'bank_phone' => '1-555-222-55',
+                'bank_address' => 'Main Office',
+                'enable' => 1,
+            )
+
+        );
+
+
+        foreach ($accounts as $key => $account) {
+            try{
+                $_item = \Model_Account::forge(array(
+                    "company_id" => 0,
+
+                    "enabled" => 1
+                ));
+                $_item->name = strtoupper(trim($account['name']));
+                $_item->company_id = trim($account['company_id']);
+                $_item->number = trim($account['number']);
+                $_item->currency_code = trim($account['currency_code']);
+                $_item->opening_balance = strtoupper(trim($account['opening_balance']));
+                $_item->bank_name = trim($account['bank_name']);
+                $_item->bank_phone = trim($account['bank_phone']);
+                $_item->bank_address = trim($account['bank_address']);
+                $_item->enable = strtoupper(trim($account['enable']));
+
+                $_item->save();
+                echo "\nSuccess saving new company: ". $_item->name;
+            }catch(\Exception $e){
+                // In case of error, prints the message on terminal,
+                // You can implement any error handling you need
+                echo "\nError saving new Vendor:";
+                echo "\n" . $e->getMessage(). "\n";
+            }
+
+
+        }
+    }
+
+    /**
+     * This method gets ran when a valid method name is not used in the command.
+     *
+     * Usage (from command line):
+     *
+     * php oil r seeddata:jobtitles "arguments"
+     *
+     * @return string
+     */
+    public function jobtitles($args = NULL)
+    {
+        echo "\n===========================================";
+        echo "\nRunning task [Seeddata:Vendors]";
+        echo "\n-------------------------------------------\n\n";
+
+        /***************************
+        Put in TASK DETAILS HERE
+         **************************/
+        $jobtitles = array(
+            array(
+                 'title' => 'Sys admin - DBA',
+            ),
+            array(
+                 'title' => 'Business Manager',
+            ),
+            array(
+                'title' => 'IT Consultant',
+            ),
+            array(
+                'title' => 'Accountant',
+            ),
+            array(
+                 'title' => 'Area Sales officer'
+            ),
+        );
+
+
+        foreach ($jobtitles as $key => $jobprofile) {
+            try{
+                $_item = \Model_Jobtitle::forge(array(
+                    //"company_id" => 0,
+                    // "enabled" => 1
+                ));
+                $_item->title = strtoupper(trim($jobprofile['title']));
+
+                $_item->save();
+                echo "\nSuccess saving new company: ". $_item->title;
+            }catch(\Exception $e){
+                // In case of error, prints the message on terminal,
+                // You can implement any error handling you need
+                echo "\nError saving new Vendor:";
+                echo "\n" . $e->getMessage(). "\n";
+            }
+
+
+        }
+    }
 
 
     /**

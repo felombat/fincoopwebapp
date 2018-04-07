@@ -1,3 +1,49 @@
+#_FinCoopApp_
+
+is a simple
+
+# Installation steps
+---
+
+### 1. Download an install repo
+	
+```
+	$ git clone [repository]
+	$ cd [repository_folder]
+	$ php composer install
+```
+	
+### 2. update fuel/app/config/developpement/db.php to match your env.
+
+
+### 3. Remove fuel/app/config/developpement/migrations.php log
+	
+```
+	$ rm fuel/app/config/developpement/migrations.php
+```
+	
+### 4. Update DB schema and predefine refences
+
+- Add Sessions Table
+- Add simpleauth tables
+- Add Project tables
+- Seed references data
+- Seed Admin profile [username]:Banking2018
+
+```
+	$ php oil r session:create
+	$ php oil r migrate packages=auth
+	$ php oil r migrate
+	$ php oil r seeddata:companies
+	$ php oil r seeddata:categories
+	$ php oil r seeddata:jobtitles
+	$ php oil r seeddata:accounts
+	$ php oil r seeddata:admins [ADMIN_USERNAME]
+```
+
+### 5. lauch Server and visit the project page
+
+
 #FuelPHP
 
 * Version: 1.8
