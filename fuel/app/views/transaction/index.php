@@ -23,11 +23,11 @@
 	<tbody>
 <?php foreach ($transactions as $item): ?>		<tr>
 
-			<td><?php echo $item->id; ?></td>
+			<td><?php echo Html::anchor('transaction/edit/'.$item->id,'Op #' . $item->id); ?></td>
 			<td><?php echo empty(@$item->from_account->name) ? "Client ". @$item->contribution->client->first_name ." ". @$item->contribution->client->last_name  : @$item->from_account->name ; ?></td>
             <td><?php echo empty(@$item->to_account->name) ? "Client " . @$item->contribution->client->first_name ." ". @$item->contribution->client->last_name : @$item->to_account->name; ?></td>
 			<td><?php echo strftime("%D, %H:%I",  $item->created_at); ?></td>
-            <td><?php echo  @$item->contribution->paid_at ; ?></td>
+            <td><?php echo  Html::anchor('contribution/view/'.@$item->contribution->id,@$item->contribution->paid_at) ; ?></td>
             <!--            <td>--><?php //echo $item->created_by; ?><!--</td>-->
 
             <?php if($item->type == 0 OR $item->type == 2 OR $item->type == 3 OR $item->type == 4) :?>

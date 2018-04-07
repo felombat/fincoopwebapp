@@ -172,5 +172,12 @@ class Model_Client extends \Orm\Model_Soft
 		//return $_avatar;
 
 	}
+
+    /**
+     * @return int|string Client Account balance
+     */
+    public static function get_client_balance($id = 0){
+	    return Model_Account::client_balance($id);
+    }
 	
 }

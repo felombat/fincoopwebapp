@@ -58,11 +58,11 @@ class Model_Contribution extends \Orm\Model_Soft
 
     protected static $_has_one = array(
         "transaction" => array(
-            'key_from' => 'created_at',
+            'key_from' => 'id',
             'model_to' => 'Model_Transaction',
-            'key_to' => 'created_at',
+            'key_to' => 'contribution_id',
             'cascade_save' => true,
-            'cascade_delete' => false,
+            'cascade_delete' => true,
         ),
 
     );
@@ -82,13 +82,15 @@ class Model_Contribution extends \Orm\Model_Soft
 	public static function validate($factory)
 	{
         $_request =  \Request::active();
-        $params_id = (int) $_request->method_params[0];
+        //$params_id = (int) $_request->method_params[0];
         // \Debug::dump(Input::post('budget_id') ); die();
 
-	    $budget = (is_null(Input::post('budget_id') )) ? Model_Contribution::find($params_id) : Model_Client::find(Input::post('budget_id')) ;
+	    //$budget = (is_null(Input::post('budget_id') )) ? Model_Contribution::find($params_id) : Model_Client::find(Input::post('budget_id')) ;
+        $budget = (is_null(Input::post('budget_id') )) ? 0 : Model_Client::find(Input::post('budget_id')) ;
 
-	    $account_balance = (is_null(Input::post('budget_id') )) ? Model_Account::client_balance($budget->budget_id) : Model_Account::client_balance($budget->id);
-	    $diff_allowed = $account_balance - Model_Account::transferted_to($budget->id)  ; // Maintenance Costs TODO: set '3000' as app params
+
+        $account_balance = (is_null(Input::post('budget_id') )) ? Model_Account::client_balance(0) : Model_Account::client_balance(Input::post('budget_id'));
+	    $diff_allowed = $account_balance - Model_Account::transferted_to(Input::post('budget_id'))  ; // Maintenance Costs TODO: set '3000' as app params
         $diff_allowed = ($diff_allowed > 0 ) ? $diff_allowed : 0;
 		$val = Validation::forge($factory);
 		$val->add_field('company_id', 'Company Id', 'required|valid_string[numeric]');
@@ -106,12 +108,41 @@ class Model_Contribution extends \Orm\Model_Soft
         //$val->add_field('category_id', 'Category', 'required|valid_string[numeric]');
         if(Input::post('type') == 'credit' ){
             $val->add_field('amount', 'Amount', 'required|valid_string[numeric]');
-        }else{
+        }elseif(Input::post('type') == 'debit' ){
             $val->add_field('amount', 'Amount', "required|valid_string[numeric]|numeric_max[$diff_allowed]");
+        }else{
+            $val->add_field('amount', 'Amount', 'required|valid_string[numeric]');
         }
 
 		return $val;
 	}
+
+    public static function client_contributions($id = 1, $datelimit = "now", $type = "debit"){
+	    $dt = new Carbon\Carbon($datelimit);
+        $datemax  = $dt->format("Y-m-d 23:59:59");
+        $sql = 'SELECT  id, paid_at, type, sum(amount) as total
+                    FROM contributions
+                    WHERE paid_at < "$datemax"   AND  type = "$type"
+                    GROUP BY id' ;
+
+        $sql = "SELECT
+  budget_id,
+  sum(if(type IN ('credit'), amount, 0)) AS total_credit,
+  sum(if(type IN ('debit'), amount, 0)) AS total_debit,
+  sum(if(type = 'fees' OR type = 'commission', amount, 0)) AS total_commission
+  #sum(if(type IN ('credit', 'fees', 'commission', 'debit'), amount, 0)) AS total,
+FROM contributions
+WHERE paid_at <= '2018-31-03' AND budget_id = 7
+GROUP BY budget_id";
+        $datemax  = $dt->format("Y-m-d 23:59:59");
+        //$query = DB::query($sql)->bind("datemax", $datemax);
+        //$query = DB::query($sql)->bind("type", $type);
+        $query = DB::query($sql);
+        //$query = DB::query(DB::expr($sql));
+        $result = $query->execute();
+
+        return $result;
+    }
 
     /**
      * @param int $val

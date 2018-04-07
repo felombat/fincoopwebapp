@@ -71,6 +71,8 @@ class Observer_Contribution extends Observer {
         $transaction->amount = $contribution->amount;
         $transaction->currency_code = 'XAF';
         $transaction->currency_rate = 1;
+        $transaction->paid_at = $contribution->paid_at;
+        $transaction->contribution_id = $contribution->id;
         $transaction->payment_method = $contribution->payment_method;
         $transaction->reference = serialize($ref);
         //$transaction->type = ($contribution->type == 'credit') ? 1 : 0 ;

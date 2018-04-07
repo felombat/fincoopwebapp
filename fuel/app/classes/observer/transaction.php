@@ -73,10 +73,10 @@ class Observer_Transaction extends Observer {
         $activity->log_type_title = $transaction->amount ." ". $transaction->currency_code; 
         $activity->log_type_id = $params_id; //\Request::active()->param('id');//$transaction->id; 
         $activity->changes = serialize($transaction->to_array()); 
-        $activity->log_for = "Budget"; 
-        $activity->log_for_id = $transaction->budget_id; 
-        $activity->log_for2 = "Company"; 
-        $activity->log_for_id2 = $transaction->company_id;
+        $activity->log_for = "Account"; //Client_id or Budget_id
+        $activity->log_for_id = $transaction->from_account_id;
+        $activity->log_for2 = "Account";
+        $activity->log_for_id2 = $transaction->to_account_id;
 
         //$activity->object_id = $transaction->id; 
         //$activity->data = json_encode($transaction->to_array()); 

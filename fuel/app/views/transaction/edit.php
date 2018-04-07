@@ -1,9 +1,9 @@
 <div class="content-box"> 
-	<h2>Editing <span class='muted'>Contribution</span></h2>
+	<h2>Editing <span class='muted'>Transaction</span></h2>
 	<br>
 
-	<?php echo render('contribution/_form'); ?>
+	<?php echo render('transaction/_form'); ?>
 	<p>
-		<?php echo Html::anchor('contribution/view/'.$contribution->id, 'View'); ?> |
-		<?php echo Html::anchor('contribution', 'Back'); ?></p>
+		<?php echo Html::anchor('transaction/view/'.$transaction->id, 'View'); ?> |
+		<?php echo Html::anchor('transaction', 'Back'); ?></p>
 </div>

@@ -45,4 +45,13 @@ class Controller_Dashboard extends Controller_Admin
 		$this->template->content = View::forge('dashboard/report', $data);
 	}
 
+    public function action_commissions($month_num = 1)
+    {
+        //$month_num = (isset(Input::get('mocomm')) )  ? Input::get('mocomm') : date('m', time()) ;
+
+        $data["subnav"] = array('report'=> 'active' );
+        $this->template->title = 'Commission &raquo; Report';
+        $this->template->content = View::forge('dashboard/report', $data);
+    }
+
 }

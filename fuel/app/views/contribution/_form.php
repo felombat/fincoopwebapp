@@ -17,7 +17,7 @@
                 <?php echo Form::hidden('budget_id', $client->id, array('class' => 'col-md-4 form-control', 'placeholder'=>'Client')); ?>
 
             <?php else : ?>
-                    <?= Form::select('budget_id', Input::post('budget_id', isset($contribution) ? $contribution->budget_id : '-'), Model_Client::get_dropdownlist(), array('class'=>"form-control col-md-8 select2x") );?>
+                    <?= Form::select('budget_id', Input::post('budget_id', isset($contribution) ? $contribution->budget_id : '-'), Model_Client::get_dropdownlist(), array('class'=>"form-control col-md-8 select2") );?>
                 <?php endif;?>
 		</div>
 		<!-- 	
@@ -114,7 +114,7 @@
                                                                     'bankwire' => 'Bank Transfert',
                                                                     'ecash' => 'eCash (OM, MoMo)',
                                                                     'other' => 'Other',
-                                                                ),  array('class'=>"form-control col-md-4 select2x "));?>
+                                                                ),  array('class'=>"form-control col-md-4 select2 "));?>
 
 		</div>
 		<div class="form-group">

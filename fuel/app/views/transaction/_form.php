@@ -4,7 +4,7 @@
 		<div class="form-group ">
 			<?php //echo Form::label('Company id', 'company_id', array('class'=>'control-label')); ?>
 
-				<?php echo Form::hidden('company_id', Input::post('company_id', isset($transaction) ? $transaction->company_id : '1'), array('class' => 'col-md-4 form-control', 'value'=>1, 'placeholder'=>'Company id')); ?>
+				<?php //echo Form::hidden('company_id', Input::post('company_id', isset($transaction) ? $transaction->company_id : '1'), array('class' => 'col-md-4 form-control', 'value'=>1, 'placeholder'=>'Company id')); ?>
 
 		</div>
 		<div class="form-group col-md-6">
@@ -45,6 +45,18 @@
                     <label class="form-check-label">
                         <input class="form-check-input" name="type" value="0" type="radio">Extournement</label>
                 </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" name="type" value="2" type="radio">Dépot à Terme</label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" name="type" value="3" type="radio">Frais d'inscription</label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" name="type" value="4" type="radio">Commission</label>
+                </div>
 
             </div>
         </div>
@@ -64,13 +76,13 @@
 		<?php echo Form::hidden('currency_code', Input::post('currency_code', isset($transaction) ? $transaction->currency_code : 'XAF'), array('class' => 'col-md-4 form-control', 'value'=> 'XAF', 'placeholder'=>'Currency code')); ?>
 		<?php echo Form::hidden('currency_rate', Input::post('currency_rate', isset($transaction) ? $transaction->currency_rate : '1.00'), array('class' => 'col-md-4 form-control', 'value'=>1.00, 'placeholder'=>'Currency rate')); ?>
 
-		<div class="form-group">
-			<?php echo Form::label('Description', 'description', array('class'=>'control-label')); ?>
-
-				<?php echo Form::textarea('description', Input::post('description', isset($transaction) ? $transaction->description : ''), array('class' => 'col-md-8 form-control', 'rows' => 8, 'placeholder'=>'Description')); ?>
-
-		</div>
-		<div class="form-group r">
+<!--		<div class="form-group">-->
+<!--			--><?php //echo Form::label('Description', 'description', array('class'=>'control-label')); ?>
+<!---->
+<!--				--><?php //echo Form::textarea('description', Input::post('description', isset($transaction) ? $transaction->description : ''), array('class' => 'col-md-8 form-control', 'rows' => 8, 'placeholder'=>'Description')); ?>
+<!---->
+<!--		</div>-->
+		<div class="form-group ">
 			<?php echo Form::label('Payment method', 'payment_method', array('class'=>'control-label  ')); ?> &nbsp;&nbsp;
 
 				<?php // echo Form::input('payment_method', Input::post('payment_method', isset($transaction) ? $transaction->payment_method : ''), array('class' => 'col-md-4 form-control', 'placeholder'=>'Payment method')); ?>

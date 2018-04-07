@@ -11,11 +11,21 @@ class Model_Transaction extends \Orm\Model_Soft
 			'currency_rate'  ,
 			'payment_method'  ,
 			'reference',
+        'contribution_id',
+		'paid_at',
 		'type',
         'created_at',
         'deleted_at',
         'updated_at',
  	);
+
+    protected static $_conditions = array(
+        'order_by' => array('id' => 'desc'),
+        'where' => array(
+        //    array('publish_date', '>', 1370721177),
+            array('deleted_at', null),
+        ),
+    );
 
 	protected static $_observers = array(
 		'Orm\Observer_CreatedAt' => array(
@@ -48,11 +58,11 @@ class Model_Transaction extends \Orm\Model_Soft
             'cascade_delete' => false,
         ),
         "contribution" => array(
-            'key_from' => 'created_at',
+            'key_from' => 'contribution_id',
             'model_to' => 'Model_Contribution',
-            'key_to' => 'created_at',
+            'key_to' => 'id',
             'cascade_save' => true,
-            'cascade_delete' => false,
+            'cascade_delete' => true,
         ),
         /*"category" => array(
             'key_from' => 'category_id',
@@ -175,10 +185,21 @@ class Model_Transaction extends \Orm\Model_Soft
 
     public static function validate($factory)
     {
-        $account = Model_Account::find(Input::post('from_account_id'));
-        $account_balance = Model_Account::balance($account->id);
-        $diff_allowed = $account_balance - Input::post('amount') - 5000 ; // Maintenance Costs TODO: set '10000' as app params
-        $diff_allowed = ($diff_allowed > 5000 ) ? $diff_allowed : 0;
+        $_request =  \Request::active();
+        $params_id = (int) $_request->method_params[0];
+        // \Debug::dump(Input::post('budget_id') ); die();
+
+        $budget = (is_null(Input::post('budget_id') )) ? Model_Contribution::find($params_id) : Model_Client::find(Input::post('budget_id')) ;
+        $transaction = \Model_Transaction::find($params_id);
+        $account_balance = (is_null(Input::post('budget_id') )) ? Model_Account::client_balance($transaction->contribution->budget_id) : Model_Account::client_balance($budget->id);
+
+
+        //$account = Model_Account::find(Input::post('from_account_id'));
+
+        $account = (is_null(Input::post('from_account_id') )) ? Model_Account::find($transaction->from_account_id) : Model_Client::find(Input::post('from_account_id')) ;
+        $account_balance = isset($account) ? Model_Account::balance($account->id) : 0;
+        $diff_allowed = $account_balance - Input::post('amount') ; // Maintenance Costs TODO: set '10000' as app params
+        $diff_allowed = ($diff_allowed > 0 ) ? $diff_allowed : 0;
 
         $val = Validation::forge($factory);
         $val->add_field('company_id', 'Company Id', 'required|valid_string[numeric]');
