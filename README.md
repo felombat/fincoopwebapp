@@ -1,6 +1,6 @@
 #_FinCoopApp_
 
-is a solution for tranking saving opration of a community of merchants
+is a solution for tracking saving operations of a community of merchants
 
 this demo app is power by : 
 - Bootstrap 4
