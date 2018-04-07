@@ -1,6 +1,10 @@
 #_FinCoopApp_
 
-is a simple
+is a solution for tranking saving opration of a community of merchants
+
+this demo app is power by : 
+- Bootstrap 4
+- FuelPHP 1.8
 
 # Installation steps
 ---
