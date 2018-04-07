@@ -9,6 +9,7 @@
 build
 .idea
 nbproject/
+*.sql.gz
 
 # hidden files created by Windows
 Thumbs.db
